@@ -1,0 +1,9 @@
+1. https://learn.microsoft.com/en-us/azure/virtual-machines/linux/n-series-driver-setup#supported-distributions-and-drivers
+2. https://learn.microsoft.com/en-us/azure/virtual-machines/extensions/hpccompute-gpu-linux#known-issues
+3.
+a. sudo apt purge linux-headers-6.14.0-1012-azure  linux-image-6.14.0-1012-azure  linux-modules-6.14.0-1012-azure
+b. sudo apt purge linux-headers-6.14.0-1014-azure  linux-image-6.14.0-1014-azure  linux-modules-6.14.0-1014-azure
+
+4. Install linux header and make sure you dont end up upgrading distro or kernel
+5. Mount the disk
+6. Make sure conda and hugging face models all get stored in mounted disk
