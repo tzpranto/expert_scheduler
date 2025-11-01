@@ -7,3 +7,63 @@ b. sudo apt purge linux-headers-6.14.0-1014-azure  linux-image-6.14.0-1014-azure
 4. Install linux header and make sure you dont end up upgrading distro or kernel
 5. Mount the disk
 6. Make sure conda and hugging face models all get stored in mounted disk
+
+
+// Get the installed kernel. If kernel 6.14 is installed,  downgrade it to 6.8.
+uname -a
+
+// Install  kernel 6.8. Note that kernel  6.11  is not supported.
+$ sudo apt install linux-image-6.8.0-1015-azure
+
+// Get the list of installed kernels.
+dpkg --list | egrep -i --color 'linux-image|linux-headers|linux-modules' | awk '{ print $2 }'
+
+// Uninstall any 6.11 kernels.
+sudo apt purge linux-headers-6.14.0-1012-azure  linux-image-6.14.0-1012-azure  linux-modules-6.14.0-1012-azure
+
+// Run the following command to ensure only 6.8 images, headers, and modules are installed and no other versions are present.
+dpkg --list | egrep -i --color 'linux-image|linux-headers|linux-modules' | awk '{ print $2 }'
+
+// Results from the previous command:
+linux-headers-6.8.0-1015-azure
+linux-image-6.8.0-1015-azure
+linux-modules-6.8.0-1015-azure
+
+// Open the grub settings and modify the GRUB_DEFAULT="0" to GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.8.0-1015-azure".
+$ sudo vim /etc/default/grub 
+ 
+// The grub file will look like the following:
+GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 6.8.0-1015-azure"
+GRUB_TIMEOUT_STYLE=hidden
+GRUB_TIMEOUT=0
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
+GRUB_CMDLINE_LINUX=""
+///////////////////
+
+// Update GRUB and reboot.
+$ sudo update-grub && sudo update-grub2
+$ sudo reboot
+
+// Reinstall the driver after reboot.
+
+// Install Linux Headers
+uname -r
+dpkg -l | grep linux-headers
+# if missing headers:
+sudo apt-get install linux-headers-$(uname -r)
+
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install build-essential ubuntu-desktop -y
+
+//Disable the Nouveau kernel driver, which is incompatible with the NVIDIA driver. (Only use the NVIDIA driver on NV or NVv2 VMs.) To disable the driver, create a file in /etc/modprobe.d named nouveau.conf with the following contents:
+touch /etc/modprobe.d/nouveau.conf
+sudo nano /etc/modprobe.d/nouveau.conf
+blacklist nouveau
+blacklist lbm-nouveau
+sudo reboot
+
+//the following should fail
+sudo systemctl stop lightdm.service
+

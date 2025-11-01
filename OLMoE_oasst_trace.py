@@ -2,21 +2,23 @@ import os, json, time, torch
 from pathlib import Path
 from datasets import load_dataset
 from transformers import AutoTokenizer, AutoModelForCausalLM
+import random
 
 MODEL_ID = "allenai/OLMoE-1B-7B-0125"   # or "allenai/OLMoE-1B-7B-0924"
-DATASET_ID = "walledai/XSTest"          # accept terms on the HF page first
-SPLIT = "test"                          # fallback: "train" if only one split
-OUT_DIR = Path("moe_traces/olmoe/xtest")
-OUT_DIR.mkdir(exist_ok=True)
+SPLIT = "train"
+OUT_DIR = Path("moe_traces/olmoe/oasst1")
+OUT_DIR.mkdir(parents=True, exist_ok=True)
+
+NUM_SAMPLES = 500        # ← 500 random prompts from oasst1
+SEED = 42                # determinism for sampling
 
 DEVICE_MAP = "auto"         # or {"":0} if single GPU
 DTYPE = torch.float16       # torch.bfloat16 also works on A100/H100
 DO_GENERATE = False         # True = collect traces during generation too
-MAX_NEW_TOKENS = 64         # used only if DO_GENERATE=True
+MAX_NEW_TOKENS = 256        # used only if DO_GENERATE=True
 BATCH_SIZE = 4              # prompt-only pass can be batched
 SAVE_PARQUET = True         # writes a columnar file
 TOPK_PER_TOKEN = None       # None => use config.num_experts_per_tok
-NUM_SAMPLES = 10  # limit for demo; increase later
 
 def load_model_and_tok():
     tok = AutoTokenizer.from_pretrained(MODEL_ID, use_fast=True)
@@ -29,6 +31,51 @@ def load_model_and_tok():
     # Ask the model to return router logits
     model.config.output_router_logits = True
     return tok, model
+
+# ---------- Dataset 1: OpenAssistant (oasst1) ----------
+# We take ONLY the first user turn from each conversation, keep English,
+# filter out super-short prompts, dedup, then sample 500 at random.
+
+def get_oasst1_prompts(sample_n=500, split="train", lang="en", min_chars=30, seed=42):
+    """
+    Build conversational, context-free prompts from OpenAssistant/oasst1.
+    We take only the FIRST user turn (root 'prompter'), English, length>=min_chars,
+    deduplicate, and randomly sample 'sample_n'. We append 'A:' to cue generation.
+    """
+    ds = load_dataset("OpenAssistant/oasst1")[split]
+
+    def is_root_user_msg(row):
+        return (row.get("role") == "prompter") and (row.get("parent_id") is None)
+
+    # filter: first user turns
+    rows = [r for r in ds if is_root_user_msg(r)]
+
+    # language
+    if lang:
+        rows = [r for r in rows if r.get("lang") == lang]
+
+    # clean + min length
+    def clean(s): return " ".join(str(s).split())
+    rows = [r for r in rows if r.get("text")]
+    rows = [{"text": clean(r["text"])} for r in rows if len(clean(r["text"])) >= min_chars]
+
+    # dedupe
+    seen = set()
+    unique = []
+    for r in rows:
+        t = r["text"]
+        if t not in seen:
+            seen.add(t)
+            unique.append(t)
+
+    # sample
+    random.seed(seed)
+    random.shuffle(unique)
+    prompts = unique[:sample_n]
+
+    # conversational QA style
+    prompts = [f"{p}\nA:" for p in prompts]
+    return prompts
 
 def _norm_router_tensor(t):
     # Expected: (B, T, E). Sometimes comes as (T, E) or (E,)
@@ -95,7 +142,7 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64):
             })
         steps.append({"step": step, "token_id": next_token.item(), "layers": step_layers})
 
-        if (step + 1) % 8 == 0 or step == max_new_tokens - 1:
+        if (step + 1) % 64 == 0 or step == max_new_tokens - 1:
             elapsed = time.time() - start
             print(f"    └── Generation step {step+1}/{max_new_tokens} "
                   f"({elapsed:.1f}s elapsed)")
@@ -118,20 +165,14 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64):
 
 tok, model = load_model_and_tok()
 
-ds = load_dataset(DATASET_ID)
-col = next((c for c in ["prompt","text","input","question"]
-            if c in ds["test"].column_names),
-            ds["test"].column_names[0])
-start = 0
-# total = min(NUM_SAMPLES, len(ds["test"]))
-total = len(ds["test"])
-print(f"Processing {total} samples...\n")
+# ---- Build OASST1 prompt list (500 random) ----
+prompts = get_oasst1_prompts(sample_n=NUM_SAMPLES, split=SPLIT, lang="en", min_chars=30, seed=SEED)
+total = len(prompts)
+print(f"Processing {total} OASST1 prompts...\n")
 
 t0 = time.time()
-for i in range(start, total, 1):
-    prompt = ds["test"][i][col]
-    print(f"[{i+1}/{total}] ⏳ Collecting router trace for prompt "
-            f"{repr(prompt[:60])}...")
+for i, prompt in enumerate(prompts):
+    print(f"[{i+1}/{total}] ⏳ Collecting router trace for prompt {repr(prompt[:60])}...")
 
     prefill = collect_prompt_router_trace(model, tok, prompt)
     json.dump(prefill, open(OUT_DIR / f"trace_{i:04d}.json","w"), indent=2)
@@ -141,9 +182,9 @@ for i in range(start, total, 1):
     gen = collect_generate_router_trace(model, tok, prompt, MAX_NEW_TOKENS)
     json.dump(gen, open(OUT_DIR / f"gen_{i:04d}.json","w"), indent=2)
     print(f"    ✅ Generation trace saved "
-            f"({len(gen['decode_steps'])} steps, "
-            f"{len(gen['decode_steps'])*len(gen['decode_steps'][0]['layers'])} "
-            f"layer-token records).")
+          f"({len(gen['decode_steps'])} steps, "
+          f"{len(gen['decode_steps'])*len(gen['decode_steps'][0]['layers'])} "
+          f"layer-token records).")
 
     elapsed = time.time() - t0
     print(f"✔️  Done prompt {i} in {elapsed:.1f}s total\n")
