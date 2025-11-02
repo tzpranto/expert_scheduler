@@ -6,8 +6,8 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 MODEL_ID = "allenai/OLMoE-1B-7B-0125"   # or "allenai/OLMoE-1B-7B-0924"
 DATASET_ID = "walledai/XSTest"          # accept terms on the HF page first
 SPLIT = "test"                          # fallback: "train" if only one split
-OUT_DIR = Path("moe_traces/olmoe/xtest")
-OUT_DIR.mkdir(exist_ok=True)
+OUT_DIR = Path("moe_traces/olmoe/xstest")
+OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 DEVICE_MAP = "auto"         # or {"":0} if single GPU
 DTYPE = torch.float16       # torch.bfloat16 also works on A100/H100

@@ -2,4 +2,5 @@
 2. ps -ef | grep OLMoE_xtest_trace.py
 3. tail -f xtest_trace.log
 4. nohup python OLMoE_orbench_hard_trace.py > orbench_trace.log 2>&1 &
-2. 
+5. ps -ef | grep OLMoE_orbench_hard_trace.py
+6. tail -f 

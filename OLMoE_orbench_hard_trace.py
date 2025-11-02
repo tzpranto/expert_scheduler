@@ -119,7 +119,7 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64):
 tok, model = load_model_and_tok()
 
 subset = load_dataset("bench-llm/or-bench", "or-bench-hard-1k")['train']
-start = 0
+start = 878
 # total = 1
 total = len(subset)
 print(f"Processing {total} HARD samples from OR-Bench...\n")
