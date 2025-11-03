@@ -11,10 +11,8 @@ OUT_DIR.mkdir(exist_ok=True)
 
 DEVICE_MAP = "auto"         # or {"":0} if single GPU
 DTYPE = torch.float16       # torch.bfloat16 also works on A100/H100
-DO_GENERATE = False         # True = collect traces during generation too
 MAX_NEW_TOKENS = 256        # used only if DO_GENERATE=True
 BATCH_SIZE = 4              # prompt-only pass can be batched
-SAVE_PARQUET = True         # writes a columnar file
 TOPK_PER_TOKEN = None       # None => use config.num_experts_per_tok
 NUM_SAMPLES = 10  # limit for demo; increase later
 
@@ -118,15 +116,14 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64):
 
 tok, model = load_model_and_tok()
 
-subset = load_dataset("bench-llm/or-bench", "or-bench-hard-1k")['train']
-start = 878
-# total = 1
-total = len(subset)
+ds = load_dataset("bench-llm/or-bench", "or-bench-hard-1k")['train']
+start = 0
+total = len(ds)
 print(f"Processing {total} HARD samples from OR-Bench...\n")
 
 t0 = time.time()
 for i in range(start, total, 1):
-    row = subset[i]
+    row = ds[i]
     prompt = row["prompt"]
     category = row["category"]  # ← keep category
  
