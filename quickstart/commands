@@ -4,3 +4,4 @@
 4. nohup python OLMoE_orbench_hard_trace.py > orbench_trace.log 2>&1 &
 5. ps -ef | grep OLMoE_orbench_hard_trace.py
 6. tail -f 
+7. scp mpt5763@20.123.67.111:/mnt/ssd/experiments/expert_scheduler/moe_traces/olmoe_oasst.zip .
