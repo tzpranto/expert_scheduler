@@ -1,6 +1,6 @@
 # Azure GPU VM Setup and Configuration Guide
 
-This document provides a step-by-step guide to creating and configuring an Azure GPU VM (A10) with persistent storage, correct kernel version, NVIDIA GRID driver installation, and a Conda-based ML environment.
+This document provides a step-by-step guide to creating and configuring an Azure GPU VM (A10) with persistent storage, correct kernel version, NVIDIA GRID driver installation, and a Conda-based ML environment. In the case of A100 or H100, the GRID driver is not needed, and you can directly install CUDA drivers after creating the VM.
 
 ---
 
