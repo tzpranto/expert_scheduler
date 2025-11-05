@@ -5,25 +5,6 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import random
 import argparse
 
-def format_prompt_harmony(tok, prompt, reasoning_effort="medium"):
-    """
-    Format prompt with harmony chat template for GPT-5 OSS.
-    reasoning_effort: 'low', 'medium', or 'high'
-    """
-    messages = [
-        {"role": "developer", "content": "Try to avoid hallucination"},
-        {"role": "user", "content": prompt},
-    ]
-    
-    # Apply chat template with reasoning effort
-    formatted = tok.apply_chat_template(
-        messages,
-        add_generation_prompt=True,
-        tokenize=False,  # Return string, not tokens
-        reasoning_effort=reasoning_effort,
-    )
-    
-    return formatted
 
 def get_oasst1_prompts(sample_n=500, split="train", lang="en", min_chars=30, seed=42):
     """
@@ -87,12 +68,13 @@ def get_dataset(dataset_id, subset=None, split=None):
         print('Dataset not supported. Make changes in get_data() function to add support.')
         exit(0)
 
-def load_model_and_tok(model_id, dtype, device_map):
+def load_olmoe_model_and_tok(model_id, dtype, device_map):
     tok = AutoTokenizer.from_pretrained(model_id, use_fast=True)
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
         dtype=dtype,
-        device_map=device_map
+        device_map=device_map,
+        attn_implementation="sdpa",
     )
     # Ask the model to return router logits
     model.config.output_router_logits = True
@@ -100,9 +82,7 @@ def load_model_and_tok(model_id, dtype, device_map):
 
 def get_model(model_id):
     if model_id == 'olmoe':
-        return load_model_and_tok("allenai/OLMoE-1B-7B-0125", torch.float16, "auto")
-    elif model_id == 'gpt5oss':
-        return load_model_and_tok("openai/gpt-oss-20b", "auto", "auto")
+        return load_olmoe_model_and_tok("allenai/OLMoE-1B-7B-0125", torch.float16, "auto")
     else:
         print("Model not supported!")
         exit(0)
@@ -229,13 +209,6 @@ def parse_args():
     )
 
     parser.add_argument(
-        "--max_token",
-        type=int,
-        default=256,
-        help="Number of new tokens (default: 256)"
-    )
-
-    parser.add_argument(
         "--mode",
         type=str,
         choices=["exec", "test"],
@@ -255,14 +228,11 @@ if __name__ == "__main__":
     
     OUT_DIR = Path(f"moe_traces/{args.model_id}/{args.dataset_id}")
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    MAX_NEW_TOKENS = args.max_token        # used only if DO_GENERATE=True
+    MAX_NEW_TOKENS = 256        # used only if DO_GENERATE=True
     BATCH_SIZE = 4              # prompt-only pass can be batched
     TOPK_PER_TOKEN = None       # None => use config.num_experts_per_tok
     tok, model = get_model(args.model_id)
     
-    if args.model_id == 'gpt5oss':
-        print(format_prompt_harmony(tok, ds[0]["prompt"]))
-
     if args.mode == 'test':
         print("test mode!")
         start = 0
