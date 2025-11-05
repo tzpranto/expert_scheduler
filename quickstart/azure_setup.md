@@ -1,6 +1,6 @@
 # Azure GPU VM Setup and Configuration Guide
 
-This document provides a step-by-step guide to creating and configuring an Azure GPU VM (A10) with persistent storage, correct kernel version, NVIDIA GRID driver installation, and a Conda-based ML environment. In the case of A100 or H100, the GRID driver is not needed, and you can directly install CUDA drivers after creating the VM.
+This document provides a step-by-step guide to creating and configuring an Azure GPU VM (A10) with persistent storage, the correct kernel version, NVIDIA GRID driver installation, and a Conda-based ML environment. In the case of A100 or H100, the GRID driver is not needed, and you can directly install CUDA drivers after creating the VM.
 
 ---
 
@@ -209,7 +209,7 @@ source ~/.bashrc
 conda --version
 ```
 
-### Configure Conda to use `/mnt/ssd` for all data and model cahce
+### Configure Conda to use `/mnt/ssd` for all data and model cache
 ```bash
 mkdir -p /mnt/ssd/conda/pkgs /mnt/ssd/conda/envs
 mkdir -p /mnt/ssd/caches/{huggingface,torch,pip,xdg}
@@ -250,7 +250,7 @@ conda activate <your_env>
 Use pip to avoid MKL / OpenMP conflicts:
 
 ```bash
-pip install pytorch pytorch-cuda=12.1 -c pytorch -c nvidia
+conda install pytorch pytorch-cuda=12.1 -c pytorch -c nvidia
 pip install transformers datasets accelerate safetensors sentencepiece einops bitsandbytes peft triton tqdm huggingface_hub
 pip install pandas numpy scipy ipykernel rich typer fastapi uvicorn
 ```
