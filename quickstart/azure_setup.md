@@ -194,6 +194,7 @@ Test mount:
 sudo mount -a
 df -hT /mnt/ssd
 ```
+Use the link : https://learn.microsoft.com/en-us/azure/virtual-machines/linux/disks-format-mount-data-disks-linux?tabs=scsi%2Cubuntu 
 
 ---
 
