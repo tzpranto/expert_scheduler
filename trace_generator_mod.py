@@ -51,39 +51,38 @@ class RouterTraceContext:
             print(f"[Hooks] Scanning {len(layers)} layers for router modules...")
 
         for i, layer in enumerate(layers):
-            target_module = None
-            target_name = None
+            target_modules = []  # Collect all candidates
 
-            # Use named_modules to find the specific linear layer responsible for routing
+            # First pass: Find all potential router modules
             for name, module in layer.named_modules():
-                # Skip if not a Linear layer (router must be linear)
-                if not isinstance(module, torch.nn.Linear):
+                # Skip self references
+                if module is layer:
                     continue
 
-                # Primary Heuristic: Standard router/gate names
-                if 'gate' in name.lower() or 'router' in name.lower():
-                    target_module = module
-                    target_name = name
-                    if self.verbose:
-                        print(f"  [Layer {i}] Found router module (primary): {name}")
-                    break
+                name_lower = name.lower()
 
-                # Secondary Heuristic: MoE-related modules
-                # For GPT5 OSS and similar architectures
-                if 'moe' in name.lower():
-                    # Prefer modules explicitly named for routing
-                    if any(x in name.lower() for x in ['gate', 'router', 'select', 'route']):
-                        target_module = module
-                        target_name = name
-                        if self.verbose:
-                            print(f"  [Layer {i}] Found router module (moe+keyword): {name}")
-                        break
-                    # Otherwise mark as candidate (lowest priority)
-                    if target_module is None:
-                        target_module = module
-                        target_name = name
-                        if self.verbose:
-                            print(f"  [Layer {i}] Found moe module (fallback): {name}")
+                # Primary targets: Standard router/gate names (Linear)
+                if isinstance(module, torch.nn.Linear):
+                    if 'gate' in name_lower or 'router' in name_lower:
+                        target_modules.append((name, module, 'primary'))
+                    elif 'moe' in name_lower and any(x in name_lower for x in ['gate', 'router', 'select', 'route']):
+                        target_modules.append((name, module, 'moe_keyword'))
+                    elif 'moe' in name_lower:
+                        target_modules.append((name, module, 'moe_fallback'))
+
+            # Select the best candidate based on priority
+            target_module = None
+            target_name = None
+            priority_order = ['primary', 'moe_keyword', 'moe_fallback']
+
+            for priority in priority_order:
+                candidates = [m for m in target_modules if m[2] == priority]
+                if candidates:
+                    # If multiple candidates, prefer the one with fewest submodules (more direct)
+                    target_name, target_module, _ = min(candidates, key=lambda x: len(list(x[1].modules())))
+                    if self.verbose:
+                        print(f"  [Layer {i}] Found router module ({priority}): {target_name}")
+                    break
 
             if target_module:
                 self._hook_module(i, target_module, target_name)
@@ -247,9 +246,15 @@ def collect_prompt_router_trace(model, tok, text, use_hooks=False, verbose=False
     enc = tok(text, return_tensors="pt", truncation=True, max_length=2048).to(model.device)
 
     ctx = RouterTraceContext(model, verbose=verbose) if use_hooks else None
-    
+
     if use_hooks:
         ctx.__enter__()
+        # Check if hooks were registered
+        if not ctx.hooked_modules:
+            raise RuntimeError(
+                "No router modules found! Could not register hooks. "
+                "Try running: python debug_gpt5_structure.py to inspect model structure."
+            )
         out = model(**enc)
     else:
         out = model(**enc, output_router_logits=True)
@@ -258,27 +263,42 @@ def collect_prompt_router_trace(model, tok, text, use_hooks=False, verbose=False
     if use_hooks:
         captured = ctx.captured_logits
         sorted_layers = sorted(captured.keys())
+
+        if not captured:
+            raise RuntimeError(
+                f"Hooks registered on {len(ctx.hooked_modules)} layers but no logits captured! "
+                "The forward pass may not have triggered the hooked modules."
+            )
+
         router_logits = []
         for i in sorted_layers:
             # We take the first one (should be only one for prefill)
-            router_logits.append(captured[i][0])
+            if captured[i]:
+                router_logits.append(captured[i][0])
+
+        if not router_logits:
+            raise RuntimeError(
+                f"Hooked {len(ctx.hooked_modules)} layers and captured {len(captured)} layers, "
+                "but captured tensors are empty!"
+            )
+
         ctx.__exit__(None, None, None)
         router = tuple(_norm_router_tensor(x) for x in router_logits)
         E = ctx.num_experts # Get E from the context manager
     else:
+        if not out.router_logits:
+            raise RuntimeError(
+                "Built-in output_router_logits=True returned empty! "
+                "This is a known issue with GPT5-OSS. Try --force_hooks flag."
+            )
         router = tuple(_norm_router_tensor(x) for x in out.router_logits)
-        if not router:
-            # For non-hook mode, if out.router_logits is empty, try config
-            E = model.config.num_experts if hasattr(model.config, "num_experts") else -1
-            if E == -1:
-                 # This should trigger the failure but with a better message
-                raise RuntimeError("Built-in router logits are empty and num_experts not in config.")
-        else:
-            E = router[0].shape[-1] # Get E from the tensor shape
-        
+        E = model.config.num_experts if hasattr(model.config, "num_experts") else -1
+        if E == -1:
+            E = router[0].shape[-1] if router else -1
+
     if not router:
          raise RuntimeError("Could not collect router logits. Hook failed or built-in output is empty.")
-         
+
     B, T, _ = router[0].shape
     
     # Determine k: experts per token
@@ -327,12 +347,28 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
     # First forward pass (prefill)
     if use_hooks:
         ctx.__enter__()
+        # Check if hooks were registered
+        if not ctx.hooked_modules:
+            raise RuntimeError(
+                "No router modules found! Could not register hooks. "
+                "Try running: python debug_gpt5_structure.py to inspect model structure."
+            )
         out = model(input_ids=input_ids, use_cache=True)
         # Determine E from hooks after prefill
+        if not ctx.captured_logits:
+            raise RuntimeError(
+                f"Hooks registered on {len(ctx.hooked_modules)} layers but no logits captured! "
+                "The forward pass may not have triggered the hooked modules."
+            )
         E = ctx.num_experts if ctx.num_experts is not None else -1
     else:
         out = model(input_ids=input_ids, use_cache=True, output_router_logits=True)
         # Determine E from model config or output tensor
+        if not out.router_logits:
+            raise RuntimeError(
+                "Built-in output_router_logits=True returned empty! "
+                "This is a known issue with GPT5-OSS. Try --force_hooks flag."
+            )
         if hasattr(model.config, "num_experts"):
             E = model.config.num_experts
         elif out.router_logits:
