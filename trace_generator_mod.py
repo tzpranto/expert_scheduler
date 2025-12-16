@@ -215,8 +215,15 @@ def get_dataset(dataset_id, subset=None, split=None):
         print('Dataset not supported. Make changes in get_data() function to add support.')
         exit(0)
 
-def load_model_and_tok(model_id, dtype, device_map):
+def load_model_and_tok(model_id, dtype, device_map, force_cpu=False):
     tok = AutoTokenizer.from_pretrained(model_id, use_fast=True)
+
+    # For GPT5-OSS, CPU mode uses bf16 (avoids GPU MXFP4 compatibility issues)
+    if force_cpu:
+        print("⚠️  Using CPU mode (MXFP4 GPU compatibility issue). Using bf16 precision.")
+        device_map = "cpu"
+        dtype = torch.bfloat16
+
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
         dtype=dtype,
@@ -229,11 +236,11 @@ def load_model_and_tok(model_id, dtype, device_map):
         pass
     return tok, model
 
-def get_model(model_id):
+def get_model(model_id, force_cpu=False):
     if model_id == 'olmoe':
-        return load_model_and_tok("allenai/OLMoE-1B-7B-0125", torch.float16, "auto")
+        return load_model_and_tok("allenai/OLMoE-1B-7B-0125", torch.float16, "auto", force_cpu=force_cpu)
     elif model_id == 'gpt5oss':
-        return load_model_and_tok("openai/gpt-oss-20b", "auto", "auto")
+        return load_model_and_tok("openai/gpt-oss-20b", "auto", "auto", force_cpu=force_cpu)
     else:
         print("Model not supported!")
         exit(0)
@@ -554,6 +561,12 @@ def parse_args():
         help="Enable verbose output for debugging hook registration"
     )
 
+    parser.add_argument(
+        "--force_cpu",
+        action="store_true",
+        help="Force CPU mode (use this if GPU has MXFP4 compatibility issues)"
+    )
+
     args = parser.parse_args()
     return args
 
@@ -571,10 +584,10 @@ if __name__ == "__main__":
     total_samples = min(total_samples, len(ds) - start_idx)
     
     print(f"Processing {total_samples} samples from {args.dataset_id}, starting at index {start_idx}...\n")
-    
+
     OUT_DIR = Path(f"moe_traces/{args.model_id}/{args.dataset_id}")
     MAX_NEW_TOKENS = args.max_token
-    tok, model = get_model(args.model_id)
+    tok, model = get_model(args.model_id, force_cpu=args.force_cpu)
     
     # Force hooks for GPT-5 OSS or if requested
     # The fix ensures this is robust.
