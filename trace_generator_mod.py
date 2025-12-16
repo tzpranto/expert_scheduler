@@ -13,11 +13,13 @@ class RouterTraceContext:
     Context manager to capture router logits via forward hooks.
     Useful when model.config.output_router_logits is not supported or not working.
     """
-    def __init__(self, model):
+    def __init__(self, model, verbose=False):
         self.model = model
         self.hooks = []
         self.captured_logits = {} # layer_idx -> list of logits (one per call)
         self.num_experts = None   # Stores the inferred total number of experts (E)
+        self.verbose = verbose
+        self.hooked_modules = []  # Track which modules we hooked
 
     def __enter__(self):
         self._register_hooks()
@@ -40,42 +42,73 @@ class RouterTraceContext:
             layers = self.model.model.layers
         elif hasattr(self.model, 'layers'):
             layers = self.model.layers
-        
+
         if layers is None:
             print("Warning: Could not find layers to attach hooks.")
             return
 
+        if self.verbose:
+            print(f"[Hooks] Scanning {len(layers)} layers for router modules...")
+
         for i, layer in enumerate(layers):
             target_module = None
-            
+            target_name = None
+
             # Use named_modules to find the specific linear layer responsible for routing
             for name, module in layer.named_modules():
-                # Primary Heuristic: Standard names
-                if 'gate' in name or 'router' in name:
-                     target_module = module
-                     break
-                
-                # Secondary Heuristic (Robustness for GPT-OSS/Custom MoE): 
-                # Look for a Linear layer that is a child of something named 'moe'.
-                if isinstance(module, torch.nn.Linear) and 'moe' in name:
-                    target_module = module
-                    break
-            
-            if target_module:
-                self._hook_module(i, target_module)
-            # else: skip this layer
+                # Skip if not a Linear layer (router must be linear)
+                if not isinstance(module, torch.nn.Linear):
+                    continue
 
-    def _hook_module(self, layer_idx, module):
+                # Primary Heuristic: Standard router/gate names
+                if 'gate' in name.lower() or 'router' in name.lower():
+                    target_module = module
+                    target_name = name
+                    if self.verbose:
+                        print(f"  [Layer {i}] Found router module (primary): {name}")
+                    break
+
+                # Secondary Heuristic: MoE-related modules
+                # For GPT5 OSS and similar architectures
+                if 'moe' in name.lower():
+                    # Prefer modules explicitly named for routing
+                    if any(x in name.lower() for x in ['gate', 'router', 'select', 'route']):
+                        target_module = module
+                        target_name = name
+                        if self.verbose:
+                            print(f"  [Layer {i}] Found router module (moe+keyword): {name}")
+                        break
+                    # Otherwise mark as candidate (lowest priority)
+                    if target_module is None:
+                        target_module = module
+                        target_name = name
+                        if self.verbose:
+                            print(f"  [Layer {i}] Found moe module (fallback): {name}")
+
+            if target_module:
+                self._hook_module(i, target_module, target_name)
+                self.hooked_modules.append((i, target_name))
+            elif self.verbose:
+                print(f"  [Layer {i}] No router module found")
+
+        if self.verbose:
+            print(f"[Hooks] Successfully hooked {len(self.hooked_modules)} layers")
+
+    def _hook_module(self, layer_idx, module, target_name=None):
         def hook(mod, inputs, outputs):
             # outputs might be tensor or tuple
             if isinstance(outputs, tuple):
                 t = outputs[0]
             else:
                 t = outputs
-            
+
+            # Ensure t is a tensor
+            if not isinstance(t, torch.Tensor):
+                return
+
             if layer_idx not in self.captured_logits:
                 self.captured_logits[layer_idx] = []
-            
+
             # Detach and move to CPU immediately to save VRAM
             t_detached = t.detach().cpu()
             self.captured_logits[layer_idx].append(t_detached)
@@ -84,7 +117,7 @@ class RouterTraceContext:
             # We only need to do this once.
             if self.num_experts is None and t_detached.dim() >= 1:
                 self.num_experts = t_detached.shape[-1]
-            
+
         self.hooks.append(module.register_forward_hook(hook))
     
     def get_logits(self, layer_idx):
@@ -185,21 +218,35 @@ def get_model(model_id):
 
 
 def _norm_router_tensor(t):
-    # Standardize router tensor shape to (B, T, E)
+    """
+    Standardize router tensor shape to (B, T, E) where:
+    - B = batch size (usually 1 during inference)
+    - T = sequence length
+    - E = number of experts
+
+    Handles various shapes from different MoE implementations.
+    """
+    if not isinstance(t, torch.Tensor):
+        raise ValueError(f"Expected tensor, got {type(t)}")
+
     if t.dim() == 3:
+        # Already in correct format (B, T, E)
         return t
-    if t.dim() == 2:
+    elif t.dim() == 2:
+        # Could be (T, E) or (B*T, E), assume (T, E) and add batch dim
         return t.unsqueeze(0)
-    if t.dim() == 1:
+    elif t.dim() == 1:
+        # Single value, expand to (1, 1, E)
         return t.unsqueeze(0).unsqueeze(0)
-    raise ValueError(f"Unexpected router tensor dim {t.dim()} with shape {tuple(t.shape)}")
+    else:
+        raise ValueError(f"Unexpected router tensor dim {t.dim()} with shape {tuple(t.shape)}")
 
 @torch.no_grad()
-def collect_prompt_router_trace(model, tok, text, use_hooks=False):
+def collect_prompt_router_trace(model, tok, text, use_hooks=False, verbose=False):
     global TOPK_PER_TOKEN
     enc = tok(text, return_tensors="pt", truncation=True, max_length=2048).to(model.device)
-    
-    ctx = RouterTraceContext(model) if use_hooks else None
+
+    ctx = RouterTraceContext(model, verbose=verbose) if use_hooks else None
     
     if use_hooks:
         ctx.__enter__()
@@ -264,12 +311,12 @@ def collect_prompt_router_trace(model, tok, text, use_hooks=False):
     }
 
 @torch.no_grad()
-def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hooks=False):
+def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hooks=False, verbose=False):
     global TOPK_PER_TOKEN
     enc = tok(prompt, return_tensors="pt").to(model.device)
     input_ids = enc["input_ids"]
-    
-    ctx = RouterTraceContext(model) if use_hooks else None
+
+    ctx = RouterTraceContext(model, verbose=verbose) if use_hooks else None
     
     # Determine K (experts per tok)
     if hasattr(model.config, "num_experts_per_tok"):
@@ -442,6 +489,12 @@ def parse_args():
         help="Override for top-K experts to save (default: use model config)"
     )
 
+    parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="Enable verbose output for debugging hook registration"
+    )
+
     args = parser.parse_args()
     return args
 
@@ -492,7 +545,7 @@ if __name__ == "__main__":
 
         # 1. Prefill Trace
         try:
-            prefill = collect_prompt_router_trace(model, tok, prompt, use_hooks=USE_HOOKS)
+            prefill = collect_prompt_router_trace(model, tok, prompt, use_hooks=USE_HOOKS, verbose=args.verbose)
             prefill["category"] = category
             json.dump(prefill, open(OUT_DIR / f"trace_{i:04d}.json","w"), indent=2)
             print(f"    ✅ Prefill trace saved ({prefill.get('num_layers', 0)} layers, {prefill.get('num_experts', -1)} experts).")
@@ -503,7 +556,7 @@ if __name__ == "__main__":
         # 2. Generation Trace
         try:
             print(f"    ⚙️  Starting generation for prompt index {i}...")
-            gen = collect_generate_router_trace(model, tok, prompt, MAX_NEW_TOKENS, use_hooks=USE_HOOKS)
+            gen = collect_generate_router_trace(model, tok, prompt, MAX_NEW_TOKENS, use_hooks=USE_HOOKS, verbose=args.verbose)
             gen["category"] = category
             json.dump(gen, open(OUT_DIR / f"gen_{i:04d}.json","w"), indent=2)
             print(f"    ✅ Generation trace saved "
