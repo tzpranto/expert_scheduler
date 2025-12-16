@@ -36,7 +36,7 @@ class RouterTraceContext:
         # Keep self.num_experts unless we know we are reloading a new model
 
     def _register_hooks(self):
-        # Heuristic: Find router modules.
+        # Heuristic: Find router modules in MoE layers.
         layers = None
         if hasattr(self.model, 'model') and hasattr(self.model.model, 'layers'):
             layers = self.model.model.layers
@@ -53,27 +53,39 @@ class RouterTraceContext:
         for i, layer in enumerate(layers):
             target_modules = []  # Collect all candidates
 
-            # First pass: Find all potential router modules
-            for name, module in layer.named_modules():
-                # Skip self references
-                if module is layer:
-                    continue
+            # Strategy 1: Check for MLP/FFN attribute (common in MoE architectures)
+            if hasattr(layer, 'mlp'):
+                mlp = layer.mlp
+                for name, module in mlp.named_modules():
+                    if isinstance(module, torch.nn.Linear):
+                        name_lower = name.lower()
+                        if 'gate' in name_lower or 'router' in name_lower:
+                            target_modules.append((f"mlp.{name}", module, 'mlp_primary'))
+                        elif any(x in name_lower for x in ['select', 'route']):
+                            target_modules.append((f"mlp.{name}", module, 'mlp_secondary'))
 
-                name_lower = name.lower()
+            # Strategy 2: Search all named modules (fallback)
+            if not target_modules:
+                for name, module in layer.named_modules():
+                    # Skip self references
+                    if module is layer:
+                        continue
 
-                # Primary targets: Standard router/gate names (Linear)
-                if isinstance(module, torch.nn.Linear):
-                    if 'gate' in name_lower or 'router' in name_lower:
-                        target_modules.append((name, module, 'primary'))
-                    elif 'moe' in name_lower and any(x in name_lower for x in ['gate', 'router', 'select', 'route']):
-                        target_modules.append((name, module, 'moe_keyword'))
-                    elif 'moe' in name_lower:
-                        target_modules.append((name, module, 'moe_fallback'))
+                    name_lower = name.lower()
+
+                    # Primary targets: Standard router/gate names (Linear)
+                    if isinstance(module, torch.nn.Linear):
+                        if 'gate' in name_lower or 'router' in name_lower:
+                            target_modules.append((name, module, 'primary'))
+                        elif 'moe' in name_lower and any(x in name_lower for x in ['gate', 'router', 'select', 'route']):
+                            target_modules.append((name, module, 'moe_keyword'))
+                        elif 'moe' in name_lower:
+                            target_modules.append((name, module, 'moe_fallback'))
 
             # Select the best candidate based on priority
             target_module = None
             target_name = None
-            priority_order = ['primary', 'moe_keyword', 'moe_fallback']
+            priority_order = ['mlp_primary', 'mlp_secondary', 'primary', 'moe_keyword', 'moe_fallback']
 
             for priority in priority_order:
                 candidates = [m for m in target_modules if m[2] == priority]
