@@ -44,10 +44,22 @@ def inspect_model_structure(model, model_name="gpt5oss"):
             print(f"    MLP type: {type(mlp).__name__}")
             print(f"    MLP structure:")
             for name, module in mlp.named_modules():
+                module_type = type(module).__name__
                 if isinstance(module, torch.nn.Linear):
                     print(f"      {name:<50} Linear(in={module.in_features}, out={module.out_features})")
                 else:
-                    print(f"      {name:<50} {type(module).__name__}")
+                    print(f"      {name:<50} {module_type}")
+                    # Show details for router module
+                    if 'router' in name.lower():
+                        print(f"        └─ Router details:")
+                        for attr in dir(module):
+                            if not attr.startswith('_') and not callable(getattr(module, attr)):
+                                try:
+                                    val = getattr(module, attr)
+                                    if not isinstance(val, torch.nn.Module):
+                                        print(f"           {attr}: {val}")
+                                except:
+                                    pass
 
         # List all named modules in this layer
         print(f"\n  All Linear modules in layer:")
@@ -115,25 +127,26 @@ def test_hook_registration(model):
         if hasattr(layer, 'mlp'):
             mlp = layer.mlp
             for name, module in mlp.named_modules():
-                if isinstance(module, torch.nn.Linear):
-                    if any(x in name.lower() for x in ['gate', 'router', 'select', 'route']):
-                        print(f"Hooking: Layer {i} -> mlp.{name}")
-                        h = module.register_forward_hook(make_hook(i, f"mlp.{name}"))
-                        hooks.append(h)
-                        hooked_count += 1
-                        found_moe = True
-                        break
+                name_lower = name.lower()
+                # Hook ANY router module (not just Linear)
+                if any(x in name_lower for x in ['gate', 'router', 'select', 'route']):
+                    print(f"Hooking: Layer {i} -> mlp.{name} (type: {type(module).__name__})")
+                    h = module.register_forward_hook(make_hook(i, f"mlp.{name}"))
+                    hooks.append(h)
+                    hooked_count += 1
+                    found_moe = True
+                    break
 
         # Fallback: search all named modules
         if not found_moe:
             for name, module in layer.named_modules():
-                if isinstance(module, torch.nn.Linear):
-                    if any(x in name.lower() for x in ['gate', 'router', 'select', 'route', 'moe']):
-                        print(f"Hooking: Layer {i} -> {name}")
-                        h = module.register_forward_hook(make_hook(i, name))
-                        hooks.append(h)
-                        hooked_count += 1
-                        break
+                name_lower = name.lower()
+                if any(x in name_lower for x in ['gate', 'router', 'select', 'route', 'moe']):
+                    print(f"Hooking: Layer {i} -> {name} (type: {type(module).__name__})")
+                    h = module.register_forward_hook(make_hook(i, name))
+                    hooks.append(h)
+                    hooked_count += 1
+                    break
 
     if hooked_count == 0:
         print("✗ No potential router modules found to hook!")

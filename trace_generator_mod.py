@@ -54,15 +54,16 @@ class RouterTraceContext:
             target_modules = []  # Collect all candidates
 
             # Strategy 1: Check for MLP/FFN attribute (common in MoE architectures)
+            # This hooks ANY router-like module, not just Linear layers
             if hasattr(layer, 'mlp'):
                 mlp = layer.mlp
                 for name, module in mlp.named_modules():
-                    if isinstance(module, torch.nn.Linear):
-                        name_lower = name.lower()
-                        if 'gate' in name_lower or 'router' in name_lower:
-                            target_modules.append((f"mlp.{name}", module, 'mlp_primary'))
-                        elif any(x in name_lower for x in ['select', 'route']):
-                            target_modules.append((f"mlp.{name}", module, 'mlp_secondary'))
+                    name_lower = name.lower()
+                    # Hook ANY module with router/gate/select/route in name
+                    if 'gate' in name_lower or 'router' in name_lower:
+                        target_modules.append((f"mlp.{name}", module, 'mlp_primary'))
+                    elif any(x in name_lower for x in ['select', 'route']):
+                        target_modules.append((f"mlp.{name}", module, 'mlp_secondary'))
 
             # Strategy 2: Search all named modules (fallback)
             if not target_modules:
@@ -73,14 +74,13 @@ class RouterTraceContext:
 
                     name_lower = name.lower()
 
-                    # Primary targets: Standard router/gate names (Linear)
-                    if isinstance(module, torch.nn.Linear):
-                        if 'gate' in name_lower or 'router' in name_lower:
-                            target_modules.append((name, module, 'primary'))
-                        elif 'moe' in name_lower and any(x in name_lower for x in ['gate', 'router', 'select', 'route']):
-                            target_modules.append((name, module, 'moe_keyword'))
-                        elif 'moe' in name_lower:
-                            target_modules.append((name, module, 'moe_fallback'))
+                    # Primary targets: Standard router/gate names (any module type)
+                    if 'gate' in name_lower or 'router' in name_lower:
+                        target_modules.append((name, module, 'primary'))
+                    elif 'moe' in name_lower and any(x in name_lower for x in ['gate', 'router', 'select', 'route']):
+                        target_modules.append((name, module, 'moe_keyword'))
+                    elif 'moe' in name_lower:
+                        target_modules.append((name, module, 'moe_fallback'))
 
             # Select the best candidate based on priority
             target_module = None
@@ -93,7 +93,7 @@ class RouterTraceContext:
                     # If multiple candidates, prefer the one with fewest submodules (more direct)
                     target_name, target_module, _ = min(candidates, key=lambda x: len(list(x[1].modules())))
                     if self.verbose:
-                        print(f"  [Layer {i}] Found router module ({priority}): {target_name}")
+                        print(f"  [Layer {i}] Found router module ({priority}): {target_name} (type: {type(target_module).__name__})")
                     break
 
             if target_module:
@@ -107,27 +107,38 @@ class RouterTraceContext:
 
     def _hook_module(self, layer_idx, module, target_name=None):
         def hook(mod, inputs, outputs):
-            # outputs might be tensor or tuple
-            if isinstance(outputs, tuple):
-                t = outputs[0]
-            else:
+            # Handle various output formats from different router implementations
+            t = None
+
+            # Case 1: Direct tensor output
+            if isinstance(outputs, torch.Tensor):
                 t = outputs
+            # Case 2: Tuple of tensors (common: logits, routing_indices, etc.)
+            elif isinstance(outputs, tuple) and len(outputs) > 0:
+                t = outputs[0]
+            # Case 3: Dict output (some MoE routers return dicts)
+            elif isinstance(outputs, dict):
+                # Try common keys
+                for key in ['logits', 'router_logits', 'routing_logits', 'output']:
+                    if key in outputs and isinstance(outputs[key], torch.Tensor):
+                        t = outputs[key]
+                        break
 
-            # Ensure t is a tensor
-            if not isinstance(t, torch.Tensor):
-                return
+            # If we have a tensor, process it
+            if t is not None and isinstance(t, torch.Tensor):
+                if layer_idx not in self.captured_logits:
+                    self.captured_logits[layer_idx] = []
 
-            if layer_idx not in self.captured_logits:
-                self.captured_logits[layer_idx] = []
+                # Detach and move to CPU immediately to save VRAM
+                t_detached = t.detach().cpu()
+                self.captured_logits[layer_idx].append(t_detached)
 
-            # Detach and move to CPU immediately to save VRAM
-            t_detached = t.detach().cpu()
-            self.captured_logits[layer_idx].append(t_detached)
+                # Infer and store num_experts (E) from the last dimension
+                if self.num_experts is None and t_detached.dim() >= 1:
+                    self.num_experts = t_detached.shape[-1]
 
-            # Infer and store num_experts (E) from the last dimension
-            # We only need to do this once.
-            if self.num_experts is None and t_detached.dim() >= 1:
-                self.num_experts = t_detached.shape[-1]
+                if self.verbose:
+                    print(f"    [Hook captured] Layer {layer_idx}: shape={t_detached.shape}, dtype={t_detached.dtype}")
 
         self.hooks.append(module.register_forward_hook(hook))
     
