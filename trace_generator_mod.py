@@ -246,6 +246,59 @@ def get_model(model_id, force_cpu=False):
         exit(0)
 
 
+def _forward_with_dummy_experts(model, enc, verbose=False):
+    """
+    Workaround for MXFP4 GPU incompatibility.
+    Monkey-patches expert forward methods to return zeros instead of executing.
+    This allows router logits to be captured without triggering MXFP4 kernels.
+    """
+    if verbose:
+        print("    [Expert Patch] Patching expert forward methods...")
+
+    layers = None
+    if hasattr(model, 'model') and hasattr(model.model, 'layers'):
+        layers = model.model.layers
+    elif hasattr(model, 'layers'):
+        layers = model.layers
+
+    if layers is None:
+        raise RuntimeError("Could not find model layers for expert patching")
+
+    # Save original expert forwards
+    original_forwards = {}
+
+    try:
+        # Patch all expert forward methods
+        for i, layer in enumerate(layers):
+            if hasattr(layer, 'mlp') and hasattr(layer.mlp, 'experts'):
+                experts = layer.mlp.experts
+                original_forwards[i] = experts.forward
+
+                # Create dummy forward that returns zeros
+                def make_dummy_forward(original_fw):
+                    def dummy_forward(hidden_states, expert_indices):
+                        # Return zeros with same shape as hidden_states
+                        return torch.zeros_like(hidden_states)
+                    return dummy_forward
+
+                experts.forward = make_dummy_forward(experts.forward)
+
+        if verbose:
+            print(f"    [Expert Patch] Patched {len(original_forwards)} expert layers")
+
+        # Run forward with dummy experts
+        out = model(**enc)
+
+        return out
+
+    finally:
+        # Always restore original forwards
+        for i, original_fw in original_forwards.items():
+            layers[i].mlp.experts.forward = original_fw
+        if verbose:
+            print(f"    [Expert Patch] Restored original expert forwards")
+
+
 def _norm_router_tensor(t):
     """
     Standardize router tensor shape to (B, T, E) where:
@@ -285,7 +338,17 @@ def collect_prompt_router_trace(model, tok, text, use_hooks=False, verbose=False
                 "No router modules found! Could not register hooks. "
                 "Try running: python debug_gpt5_structure.py to inspect model structure."
             )
-        out = model(**enc)
+
+        # Try normal forward pass first, fall back to dummy experts if MXFP4 error
+        try:
+            out = model(**enc)
+        except RuntimeError as e:
+            if "cvt with .e4m3x2/.e5m2x2" in str(e) or "sm_89" in str(e):
+                if verbose:
+                    print("    [Fallback] Detected MXFP4 incompatibility, using dummy expert forward...")
+                out = _forward_with_dummy_experts(model, enc, verbose)
+            else:
+                raise
     else:
         out = model(**enc, output_router_logits=True)
 
@@ -383,7 +446,18 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
                 "No router modules found! Could not register hooks. "
                 "Try running: python debug_gpt5_structure.py to inspect model structure."
             )
-        out = model(input_ids=input_ids, use_cache=True)
+
+        # Try normal forward pass first, fall back to dummy experts if MXFP4 error
+        try:
+            out = model(input_ids=input_ids, use_cache=True)
+        except RuntimeError as e:
+            if "cvt with .e4m3x2/.e5m2x2" in str(e) or "sm_89" in str(e):
+                if verbose:
+                    print("    [Fallback] Detected MXFP4 incompatibility, using dummy expert forward...")
+                out = _forward_with_dummy_experts(model, {"input_ids": input_ids}, verbose)
+            else:
+                raise
+
         # Determine E from hooks after prefill
         if not ctx.captured_logits:
             raise RuntimeError(
