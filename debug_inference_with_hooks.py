@@ -50,16 +50,18 @@ class SimpleRouterHook:
 
     def _make_hook(self, layer_idx):
         def hook(mod, inputs, outputs):
-            # Just capture, don't modify
+            # Capture only metadata as strings - no tensor references
             if isinstance(outputs, tuple) and len(outputs) > 0:
                 t = outputs[0]
             else:
                 t = outputs
 
             if isinstance(t, torch.Tensor):
+                # Store only string representations to avoid device issues
                 self.captured[layer_idx] = {
-                    'shape': tuple(t.shape),
-                    'dtype': str(t.dtype)
+                    'shape': str(t.shape),
+                    'dtype': str(t.dtype),
+                    'device': str(t.device)
                 }
         return hook
 
@@ -82,6 +84,7 @@ def test_inference_without_hooks():
         torch_dtype=torch.float16,
         device_map="auto"
     )
+    model.eval()
     print("✓ Model loaded\n")
 
     # Simple inference test
@@ -122,6 +125,12 @@ def test_inference_without_hooks():
         print(f"✗ Unexpected error: {e}\n")
         return False, None
 
+    finally:
+        # Clean up
+        del model
+        del tok
+        torch.cuda.empty_cache()
+
 
 def test_inference_with_hooks():
     """Test inference WITH hooks (non-interfering)"""
@@ -136,6 +145,7 @@ def test_inference_with_hooks():
         torch_dtype=torch.float16,
         device_map="auto"
     )
+    model.eval()
     print("✓ Model loaded\n")
 
     # Register hooks
@@ -197,6 +207,9 @@ def test_inference_with_hooks():
 
     finally:
         hook_manager.cleanup()
+        del model
+        del tok
+        torch.cuda.empty_cache()
 
 
 if __name__ == "__main__":
