@@ -209,3 +209,9 @@ __marimo__/
 moe_traces/*
 logs/*
 moe_test/
+
+
+
+
+*.zip 
+**/olmoe_oasst/*
