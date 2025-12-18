@@ -564,6 +564,8 @@ if __name__ == "__main__":
     for i in range(start_idx, start_idx + total_samples, 1):
         row = ds[i]
         prompt = row["prompt"]
+        if args.model_id == 'gpt5oss':
+            prompt = format_prompt_harmony(tok, prompt)
         category = row["category"]
     
         print(f"[{i+1-start_idx}/{total_samples}] ⏳ Collecting router trace for sample index {i}, prompt "
