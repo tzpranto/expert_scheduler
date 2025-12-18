@@ -19,14 +19,12 @@ class MoEDebugger:
                 logits = output[1]
             elif isinstance(output, torch.Tensor):
                 logits = output
-            
             if logits is not None:
-                # Crucial: .float() and .cpu() prevents PTAX errors on A100
                 self.raw_data[layer_idx].append(logits.detach().cpu().float())
         return hook
 
     def register(self):
-        self.clear() # Clean existing hooks
+        self.clear()
         for i, layer in enumerate(self.model.model.layers):
             # Hook the MLP directly as it's the most stable entry point
             target = layer.mlp
@@ -70,22 +68,15 @@ class MoEDebugger:
         gc.collect()
         torch.cuda.empty_cache()
 
-# ==========================================
-# 1. Load Model (A100 Optimized)
-# ==========================================
 model_id = "openai/gpt-oss-20b"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
-# "auto" handles the MXFP4 weights correctly on A100
 model = AutoModelForCausalLM.from_pretrained(
     model_id, 
     torch_dtype="auto", 
     device_map="cuda"
 )
 
-# ==========================================
-# 2. Setup & Run Inference
-# ==========================================
 debugger = MoEDebugger(model)
 debugger.register()
 
@@ -97,22 +88,16 @@ with torch.no_grad():
     # max_new_tokens=10 means we'll get ~16 tokens total (prompt + gen)
     gen_ids = model.generate(**inputs, max_new_tokens=10, do_sample=False)
 
-# ==========================================
-# 3. Analyze Results
-# ==========================================
 df = debugger.get_trace_report(gen_ids[0], tokenizer)
 
 if not df.empty:
     print("\n--- Router Trace: Expert Selection per Token ---")
-    # Show first 5 tokens for the first 2 layers as a sample
     sample_df = df[df['layer'] < 2].sort_values(['token_idx', 'layer'])
     print(sample_df[['token_idx', 'token', 'layer', 'top_experts']].head(10))
     
-    # Summary info
     print(f"\nTotal tokens traced: {df['token_idx'].max() + 1}")
     print(f"Total layers traced: {len(df['layer'].unique())}")
 else:
     print("Failed to generate trace report.")
 
-# Always cleanup hooks to prevent memory leaks/PTAX errors in future runs
 debugger.clear()
