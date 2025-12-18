@@ -3,6 +3,8 @@
 
 ![alt text](image.png)
 
+Layer count: The model reports num_layers: 16, so layers indexed 0–15 (16 total). 
+
 Overall: Entropy per layer is very high (≈5.72–5.88 bits out of a 6-bit max for 64 experts), and effective experts are ≈53–59. This means routing is broadly distributed—no layer is collapsing onto a few experts.
 
 Layer variation: The lowest entropies are around layers 3 and 13 (~5.72–5.74 bits; ~53 effective experts), indicating only a mild concentration there. The highest is around layer 10 (~5.88 bits; 
