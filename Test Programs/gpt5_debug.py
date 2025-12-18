@@ -10,7 +10,6 @@ class MoEDebugger:
         self.hooks = []
         # Stores: {layer_idx: [tensor_step1, tensor_step2, ...]}
         self.raw_data = defaultdict(list)
-
     def hook_fn(self, layer_idx):
         def hook(module, args, output):
             # GPT-OSS MLP returns (hidden_states, router_logits)
