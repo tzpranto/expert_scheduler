@@ -100,7 +100,7 @@ class RouterTraceContext:
         return self.captured_logits.get(layer_idx, [])
 
 
-def format_prompt_harmony(tok, prompt, reasoning_effort="low"):
+def format_prompt_harmony(tok, prompt, reasoning_effort="medium"):
     messages = [
         # {"role": "developer", "content": "Try to avoid hallucination"},
         {"role": "user", "content": prompt},
@@ -547,11 +547,6 @@ if __name__ == "__main__":
     # Force hooks for GPT-5 OSS or if requested
     USE_HOOKS = (args.model_id == 'gpt5oss') or args.force_hooks
     
-    if args.model_id == 'gpt5oss':
-        print("--- GPT-5 OSS Harmony Prompt Format Sample ---")
-        print(format_prompt_harmony(tok, ds[0]["prompt"]))
-        print("-------------------------------------------\n")
-
     if args.mode == 'test':
         print("--- Running in TEST mode (1 sample only) ---")
         start_idx = 0
