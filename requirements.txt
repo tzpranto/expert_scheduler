@@ -2,6 +2,9 @@ accelerate==1.11.0
 aiohappyeyeballs==2.6.1
 aiohttp==3.13.2
 aiosignal==1.4.0
+anaconda-anon-usage==0.7.3
+anaconda-auth==0.10.0
+anaconda-cli-base==0.5.4
 annotated-types==0.6.0
 anyio==4.11.0
 archspec==0.2.5
@@ -14,6 +17,8 @@ cffi==2.0.0
 charset-normalizer==3.3.2
 click==8.1.8
 conda==25.9.1
+conda-anaconda-telemetry==0.3.0
+conda-anaconda-tos==0.2.2
 conda-content-trust==0.2.0
 conda-libmamba-solver==25.4.0
 conda-package-handling==2.4.0
