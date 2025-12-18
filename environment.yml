@@ -1,0 +1,4 @@
+name: gpt5_oss
+channels:
+  - defaults
+prefix: /mnt/ssd/conda/envs/gpt5_oss
