@@ -23,7 +23,7 @@ formatted = tokenizer.apply_chat_template(
     messages,
     add_generation_prompt=True,
     tokenize=False,
-    reasoning_effort="medium",
+    reasoning_effort="low",
 )
 
 print("Formatted prompt:")
@@ -35,7 +35,7 @@ inputs = tokenizer(formatted, return_tensors="pt").to(model.device)
 
 print("Generating...")
 with torch.no_grad():
-    gen_ids = model.generate(**inputs, max_new_tokens=100, do_sample=False)
+    gen_ids = model.generate(**inputs, max_new_tokens=512, do_sample=False)
 
 # Decode and print
 full_output = tokenizer.decode(gen_ids[0])
