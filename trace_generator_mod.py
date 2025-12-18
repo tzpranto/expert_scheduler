@@ -377,7 +377,11 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
         # 1. Get next token
         logits = curr_out.logits[:, -1, :]
         next_token = torch.argmax(logits, dim=-1, keepdim=True)
-        generated.append(next_token.item())
+        token_id = next_token.item()
+        generated.append(token_id)
+        
+        # Convert token ID to token string (preserves special tokens)
+        token_str = tok.convert_ids_to_tokens([token_id])[0]
 
         # 2. Capture router logits for this token
         step_layers = []
@@ -406,7 +410,12 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
                     "topk_probs": [round(p.item(), 4) for p in vals]
                 })
         
-        steps.append({"step": step, "token_id": next_token.item(), "layers": step_layers})
+        steps.append({
+            "step": step, 
+            "token_id": token_id,
+            "token": token_str,  # ← ADDED: Token string with special tokens preserved
+            "layers": step_layers
+        })
 
         if (step + 1) % 64 == 0 or step == max_new_tokens - 1:
             elapsed = time.time() - start
@@ -414,7 +423,7 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
                   f"({elapsed:.1f}s elapsed)")
 
         # Stop if end of sentence is reached
-        if next_token.item() == tok.eos_token_id:
+        if token_id == tok.eos_token_id:
             break
 
         # 3. Run next step
@@ -428,13 +437,16 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
     if use_hooks:
         ctx.__exit__(None, None, None)
 
+    # Decode full text (with special tokens for completeness)
     gen_text = tok.decode(generated, skip_special_tokens=False)
+    gen_text_clean = tok.decode(generated, skip_special_tokens=True)
     
     return {
         "prompt": prompt,
-        "generated_text": gen_text,
+        "generated_text": gen_text,  # Full text with special tokens
+        "generated_text_clean": gen_text_clean,  # Clean text without special tokens
         "generated_ids": generated,
-        "decode_steps": steps,
+        "decode_steps": steps,  # Now includes "token" field for each step
         "num_layers": num_layers,
         "num_experts": E, 
         "k_per_token": current_k,
