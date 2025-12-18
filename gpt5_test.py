@@ -4,6 +4,11 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 # Load
 model_id = "openai/gpt-oss-20b"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForCausalLM.from_pretrained(
+    model_id,
+    torch_dtype="auto",
+    device_map="cuda"
+)
 
 # Test prompt
 prompt = "How high in the atmosphere is it dangerous for humans to stay?"
@@ -21,17 +26,18 @@ formatted = tokenizer.apply_chat_template(
     reasoning_effort="medium",
 )
 
-# Tokenize
-tokens = tokenizer(formatted, return_tensors="pt")
-token_ids = tokens["input_ids"][0]
-
-# Print formatted string
-print("Formatted prompt string:")
+print("Formatted prompt:")
 print(formatted)
 print("\n" + "="*80 + "\n")
 
-# Print each token
-print(f"Total tokens: {len(token_ids)}\n")
-for i, token_id in enumerate(token_ids):
-    token_str = tokenizer.convert_ids_to_tokens([token_id])[0]
-    print(f"[{i:3d}] {token_str}")
+# Tokenize and generate
+inputs = tokenizer(formatted, return_tensors="pt").to(model.device)
+
+print("Generating...")
+with torch.no_grad():
+    gen_ids = model.generate(**inputs, max_new_tokens=100, do_sample=False)
+
+# Decode and print
+full_output = tokenizer.decode(gen_ids[0])
+print("Full output (all tokens):")
+print(full_output)
