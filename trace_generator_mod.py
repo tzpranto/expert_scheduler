@@ -100,7 +100,7 @@ class RouterTraceContext:
         return self.captured_logits.get(layer_idx, [])
 
 
-def format_prompt_harmony(tok, prompt, reasoning_effort="medium"):
+def format_prompt_harmony(tok, prompt, reasoning_effort="low"):
     messages = [
         # {"role": "developer", "content": "Try to avoid hallucination"},
         {"role": "user", "content": prompt},
@@ -413,7 +413,7 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
         steps.append({
             "step": step, 
             "token_id": token_id,
-            "token": token_str,  # ← ADDED: Token string with special tokens preserved
+            "token": token_str, 
             "layers": step_layers
         })
 
@@ -439,14 +439,12 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
 
     # Decode full text (with special tokens for completeness)
     gen_text = tok.decode(generated, skip_special_tokens=False)
-    gen_text_clean = tok.decode(generated, skip_special_tokens=True)
     
     return {
         "prompt": prompt,
         "generated_text": gen_text,  # Full text with special tokens
-        "generated_text_clean": gen_text_clean,  # Clean text without special tokens
         "generated_ids": generated,
-        "decode_steps": steps,  # Now includes "token" field for each step
+        "decode_steps": steps, 
         "num_layers": num_layers,
         "num_experts": E, 
         "k_per_token": current_k,
