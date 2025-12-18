@@ -1,6 +1,7 @@
 {
   "prompt": "How high in the atmosphere is it dangerous for humans to stay?\nA:",
   "generated_text": " The atmosphere is a protective layer that shields us from harmful radiation. However, the higher we go, the thinner the air becomes, and the less oxygen we have to breathe. At a certain point, the air becomes so thin that it is impossible for humans to survive. This is known as the \"death zone,\" which is typically around 8,000 meters (26,000 feet) above sea level.\n\nThe \"death zone\" is a term used to describe the altitude above which the human body cannot acclimatize and the risk of death increases significantly. It is typically considered to be around 8,000 meters (26,000 feet) above sea level. At this altitude, the air is so thin that it is difficult for the body to get enough oxygen, and the risk of altitude sickness and other health problems increases.\n\nThe \"death zone\" is a term used to describe the altitude above which the human body cannot acclimatize\n\nThe \"death zone\" is a term used to describe the altitude above which the human body cannot acclimatize and the risk of death increases significantly. It is typically considered to be around 8,000 meters (26,000 feet) above sea level. At this altitude, the air is so thin\n\nThe \"",
+  "generated_text_clean": " The atmosphere is a protective layer that shields us from harmful radiation. However, the higher we go, the thinner the air becomes, and the less oxygen we have to breathe. At a certain point, the air becomes so thin that it is impossible for humans to survive. This is known as the \"death zone,\" which is typically around 8,000 meters (26,000 feet) above sea level.\n\nThe \"death zone\" is a term used to describe the altitude above which the human body cannot acclimatize and the risk of death increases significantly. It is typically considered to be around 8,000 meters (26,000 feet) above sea level. At this altitude, the air is so thin that it is difficult for the body to get enough oxygen, and the risk of altitude sickness and other health problems increases.\n\nThe \"death zone\" is a term used to describe the altitude above which the human body cannot acclimatize\n\nThe \"death zone\" is a term used to describe the altitude above which the human body cannot acclimatize and the risk of death increases significantly. It is typically considered to be around 8,000 meters (26,000 feet) above sea level. At this altitude, the air is so thin\n\nThe \"",
   "generated_ids": [
     623,
     22137,
@@ -263,6 +264,7 @@
     {
       "step": 0,
       "token_id": 623,
+      "token": "\u0120The",
       "layers": [
         {
           "layer": 0,
@@ -629,6 +631,7 @@
     {
       "step": 1,
       "token_id": 22137,
+      "token": "\u0120atmosphere",
       "layers": [
         {
           "layer": 0,
@@ -995,6 +998,7 @@
     {
       "step": 2,
       "token_id": 382,
+      "token": "\u0120is",
       "layers": [
         {
           "layer": 0,
@@ -1361,6 +1365,7 @@
     {
       "step": 3,
       "token_id": 261,
+      "token": "\u0120a",
       "layers": [
         {
           "layer": 0,
@@ -1727,6 +1732,7 @@
     {
       "step": 4,
       "token_id": 41030,
+      "token": "\u0120protective",
       "layers": [
         {
           "layer": 0,
@@ -2093,6 +2099,7 @@
     {
       "step": 5,
       "token_id": 10261,
+      "token": "\u0120layer",
       "layers": [
         {
           "layer": 0,
@@ -2459,6 +2466,7 @@
     {
       "step": 6,
       "token_id": 484,
+      "token": "\u0120that",
       "layers": [
         {
           "layer": 0,
@@ -2825,6 +2833,7 @@
     {
       "step": 7,
       "token_id": 132962,
+      "token": "\u0120shields",
       "layers": [
         {
           "layer": 0,
@@ -3191,6 +3200,7 @@
     {
       "step": 8,
       "token_id": 765,
+      "token": "\u0120us",
       "layers": [
         {
           "layer": 0,
@@ -3557,6 +3567,7 @@
     {
       "step": 9,
       "token_id": 591,
+      "token": "\u0120from",
       "layers": [
         {
           "layer": 0,
@@ -3923,6 +3934,7 @@
     {
       "step": 10,
       "token_id": 38451,
+      "token": "\u0120harmful",
       "layers": [
         {
           "layer": 0,
@@ -4289,6 +4301,7 @@
     {
       "step": 11,
       "token_id": 36138,
+      "token": "\u0120radiation",
       "layers": [
         {
           "layer": 0,
@@ -4655,6 +4668,7 @@
     {
       "step": 12,
       "token_id": 13,
+      "token": ".",
       "layers": [
         {
           "layer": 0,
@@ -5021,6 +5035,7 @@
     {
       "step": 13,
       "token_id": 5551,
+      "token": "\u0120However",
       "layers": [
         {
           "layer": 0,
@@ -5387,6 +5402,7 @@
     {
       "step": 14,
       "token_id": 11,
+      "token": ",",
       "layers": [
         {
           "layer": 0,
@@ -5753,6 +5769,7 @@
     {
       "step": 15,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -6119,6 +6136,7 @@
     {
       "step": 16,
       "token_id": 7266,
+      "token": "\u0120higher",
       "layers": [
         {
           "layer": 0,
@@ -6485,6 +6503,7 @@
     {
       "step": 17,
       "token_id": 581,
+      "token": "\u0120we",
       "layers": [
         {
           "layer": 0,
@@ -6851,6 +6870,7 @@
     {
       "step": 18,
       "token_id": 810,
+      "token": "\u0120go",
       "layers": [
         {
           "layer": 0,
@@ -7217,6 +7237,7 @@
     {
       "step": 19,
       "token_id": 11,
+      "token": ",",
       "layers": [
         {
           "layer": 0,
@@ -7583,6 +7604,7 @@
     {
       "step": 20,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -7949,6 +7971,7 @@
     {
       "step": 21,
       "token_id": 103212,
+      "token": "\u0120thinner",
       "layers": [
         {
           "layer": 0,
@@ -8315,6 +8338,7 @@
     {
       "step": 22,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -8681,6 +8705,7 @@
     {
       "step": 23,
       "token_id": 3693,
+      "token": "\u0120air",
       "layers": [
         {
           "layer": 0,
@@ -9047,6 +9072,7 @@
     {
       "step": 24,
       "token_id": 14081,
+      "token": "\u0120becomes",
       "layers": [
         {
           "layer": 0,
@@ -9413,6 +9439,7 @@
     {
       "step": 25,
       "token_id": 11,
+      "token": ",",
       "layers": [
         {
           "layer": 0,
@@ -9779,6 +9806,7 @@
     {
       "step": 26,
       "token_id": 326,
+      "token": "\u0120and",
       "layers": [
         {
           "layer": 0,
@@ -10145,6 +10173,7 @@
     {
       "step": 27,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -10511,6 +10540,7 @@
     {
       "step": 28,
       "token_id": 3760,
+      "token": "\u0120less",
       "layers": [
         {
           "layer": 0,
@@ -10877,6 +10907,7 @@
     {
       "step": 29,
       "token_id": 34398,
+      "token": "\u0120oxygen",
       "layers": [
         {
           "layer": 0,
@@ -11243,6 +11274,7 @@
     {
       "step": 30,
       "token_id": 581,
+      "token": "\u0120we",
       "layers": [
         {
           "layer": 0,
@@ -11609,6 +11641,7 @@
     {
       "step": 31,
       "token_id": 679,
+      "token": "\u0120have",
       "layers": [
         {
           "layer": 0,
@@ -11975,6 +12008,7 @@
     {
       "step": 32,
       "token_id": 316,
+      "token": "\u0120to",
       "layers": [
         {
           "layer": 0,
@@ -12341,6 +12375,7 @@
     {
       "step": 33,
       "token_id": 54359,
+      "token": "\u0120breathe",
       "layers": [
         {
           "layer": 0,
@@ -12707,6 +12742,7 @@
     {
       "step": 34,
       "token_id": 13,
+      "token": ".",
       "layers": [
         {
           "layer": 0,
@@ -13073,6 +13109,7 @@
     {
       "step": 35,
       "token_id": 3604,
+      "token": "\u0120At",
       "layers": [
         {
           "layer": 0,
@@ -13439,6 +13476,7 @@
     {
       "step": 36,
       "token_id": 261,
+      "token": "\u0120a",
       "layers": [
         {
           "layer": 0,
@@ -13805,6 +13843,7 @@
     {
       "step": 37,
       "token_id": 4454,
+      "token": "\u0120certain",
       "layers": [
         {
           "layer": 0,
@@ -14171,6 +14210,7 @@
     {
       "step": 38,
       "token_id": 2438,
+      "token": "\u0120point",
       "layers": [
         {
           "layer": 0,
@@ -14537,6 +14577,7 @@
     {
       "step": 39,
       "token_id": 11,
+      "token": ",",
       "layers": [
         {
           "layer": 0,
@@ -14903,6 +14944,7 @@
     {
       "step": 40,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -15269,6 +15311,7 @@
     {
       "step": 41,
       "token_id": 3693,
+      "token": "\u0120air",
       "layers": [
         {
           "layer": 0,
@@ -15635,6 +15678,7 @@
     {
       "step": 42,
       "token_id": 14081,
+      "token": "\u0120becomes",
       "layers": [
         {
           "layer": 0,
@@ -16001,6 +16045,7 @@
     {
       "step": 43,
       "token_id": 813,
+      "token": "\u0120so",
       "layers": [
         {
           "layer": 0,
@@ -16367,6 +16412,7 @@
     {
       "step": 44,
       "token_id": 22558,
+      "token": "\u0120thin",
       "layers": [
         {
           "layer": 0,
@@ -16733,6 +16779,7 @@
     {
       "step": 45,
       "token_id": 484,
+      "token": "\u0120that",
       "layers": [
         {
           "layer": 0,
@@ -17099,6 +17146,7 @@
     {
       "step": 46,
       "token_id": 480,
+      "token": "\u0120it",
       "layers": [
         {
           "layer": 0,
@@ -17465,6 +17513,7 @@
     {
       "step": 47,
       "token_id": 382,
+      "token": "\u0120is",
       "layers": [
         {
           "layer": 0,
@@ -17831,6 +17880,7 @@
     {
       "step": 48,
       "token_id": 19786,
+      "token": "\u0120impossible",
       "layers": [
         {
           "layer": 0,
@@ -18197,6 +18247,7 @@
     {
       "step": 49,
       "token_id": 395,
+      "token": "\u0120for",
       "layers": [
         {
           "layer": 0,
@@ -18563,6 +18614,7 @@
     {
       "step": 50,
       "token_id": 23011,
+      "token": "\u0120humans",
       "layers": [
         {
           "layer": 0,
@@ -18929,6 +18981,7 @@
     {
       "step": 51,
       "token_id": 316,
+      "token": "\u0120to",
       "layers": [
         {
           "layer": 0,
@@ -19295,6 +19348,7 @@
     {
       "step": 52,
       "token_id": 30153,
+      "token": "\u0120survive",
       "layers": [
         {
           "layer": 0,
@@ -19661,6 +19715,7 @@
     {
       "step": 53,
       "token_id": 13,
+      "token": ".",
       "layers": [
         {
           "layer": 0,
@@ -20027,6 +20082,7 @@
     {
       "step": 54,
       "token_id": 1328,
+      "token": "\u0120This",
       "layers": [
         {
           "layer": 0,
@@ -20393,6 +20449,7 @@
     {
       "step": 55,
       "token_id": 382,
+      "token": "\u0120is",
       "layers": [
         {
           "layer": 0,
@@ -20759,6 +20816,7 @@
     {
       "step": 56,
       "token_id": 5542,
+      "token": "\u0120known",
       "layers": [
         {
           "layer": 0,
@@ -21125,6 +21183,7 @@
     {
       "step": 57,
       "token_id": 472,
+      "token": "\u0120as",
       "layers": [
         {
           "layer": 0,
@@ -21491,6 +21550,7 @@
     {
       "step": 58,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -21857,6 +21917,7 @@
     {
       "step": 59,
       "token_id": 392,
+      "token": "\u0120\"",
       "layers": [
         {
           "layer": 0,
@@ -22223,6 +22284,7 @@
     {
       "step": 60,
       "token_id": 131344,
+      "token": "death",
       "layers": [
         {
           "layer": 0,
@@ -22589,6 +22651,7 @@
     {
       "step": 61,
       "token_id": 15070,
+      "token": "\u0120zone",
       "layers": [
         {
           "layer": 0,
@@ -22955,6 +23018,7 @@
     {
       "step": 62,
       "token_id": 3532,
+      "token": ",\"",
       "layers": [
         {
           "layer": 0,
@@ -23321,6 +23385,7 @@
     {
       "step": 63,
       "token_id": 1118,
+      "token": "\u0120which",
       "layers": [
         {
           "layer": 0,
@@ -23687,6 +23752,7 @@
     {
       "step": 64,
       "token_id": 382,
+      "token": "\u0120is",
       "layers": [
         {
           "layer": 0,
@@ -24053,6 +24119,7 @@
     {
       "step": 65,
       "token_id": 13729,
+      "token": "\u0120typically",
       "layers": [
         {
           "layer": 0,
@@ -24419,6 +24486,7 @@
     {
       "step": 66,
       "token_id": 2846,
+      "token": "\u0120around",
       "layers": [
         {
           "layer": 0,
@@ -24785,6 +24853,7 @@
     {
       "step": 67,
       "token_id": 220,
+      "token": "\u0120",
       "layers": [
         {
           "layer": 0,
@@ -25151,6 +25220,7 @@
     {
       "step": 68,
       "token_id": 23,
+      "token": "8",
       "layers": [
         {
           "layer": 0,
@@ -25517,6 +25587,7 @@
     {
       "step": 69,
       "token_id": 11,
+      "token": ",",
       "layers": [
         {
           "layer": 0,
@@ -25883,6 +25954,7 @@
     {
       "step": 70,
       "token_id": 1302,
+      "token": "000",
       "layers": [
         {
           "layer": 0,
@@ -26249,6 +26321,7 @@
     {
       "step": 71,
       "token_id": 29514,
+      "token": "\u0120meters",
       "layers": [
         {
           "layer": 0,
@@ -26615,6 +26688,7 @@
     {
       "step": 72,
       "token_id": 350,
+      "token": "\u0120(",
       "layers": [
         {
           "layer": 0,
@@ -26981,6 +27055,7 @@
     {
       "step": 73,
       "token_id": 2109,
+      "token": "26",
       "layers": [
         {
           "layer": 0,
@@ -27347,6 +27422,7 @@
     {
       "step": 74,
       "token_id": 11,
+      "token": ",",
       "layers": [
         {
           "layer": 0,
@@ -27713,6 +27789,7 @@
     {
       "step": 75,
       "token_id": 1302,
+      "token": "000",
       "layers": [
         {
           "layer": 0,
@@ -28079,6 +28156,7 @@
     {
       "step": 76,
       "token_id": 11059,
+      "token": "\u0120feet",
       "layers": [
         {
           "layer": 0,
@@ -28445,6 +28523,7 @@
     {
       "step": 77,
       "token_id": 8,
+      "token": ")",
       "layers": [
         {
           "layer": 0,
@@ -28811,6 +28890,7 @@
     {
       "step": 78,
       "token_id": 5151,
+      "token": "\u0120above",
       "layers": [
         {
           "layer": 0,
@@ -29177,6 +29257,7 @@
     {
       "step": 79,
       "token_id": 9624,
+      "token": "\u0120sea",
       "layers": [
         {
           "layer": 0,
@@ -29543,6 +29624,7 @@
     {
       "step": 80,
       "token_id": 3211,
+      "token": "\u0120level",
       "layers": [
         {
           "layer": 0,
@@ -29909,6 +29991,7 @@
     {
       "step": 81,
       "token_id": 13,
+      "token": ".",
       "layers": [
         {
           "layer": 0,
@@ -30275,6 +30358,7 @@
     {
       "step": 82,
       "token_id": 279,
+      "token": "\u010a\u010a",
       "layers": [
         {
           "layer": 0,
@@ -30641,6 +30725,7 @@
     {
       "step": 83,
       "token_id": 976,
+      "token": "The",
       "layers": [
         {
           "layer": 0,
@@ -31007,6 +31092,7 @@
     {
       "step": 84,
       "token_id": 392,
+      "token": "\u0120\"",
       "layers": [
         {
           "layer": 0,
@@ -31373,6 +31459,7 @@
     {
       "step": 85,
       "token_id": 131344,
+      "token": "death",
       "layers": [
         {
           "layer": 0,
@@ -31739,6 +31826,7 @@
     {
       "step": 86,
       "token_id": 15070,
+      "token": "\u0120zone",
       "layers": [
         {
           "layer": 0,
@@ -32105,6 +32193,7 @@
     {
       "step": 87,
       "token_id": 1,
+      "token": "\"",
       "layers": [
         {
           "layer": 0,
@@ -32471,6 +32560,7 @@
     {
       "step": 88,
       "token_id": 382,
+      "token": "\u0120is",
       "layers": [
         {
           "layer": 0,
@@ -32837,6 +32927,7 @@
     {
       "step": 89,
       "token_id": 261,
+      "token": "\u0120a",
       "layers": [
         {
           "layer": 0,
@@ -33203,6 +33294,7 @@
     {
       "step": 90,
       "token_id": 2914,
+      "token": "\u0120term",
       "layers": [
         {
           "layer": 0,
@@ -33569,6 +33661,7 @@
     {
       "step": 91,
       "token_id": 2061,
+      "token": "\u0120used",
       "layers": [
         {
           "layer": 0,
@@ -33935,6 +34028,7 @@
     {
       "step": 92,
       "token_id": 316,
+      "token": "\u0120to",
       "layers": [
         {
           "layer": 0,
@@ -34301,6 +34395,7 @@
     {
       "step": 93,
       "token_id": 12886,
+      "token": "\u0120describe",
       "layers": [
         {
           "layer": 0,
@@ -34667,6 +34762,7 @@
     {
       "step": 94,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -35033,6 +35129,7 @@
     {
       "step": 95,
       "token_id": 66032,
+      "token": "\u0120altitude",
       "layers": [
         {
           "layer": 0,
@@ -35399,6 +35496,7 @@
     {
       "step": 96,
       "token_id": 5151,
+      "token": "\u0120above",
       "layers": [
         {
           "layer": 0,
@@ -35765,6 +35863,7 @@
     {
       "step": 97,
       "token_id": 1118,
+      "token": "\u0120which",
       "layers": [
         {
           "layer": 0,
@@ -36131,6 +36230,7 @@
     {
       "step": 98,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -36497,6 +36597,7 @@
     {
       "step": 99,
       "token_id": 5396,
+      "token": "\u0120human",
       "layers": [
         {
           "layer": 0,
@@ -36863,6 +36964,7 @@
     {
       "step": 100,
       "token_id": 3641,
+      "token": "\u0120body",
       "layers": [
         {
           "layer": 0,
@@ -37229,6 +37331,7 @@
     {
       "step": 101,
       "token_id": 6284,
+      "token": "\u0120cannot",
       "layers": [
         {
           "layer": 0,
@@ -37595,6 +37698,7 @@
     {
       "step": 102,
       "token_id": 171989,
+      "token": "\u0120accl",
       "layers": [
         {
           "layer": 0,
@@ -37961,6 +38065,7 @@
     {
       "step": 103,
       "token_id": 40083,
+      "token": "imat",
       "layers": [
         {
           "layer": 0,
@@ -38327,6 +38432,7 @@
     {
       "step": 104,
       "token_id": 750,
+      "token": "ize",
       "layers": [
         {
           "layer": 0,
@@ -38693,6 +38799,7 @@
     {
       "step": 105,
       "token_id": 326,
+      "token": "\u0120and",
       "layers": [
         {
           "layer": 0,
@@ -39059,6 +39166,7 @@
     {
       "step": 106,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -39425,6 +39533,7 @@
     {
       "step": 107,
       "token_id": 7031,
+      "token": "\u0120risk",
       "layers": [
         {
           "layer": 0,
@@ -39791,6 +39900,7 @@
     {
       "step": 108,
       "token_id": 328,
+      "token": "\u0120of",
       "layers": [
         {
           "layer": 0,
@@ -40157,6 +40267,7 @@
     {
       "step": 109,
       "token_id": 8027,
+      "token": "\u0120death",
       "layers": [
         {
           "layer": 0,
@@ -40523,6 +40634,7 @@
     {
       "step": 110,
       "token_id": 21073,
+      "token": "\u0120increases",
       "layers": [
         {
           "layer": 0,
@@ -40889,6 +41001,7 @@
     {
       "step": 111,
       "token_id": 17000,
+      "token": "\u0120significantly",
       "layers": [
         {
           "layer": 0,
@@ -41255,6 +41368,7 @@
     {
       "step": 112,
       "token_id": 13,
+      "token": ".",
       "layers": [
         {
           "layer": 0,
@@ -41621,6 +41735,7 @@
     {
       "step": 113,
       "token_id": 1225,
+      "token": "\u0120It",
       "layers": [
         {
           "layer": 0,
@@ -41987,6 +42102,7 @@
     {
       "step": 114,
       "token_id": 382,
+      "token": "\u0120is",
       "layers": [
         {
           "layer": 0,
@@ -42353,6 +42469,7 @@
     {
       "step": 115,
       "token_id": 13729,
+      "token": "\u0120typically",
       "layers": [
         {
           "layer": 0,
@@ -42719,6 +42836,7 @@
     {
       "step": 116,
       "token_id": 9474,
+      "token": "\u0120considered",
       "layers": [
         {
           "layer": 0,
@@ -43085,6 +43203,7 @@
     {
       "step": 117,
       "token_id": 316,
+      "token": "\u0120to",
       "layers": [
         {
           "layer": 0,
@@ -43451,6 +43570,7 @@
     {
       "step": 118,
       "token_id": 413,
+      "token": "\u0120be",
       "layers": [
         {
           "layer": 0,
@@ -43817,6 +43937,7 @@
     {
       "step": 119,
       "token_id": 2846,
+      "token": "\u0120around",
       "layers": [
         {
           "layer": 0,
@@ -44183,6 +44304,7 @@
     {
       "step": 120,
       "token_id": 220,
+      "token": "\u0120",
       "layers": [
         {
           "layer": 0,
@@ -44549,6 +44671,7 @@
     {
       "step": 121,
       "token_id": 23,
+      "token": "8",
       "layers": [
         {
           "layer": 0,
@@ -44915,6 +45038,7 @@
     {
       "step": 122,
       "token_id": 11,
+      "token": ",",
       "layers": [
         {
           "layer": 0,
@@ -45281,6 +45405,7 @@
     {
       "step": 123,
       "token_id": 1302,
+      "token": "000",
       "layers": [
         {
           "layer": 0,
@@ -45647,6 +45772,7 @@
     {
       "step": 124,
       "token_id": 29514,
+      "token": "\u0120meters",
       "layers": [
         {
           "layer": 0,
@@ -46013,6 +46139,7 @@
     {
       "step": 125,
       "token_id": 350,
+      "token": "\u0120(",
       "layers": [
         {
           "layer": 0,
@@ -46379,6 +46506,7 @@
     {
       "step": 126,
       "token_id": 2109,
+      "token": "26",
       "layers": [
         {
           "layer": 0,
@@ -46745,6 +46873,7 @@
     {
       "step": 127,
       "token_id": 11,
+      "token": ",",
       "layers": [
         {
           "layer": 0,
@@ -47111,6 +47240,7 @@
     {
       "step": 128,
       "token_id": 1302,
+      "token": "000",
       "layers": [
         {
           "layer": 0,
@@ -47477,6 +47607,7 @@
     {
       "step": 129,
       "token_id": 11059,
+      "token": "\u0120feet",
       "layers": [
         {
           "layer": 0,
@@ -47843,6 +47974,7 @@
     {
       "step": 130,
       "token_id": 8,
+      "token": ")",
       "layers": [
         {
           "layer": 0,
@@ -48209,6 +48341,7 @@
     {
       "step": 131,
       "token_id": 5151,
+      "token": "\u0120above",
       "layers": [
         {
           "layer": 0,
@@ -48575,6 +48708,7 @@
     {
       "step": 132,
       "token_id": 9624,
+      "token": "\u0120sea",
       "layers": [
         {
           "layer": 0,
@@ -48941,6 +49075,7 @@
     {
       "step": 133,
       "token_id": 3211,
+      "token": "\u0120level",
       "layers": [
         {
           "layer": 0,
@@ -49307,6 +49442,7 @@
     {
       "step": 134,
       "token_id": 13,
+      "token": ".",
       "layers": [
         {
           "layer": 0,
@@ -49673,6 +49809,7 @@
     {
       "step": 135,
       "token_id": 3604,
+      "token": "\u0120At",
       "layers": [
         {
           "layer": 0,
@@ -50039,6 +50176,7 @@
     {
       "step": 136,
       "token_id": 495,
+      "token": "\u0120this",
       "layers": [
         {
           "layer": 0,
@@ -50405,6 +50543,7 @@
     {
       "step": 137,
       "token_id": 66032,
+      "token": "\u0120altitude",
       "layers": [
         {
           "layer": 0,
@@ -50771,6 +50910,7 @@
     {
       "step": 138,
       "token_id": 11,
+      "token": ",",
       "layers": [
         {
           "layer": 0,
@@ -51137,6 +51277,7 @@
     {
       "step": 139,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -51503,6 +51644,7 @@
     {
       "step": 140,
       "token_id": 3693,
+      "token": "\u0120air",
       "layers": [
         {
           "layer": 0,
@@ -51869,6 +52011,7 @@
     {
       "step": 141,
       "token_id": 382,
+      "token": "\u0120is",
       "layers": [
         {
           "layer": 0,
@@ -52235,6 +52378,7 @@
     {
       "step": 142,
       "token_id": 813,
+      "token": "\u0120so",
       "layers": [
         {
           "layer": 0,
@@ -52601,6 +52745,7 @@
     {
       "step": 143,
       "token_id": 22558,
+      "token": "\u0120thin",
       "layers": [
         {
           "layer": 0,
@@ -52967,6 +53112,7 @@
     {
       "step": 144,
       "token_id": 484,
+      "token": "\u0120that",
       "layers": [
         {
           "layer": 0,
@@ -53333,6 +53479,7 @@
     {
       "step": 145,
       "token_id": 480,
+      "token": "\u0120it",
       "layers": [
         {
           "layer": 0,
@@ -53699,6 +53846,7 @@
     {
       "step": 146,
       "token_id": 382,
+      "token": "\u0120is",
       "layers": [
         {
           "layer": 0,
@@ -54065,6 +54213,7 @@
     {
       "step": 147,
       "token_id": 6541,
+      "token": "\u0120difficult",
       "layers": [
         {
           "layer": 0,
@@ -54431,6 +54580,7 @@
     {
       "step": 148,
       "token_id": 395,
+      "token": "\u0120for",
       "layers": [
         {
           "layer": 0,
@@ -54797,6 +54947,7 @@
     {
       "step": 149,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -55163,6 +55314,7 @@
     {
       "step": 150,
       "token_id": 3641,
+      "token": "\u0120body",
       "layers": [
         {
           "layer": 0,
@@ -55529,6 +55681,7 @@
     {
       "step": 151,
       "token_id": 316,
+      "token": "\u0120to",
       "layers": [
         {
           "layer": 0,
@@ -55895,6 +56048,7 @@
     {
       "step": 152,
       "token_id": 717,
+      "token": "\u0120get",
       "layers": [
         {
           "layer": 0,
@@ -56261,6 +56415,7 @@
     {
       "step": 153,
       "token_id": 4951,
+      "token": "\u0120enough",
       "layers": [
         {
           "layer": 0,
@@ -56627,6 +56782,7 @@
     {
       "step": 154,
       "token_id": 34398,
+      "token": "\u0120oxygen",
       "layers": [
         {
           "layer": 0,
@@ -56993,6 +57149,7 @@
     {
       "step": 155,
       "token_id": 11,
+      "token": ",",
       "layers": [
         {
           "layer": 0,
@@ -57359,6 +57516,7 @@
     {
       "step": 156,
       "token_id": 326,
+      "token": "\u0120and",
       "layers": [
         {
           "layer": 0,
@@ -57725,6 +57883,7 @@
     {
       "step": 157,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -58091,6 +58250,7 @@
     {
       "step": 158,
       "token_id": 7031,
+      "token": "\u0120risk",
       "layers": [
         {
           "layer": 0,
@@ -58457,6 +58617,7 @@
     {
       "step": 159,
       "token_id": 328,
+      "token": "\u0120of",
       "layers": [
         {
           "layer": 0,
@@ -58823,6 +58984,7 @@
     {
       "step": 160,
       "token_id": 66032,
+      "token": "\u0120altitude",
       "layers": [
         {
           "layer": 0,
@@ -59189,6 +59351,7 @@
     {
       "step": 161,
       "token_id": 85016,
+      "token": "\u0120sickness",
       "layers": [
         {
           "layer": 0,
@@ -59555,6 +59718,7 @@
     {
       "step": 162,
       "token_id": 326,
+      "token": "\u0120and",
       "layers": [
         {
           "layer": 0,
@@ -59921,6 +60085,7 @@
     {
       "step": 163,
       "token_id": 1273,
+      "token": "\u0120other",
       "layers": [
         {
           "layer": 0,
@@ -60287,6 +60452,7 @@
     {
       "step": 164,
       "token_id": 3230,
+      "token": "\u0120health",
       "layers": [
         {
           "layer": 0,
@@ -60653,6 +60819,7 @@
     {
       "step": 165,
       "token_id": 6840,
+      "token": "\u0120problems",
       "layers": [
         {
           "layer": 0,
@@ -61019,6 +61186,7 @@
     {
       "step": 166,
       "token_id": 21073,
+      "token": "\u0120increases",
       "layers": [
         {
           "layer": 0,
@@ -61385,6 +61553,7 @@
     {
       "step": 167,
       "token_id": 13,
+      "token": ".",
       "layers": [
         {
           "layer": 0,
@@ -61751,6 +61920,7 @@
     {
       "step": 168,
       "token_id": 279,
+      "token": "\u010a\u010a",
       "layers": [
         {
           "layer": 0,
@@ -62117,6 +62287,7 @@
     {
       "step": 169,
       "token_id": 976,
+      "token": "The",
       "layers": [
         {
           "layer": 0,
@@ -62483,6 +62654,7 @@
     {
       "step": 170,
       "token_id": 392,
+      "token": "\u0120\"",
       "layers": [
         {
           "layer": 0,
@@ -62849,6 +63021,7 @@
     {
       "step": 171,
       "token_id": 131344,
+      "token": "death",
       "layers": [
         {
           "layer": 0,
@@ -63215,6 +63388,7 @@
     {
       "step": 172,
       "token_id": 15070,
+      "token": "\u0120zone",
       "layers": [
         {
           "layer": 0,
@@ -63581,6 +63755,7 @@
     {
       "step": 173,
       "token_id": 1,
+      "token": "\"",
       "layers": [
         {
           "layer": 0,
@@ -63947,6 +64122,7 @@
     {
       "step": 174,
       "token_id": 382,
+      "token": "\u0120is",
       "layers": [
         {
           "layer": 0,
@@ -64313,6 +64489,7 @@
     {
       "step": 175,
       "token_id": 261,
+      "token": "\u0120a",
       "layers": [
         {
           "layer": 0,
@@ -64679,6 +64856,7 @@
     {
       "step": 176,
       "token_id": 2914,
+      "token": "\u0120term",
       "layers": [
         {
           "layer": 0,
@@ -65045,6 +65223,7 @@
     {
       "step": 177,
       "token_id": 2061,
+      "token": "\u0120used",
       "layers": [
         {
           "layer": 0,
@@ -65411,6 +65590,7 @@
     {
       "step": 178,
       "token_id": 316,
+      "token": "\u0120to",
       "layers": [
         {
           "layer": 0,
@@ -65777,6 +65957,7 @@
     {
       "step": 179,
       "token_id": 12886,
+      "token": "\u0120describe",
       "layers": [
         {
           "layer": 0,
@@ -66143,6 +66324,7 @@
     {
       "step": 180,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -66509,6 +66691,7 @@
     {
       "step": 181,
       "token_id": 66032,
+      "token": "\u0120altitude",
       "layers": [
         {
           "layer": 0,
@@ -66875,6 +67058,7 @@
     {
       "step": 182,
       "token_id": 5151,
+      "token": "\u0120above",
       "layers": [
         {
           "layer": 0,
@@ -67241,6 +67425,7 @@
     {
       "step": 183,
       "token_id": 1118,
+      "token": "\u0120which",
       "layers": [
         {
           "layer": 0,
@@ -67607,6 +67792,7 @@
     {
       "step": 184,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -67973,6 +68159,7 @@
     {
       "step": 185,
       "token_id": 5396,
+      "token": "\u0120human",
       "layers": [
         {
           "layer": 0,
@@ -68339,6 +68526,7 @@
     {
       "step": 186,
       "token_id": 3641,
+      "token": "\u0120body",
       "layers": [
         {
           "layer": 0,
@@ -68705,6 +68893,7 @@
     {
       "step": 187,
       "token_id": 6284,
+      "token": "\u0120cannot",
       "layers": [
         {
           "layer": 0,
@@ -69071,6 +69260,7 @@
     {
       "step": 188,
       "token_id": 171989,
+      "token": "\u0120accl",
       "layers": [
         {
           "layer": 0,
@@ -69437,6 +69627,7 @@
     {
       "step": 189,
       "token_id": 40083,
+      "token": "imat",
       "layers": [
         {
           "layer": 0,
@@ -69803,6 +69994,7 @@
     {
       "step": 190,
       "token_id": 750,
+      "token": "ize",
       "layers": [
         {
           "layer": 0,
@@ -70169,6 +70361,7 @@
     {
       "step": 191,
       "token_id": 279,
+      "token": "\u010a\u010a",
       "layers": [
         {
           "layer": 0,
@@ -70535,6 +70728,7 @@
     {
       "step": 192,
       "token_id": 976,
+      "token": "The",
       "layers": [
         {
           "layer": 0,
@@ -70901,6 +71095,7 @@
     {
       "step": 193,
       "token_id": 392,
+      "token": "\u0120\"",
       "layers": [
         {
           "layer": 0,
@@ -71267,6 +71462,7 @@
     {
       "step": 194,
       "token_id": 131344,
+      "token": "death",
       "layers": [
         {
           "layer": 0,
@@ -71633,6 +71829,7 @@
     {
       "step": 195,
       "token_id": 15070,
+      "token": "\u0120zone",
       "layers": [
         {
           "layer": 0,
@@ -71999,6 +72196,7 @@
     {
       "step": 196,
       "token_id": 1,
+      "token": "\"",
       "layers": [
         {
           "layer": 0,
@@ -72365,6 +72563,7 @@
     {
       "step": 197,
       "token_id": 382,
+      "token": "\u0120is",
       "layers": [
         {
           "layer": 0,
@@ -72731,6 +72930,7 @@
     {
       "step": 198,
       "token_id": 261,
+      "token": "\u0120a",
       "layers": [
         {
           "layer": 0,
@@ -73097,6 +73297,7 @@
     {
       "step": 199,
       "token_id": 2914,
+      "token": "\u0120term",
       "layers": [
         {
           "layer": 0,
@@ -73463,6 +73664,7 @@
     {
       "step": 200,
       "token_id": 2061,
+      "token": "\u0120used",
       "layers": [
         {
           "layer": 0,
@@ -73829,6 +74031,7 @@
     {
       "step": 201,
       "token_id": 316,
+      "token": "\u0120to",
       "layers": [
         {
           "layer": 0,
@@ -74195,6 +74398,7 @@
     {
       "step": 202,
       "token_id": 12886,
+      "token": "\u0120describe",
       "layers": [
         {
           "layer": 0,
@@ -74561,6 +74765,7 @@
     {
       "step": 203,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -74927,6 +75132,7 @@
     {
       "step": 204,
       "token_id": 66032,
+      "token": "\u0120altitude",
       "layers": [
         {
           "layer": 0,
@@ -75293,6 +75499,7 @@
     {
       "step": 205,
       "token_id": 5151,
+      "token": "\u0120above",
       "layers": [
         {
           "layer": 0,
@@ -75659,6 +75866,7 @@
     {
       "step": 206,
       "token_id": 1118,
+      "token": "\u0120which",
       "layers": [
         {
           "layer": 0,
@@ -76025,6 +76233,7 @@
     {
       "step": 207,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -76391,6 +76600,7 @@
     {
       "step": 208,
       "token_id": 5396,
+      "token": "\u0120human",
       "layers": [
         {
           "layer": 0,
@@ -76757,6 +76967,7 @@
     {
       "step": 209,
       "token_id": 3641,
+      "token": "\u0120body",
       "layers": [
         {
           "layer": 0,
@@ -77123,6 +77334,7 @@
     {
       "step": 210,
       "token_id": 6284,
+      "token": "\u0120cannot",
       "layers": [
         {
           "layer": 0,
@@ -77489,6 +77701,7 @@
     {
       "step": 211,
       "token_id": 171989,
+      "token": "\u0120accl",
       "layers": [
         {
           "layer": 0,
@@ -77855,6 +78068,7 @@
     {
       "step": 212,
       "token_id": 40083,
+      "token": "imat",
       "layers": [
         {
           "layer": 0,
@@ -78221,6 +78435,7 @@
     {
       "step": 213,
       "token_id": 750,
+      "token": "ize",
       "layers": [
         {
           "layer": 0,
@@ -78587,6 +78802,7 @@
     {
       "step": 214,
       "token_id": 326,
+      "token": "\u0120and",
       "layers": [
         {
           "layer": 0,
@@ -78953,6 +79169,7 @@
     {
       "step": 215,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -79319,6 +79536,7 @@
     {
       "step": 216,
       "token_id": 7031,
+      "token": "\u0120risk",
       "layers": [
         {
           "layer": 0,
@@ -79685,6 +79903,7 @@
     {
       "step": 217,
       "token_id": 328,
+      "token": "\u0120of",
       "layers": [
         {
           "layer": 0,
@@ -80051,6 +80270,7 @@
     {
       "step": 218,
       "token_id": 8027,
+      "token": "\u0120death",
       "layers": [
         {
           "layer": 0,
@@ -80417,6 +80637,7 @@
     {
       "step": 219,
       "token_id": 21073,
+      "token": "\u0120increases",
       "layers": [
         {
           "layer": 0,
@@ -80783,6 +81004,7 @@
     {
       "step": 220,
       "token_id": 17000,
+      "token": "\u0120significantly",
       "layers": [
         {
           "layer": 0,
@@ -81149,6 +81371,7 @@
     {
       "step": 221,
       "token_id": 13,
+      "token": ".",
       "layers": [
         {
           "layer": 0,
@@ -81515,6 +81738,7 @@
     {
       "step": 222,
       "token_id": 1225,
+      "token": "\u0120It",
       "layers": [
         {
           "layer": 0,
@@ -81881,6 +82105,7 @@
     {
       "step": 223,
       "token_id": 382,
+      "token": "\u0120is",
       "layers": [
         {
           "layer": 0,
@@ -82247,6 +82472,7 @@
     {
       "step": 224,
       "token_id": 13729,
+      "token": "\u0120typically",
       "layers": [
         {
           "layer": 0,
@@ -82613,6 +82839,7 @@
     {
       "step": 225,
       "token_id": 9474,
+      "token": "\u0120considered",
       "layers": [
         {
           "layer": 0,
@@ -82979,6 +83206,7 @@
     {
       "step": 226,
       "token_id": 316,
+      "token": "\u0120to",
       "layers": [
         {
           "layer": 0,
@@ -83345,6 +83573,7 @@
     {
       "step": 227,
       "token_id": 413,
+      "token": "\u0120be",
       "layers": [
         {
           "layer": 0,
@@ -83711,6 +83940,7 @@
     {
       "step": 228,
       "token_id": 2846,
+      "token": "\u0120around",
       "layers": [
         {
           "layer": 0,
@@ -84077,6 +84307,7 @@
     {
       "step": 229,
       "token_id": 220,
+      "token": "\u0120",
       "layers": [
         {
           "layer": 0,
@@ -84443,6 +84674,7 @@
     {
       "step": 230,
       "token_id": 23,
+      "token": "8",
       "layers": [
         {
           "layer": 0,
@@ -84809,6 +85041,7 @@
     {
       "step": 231,
       "token_id": 11,
+      "token": ",",
       "layers": [
         {
           "layer": 0,
@@ -85175,6 +85408,7 @@
     {
       "step": 232,
       "token_id": 1302,
+      "token": "000",
       "layers": [
         {
           "layer": 0,
@@ -85541,6 +85775,7 @@
     {
       "step": 233,
       "token_id": 29514,
+      "token": "\u0120meters",
       "layers": [
         {
           "layer": 0,
@@ -85907,6 +86142,7 @@
     {
       "step": 234,
       "token_id": 350,
+      "token": "\u0120(",
       "layers": [
         {
           "layer": 0,
@@ -86273,6 +86509,7 @@
     {
       "step": 235,
       "token_id": 2109,
+      "token": "26",
       "layers": [
         {
           "layer": 0,
@@ -86639,6 +86876,7 @@
     {
       "step": 236,
       "token_id": 11,
+      "token": ",",
       "layers": [
         {
           "layer": 0,
@@ -87005,6 +87243,7 @@
     {
       "step": 237,
       "token_id": 1302,
+      "token": "000",
       "layers": [
         {
           "layer": 0,
@@ -87371,6 +87610,7 @@
     {
       "step": 238,
       "token_id": 11059,
+      "token": "\u0120feet",
       "layers": [
         {
           "layer": 0,
@@ -87737,6 +87977,7 @@
     {
       "step": 239,
       "token_id": 8,
+      "token": ")",
       "layers": [
         {
           "layer": 0,
@@ -88103,6 +88344,7 @@
     {
       "step": 240,
       "token_id": 5151,
+      "token": "\u0120above",
       "layers": [
         {
           "layer": 0,
@@ -88469,6 +88711,7 @@
     {
       "step": 241,
       "token_id": 9624,
+      "token": "\u0120sea",
       "layers": [
         {
           "layer": 0,
@@ -88835,6 +89078,7 @@
     {
       "step": 242,
       "token_id": 3211,
+      "token": "\u0120level",
       "layers": [
         {
           "layer": 0,
@@ -89201,6 +89445,7 @@
     {
       "step": 243,
       "token_id": 13,
+      "token": ".",
       "layers": [
         {
           "layer": 0,
@@ -89567,6 +89812,7 @@
     {
       "step": 244,
       "token_id": 3604,
+      "token": "\u0120At",
       "layers": [
         {
           "layer": 0,
@@ -89933,6 +90179,7 @@
     {
       "step": 245,
       "token_id": 495,
+      "token": "\u0120this",
       "layers": [
         {
           "layer": 0,
@@ -90299,6 +90546,7 @@
     {
       "step": 246,
       "token_id": 66032,
+      "token": "\u0120altitude",
       "layers": [
         {
           "layer": 0,
@@ -90665,6 +90913,7 @@
     {
       "step": 247,
       "token_id": 11,
+      "token": ",",
       "layers": [
         {
           "layer": 0,
@@ -91031,6 +91280,7 @@
     {
       "step": 248,
       "token_id": 290,
+      "token": "\u0120the",
       "layers": [
         {
           "layer": 0,
@@ -91397,6 +91647,7 @@
     {
       "step": 249,
       "token_id": 3693,
+      "token": "\u0120air",
       "layers": [
         {
           "layer": 0,
@@ -91763,6 +92014,7 @@
     {
       "step": 250,
       "token_id": 382,
+      "token": "\u0120is",
       "layers": [
         {
           "layer": 0,
@@ -92129,6 +92381,7 @@
     {
       "step": 251,
       "token_id": 813,
+      "token": "\u0120so",
       "layers": [
         {
           "layer": 0,
@@ -92495,6 +92748,7 @@
     {
       "step": 252,
       "token_id": 22558,
+      "token": "\u0120thin",
       "layers": [
         {
           "layer": 0,
@@ -92861,6 +93115,7 @@
     {
       "step": 253,
       "token_id": 279,
+      "token": "\u010a\u010a",
       "layers": [
         {
           "layer": 0,
@@ -93227,6 +93482,7 @@
     {
       "step": 254,
       "token_id": 976,
+      "token": "The",
       "layers": [
         {
           "layer": 0,
@@ -93593,6 +93849,7 @@
     {
       "step": 255,
       "token_id": 392,
+      "token": "\u0120\"",
       "layers": [
         {
           "layer": 0,
@@ -93960,6 +94217,6 @@
   "num_layers": 24,
   "num_experts": 32,
   "k_per_token": 4,
-  "timestamp": "2025-12-18 09:15:36",
+  "timestamp": "2025-12-18 09:28:30",
   "category": "conversation"
 }
