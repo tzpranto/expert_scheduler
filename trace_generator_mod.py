@@ -4,14 +4,14 @@ from datasets import load_dataset, Dataset
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import random
 import argparse
+import gc
 
-# --- Global variable for top-k setting (can be overridden by argument) ---
 TOPK_PER_TOKEN = None
 
 class RouterTraceContext:
     """
     Context manager to capture router logits via forward hooks.
-    Useful when model.config.output_router_logits is not supported or not working.
+    Required for GPT-5 OSS and similar MoE architectures.
     """
     def __init__(self, model, verbose=False):
         self.model = model
@@ -33,10 +33,11 @@ class RouterTraceContext:
             h.remove()
         self.hooks = []
         self.captured_logits = {}
-        # Keep self.num_experts unless we know we are reloading a new model
+        gc.collect()
+        torch.cuda.empty_cache()
 
     def _register_hooks(self):
-        # Heuristic: Find router modules in MoE layers.
+        # Find MoE layers
         layers = None
         if hasattr(self.model, 'model') and hasattr(self.model.model, 'layers'):
             layers = self.model.model.layers
@@ -48,89 +49,42 @@ class RouterTraceContext:
             return
 
         if self.verbose:
-            print(f"[Hooks] Scanning {len(layers)} layers for router modules...")
+            print(f"[Hooks] Scanning {len(layers)} layers for MoE modules...")
 
         for i, layer in enumerate(layers):
-            target_modules = []  # Collect all candidates
-
-            # Strategy 1: Check for MLP/FFN attribute (common in MoE architectures)
-            # This hooks ANY router-like module, not just Linear layers
             if hasattr(layer, 'mlp'):
-                mlp = layer.mlp
-                for name, module in mlp.named_modules():
-                    name_lower = name.lower()
-                    # Hook ANY module with router/gate/select/route in name
-                    if 'gate' in name_lower or 'router' in name_lower:
-                        target_modules.append((f"mlp.{name}", module, 'mlp_primary'))
-                    elif any(x in name_lower for x in ['select', 'route']):
-                        target_modules.append((f"mlp.{name}", module, 'mlp_secondary'))
-
-            # Strategy 2: Search all named modules (fallback)
-            if not target_modules:
-                for name, module in layer.named_modules():
-                    # Skip self references
-                    if module is layer:
-                        continue
-
-                    name_lower = name.lower()
-
-                    # Primary targets: Standard router/gate names (any module type)
-                    if 'gate' in name_lower or 'router' in name_lower:
-                        target_modules.append((name, module, 'primary'))
-                    elif 'moe' in name_lower and any(x in name_lower for x in ['gate', 'router', 'select', 'route']):
-                        target_modules.append((name, module, 'moe_keyword'))
-                    elif 'moe' in name_lower:
-                        target_modules.append((name, module, 'moe_fallback'))
-
-            # Select the best candidate based on priority
-            target_module = None
-            target_name = None
-            priority_order = ['mlp_primary', 'mlp_secondary', 'primary', 'moe_keyword', 'moe_fallback']
-
-            for priority in priority_order:
-                candidates = [m for m in target_modules if m[2] == priority]
-                if candidates:
-                    # If multiple candidates, prefer the one with fewest submodules (more direct)
-                    target_name, target_module, _ = min(candidates, key=lambda x: len(list(x[1].modules())))
-                    if self.verbose:
-                        print(f"  [Layer {i}] Found router module ({priority}): {target_name} (type: {type(target_module).__name__})")
-                    break
-
-            if target_module:
-                self._hook_module(i, target_module, target_name)
-                self.hooked_modules.append((i, target_name))
+                self._hook_module(i, layer.mlp, 'mlp')
+                self.hooked_modules.append((i, 'mlp'))
+                if self.verbose:
+                    print(f"  [Layer {i}] Hooked MLP module")
             elif self.verbose:
-                print(f"  [Layer {i}] No router module found")
+                print(f"  [Layer {i}] No MLP module found")
 
         if self.verbose:
             print(f"[Hooks] Successfully hooked {len(self.hooked_modules)} layers")
 
     def _hook_module(self, layer_idx, module, target_name=None):
         def hook(mod, inputs, outputs):
-            # Handle various output formats from different router implementations
-            t = None
-
-            # Case 1: Direct tensor output
-            if isinstance(outputs, torch.Tensor):
-                t = outputs
-            # Case 2: Tuple of tensors (common: logits, routing_indices, etc.)
-            elif isinstance(outputs, tuple) and len(outputs) > 0:
-                t = outputs[0]
-            # Case 3: Dict output (some MoE routers return dicts)
+            logits = None
+            
+            if isinstance(outputs, (tuple, list)) and len(outputs) > 1:
+                # GPT-OSS returns (hidden_states, router_logits)
+                logits = outputs[1]
+            elif isinstance(outputs, torch.Tensor):
+                logits = outputs
             elif isinstance(outputs, dict):
                 # Try common keys
                 for key in ['logits', 'router_logits', 'routing_logits', 'output']:
                     if key in outputs and isinstance(outputs[key], torch.Tensor):
-                        t = outputs[key]
+                        logits = outputs[key]
                         break
 
             # If we have a tensor, process it
-            if t is not None and isinstance(t, torch.Tensor):
+            if logits is not None and isinstance(logits, torch.Tensor):
                 if layer_idx not in self.captured_logits:
                     self.captured_logits[layer_idx] = []
 
-                # Detach and move to CPU immediately to save VRAM
-                t_detached = t.detach().cpu()
+                t_detached = logits.detach().cpu().float()
                 self.captured_logits[layer_idx].append(t_detached)
 
                 # Infer and store num_experts (E) from the last dimension
@@ -147,12 +101,8 @@ class RouterTraceContext:
 
 
 def format_prompt_harmony(tok, prompt, reasoning_effort="medium"):
-    """
-    Format prompt with harmony chat template for GPT-5 OSS.
-    reasoning_effort: 'low', 'medium', or 'high'
-    """
     messages = [
-        {"role": "developer", "content": "Try to avoid hallucination"},
+        # {"role": "developer", "content": "Try to avoid hallucination"},
         {"role": "user", "content": prompt},
     ]
     
@@ -215,18 +165,12 @@ def get_dataset(dataset_id, subset=None, split=None):
         print('Dataset not supported. Make changes in get_data() function to add support.')
         exit(0)
 
-def load_model_and_tok(model_id, dtype, device_map, force_cpu=False):
+def load_model_and_tok(model_id, dtype, device_map):
     tok = AutoTokenizer.from_pretrained(model_id, use_fast=True)
-
-    # For GPT5-OSS, CPU mode uses bf16 (avoids GPU MXFP4 compatibility issues)
-    if force_cpu:
-        print("⚠️  Using CPU mode (MXFP4 GPU compatibility issue). Using bf16 precision.")
-        device_map = "cpu"
-        dtype = torch.bfloat16
 
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
-        dtype=dtype,
+        torch_dtype=dtype,
         device_map=device_map
     )
     # Attempt to enable built-in router logits output (for models that support it)
@@ -236,11 +180,11 @@ def load_model_and_tok(model_id, dtype, device_map, force_cpu=False):
         pass
     return tok, model
 
-def get_model(model_id, force_cpu=False):
+def get_model(model_id):
     if model_id == 'olmoe':
-        return load_model_and_tok("allenai/OLMoE-1B-7B-0125", torch.float16, "auto", force_cpu=force_cpu)
+        return load_model_and_tok("allenai/OLMoE-1B-7B-0125", torch.float16, "auto")
     elif model_id == 'gpt5oss':
-        return load_model_and_tok("openai/gpt-oss-20b", "auto", "auto", force_cpu=force_cpu)
+        return load_model_and_tok("openai/gpt-oss-20b", "auto", "cuda")
     else:
         print("Model not supported!")
         exit(0)
@@ -283,7 +227,7 @@ def collect_prompt_router_trace(model, tok, text, use_hooks=False, verbose=False
         if not ctx.hooked_modules:
             raise RuntimeError(
                 "No router modules found! Could not register hooks. "
-                "Try running: python debug_gpt5_structure.py to inspect model structure."
+                "Verify model has MLP layers with router outputs."
             )
         out = model(**enc)
     else:
@@ -302,9 +246,11 @@ def collect_prompt_router_trace(model, tok, text, use_hooks=False, verbose=False
 
         router_logits = []
         for i in sorted_layers:
-            # We take the first one (should be only one for prefill)
+            # Concatenate all captures for this layer (prefill is single call)
             if captured[i]:
-                router_logits.append(captured[i][0])
+                # For prefill, we concatenate along token dimension if multiple captures
+                layer_logits = torch.cat(captured[i], dim=0) if len(captured[i]) > 1 else captured[i][0]
+                router_logits.append(layer_logits)
 
         if not router_logits:
             raise RuntimeError(
@@ -319,7 +265,7 @@ def collect_prompt_router_trace(model, tok, text, use_hooks=False, verbose=False
         if not out.router_logits:
             raise RuntimeError(
                 "Built-in output_router_logits=True returned empty! "
-                "This is a known issue with GPT5-OSS. Try --force_hooks flag."
+                "Try --force_hooks flag."
             )
         router = tuple(_norm_router_tensor(x) for x in out.router_logits)
         E = model.config.num_experts if hasattr(model.config, "num_experts") else -1
@@ -335,7 +281,8 @@ def collect_prompt_router_trace(model, tok, text, use_hooks=False, verbose=False
     if hasattr(model.config, "num_experts_per_tok"):
         k = TOPK_PER_TOKEN or model.config.num_experts_per_tok
     else:
-        k = TOPK_PER_TOKEN or 2 # Default fallback
+        # GPT-5 OSS uses Top-4 experts by default
+        k = TOPK_PER_TOKEN or 4
     
     current_k = min(k, E) if E > 0 else k
         
@@ -346,7 +293,7 @@ def collect_prompt_router_trace(model, tok, text, use_hooks=False, verbose=False
         vals, idxs = torch.topk(probs, k=current_k, dim=-1)
         token_data = [
             {"token": tokens[t], "topk_experts": idxs[t].cpu().tolist(),
-             "topk_probs": vals[t].cpu().tolist()}
+             "topk_probs": [round(p.item(), 4) for p in vals[t]]}
             for t in range(len(tokens))
         ]
         layers.append({"layer": L, "num_experts": E, "topk_per_token": current_k, "token_data": token_data})
@@ -372,7 +319,8 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
     if hasattr(model.config, "num_experts_per_tok"):
         k = TOPK_PER_TOKEN or model.config.num_experts_per_tok
     else:
-        k = TOPK_PER_TOKEN or 2
+        # GPT-5 OSS uses Top-4 experts by default
+        k = TOPK_PER_TOKEN or 4
 
     # First forward pass (prefill)
     if use_hooks:
@@ -381,7 +329,7 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
         if not ctx.hooked_modules:
             raise RuntimeError(
                 "No router modules found! Could not register hooks. "
-                "Try running: python debug_gpt5_structure.py to inspect model structure."
+                "Verify model has MLP layers with router outputs."
             )
         out = model(input_ids=input_ids, use_cache=True)
         # Determine E from hooks after prefill
@@ -397,7 +345,7 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
         if not out.router_logits:
             raise RuntimeError(
                 "Built-in output_router_logits=True returned empty! "
-                "This is a known issue with GPT5-OSS. Try --force_hooks flag."
+                "Try --force_hooks flag."
             )
         if hasattr(model.config, "num_experts"):
             E = model.config.num_experts
@@ -417,7 +365,6 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
     curr_out = out
     
     # Initialize layers info for the loop structure.
-    step_layers_init = []
     num_layers = 0
     if E > 0 and use_hooks:
         num_layers = len(ctx.captured_logits)
@@ -438,15 +385,16 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
         if use_hooks and E > 0:
             # We rely on the hook mechanism capturing the latest tensor
             for L in sorted_layers:
-                # Get the last captured tensor
-                r = _norm_router_tensor(ctx.captured_logits[L][-1])
-                probs = torch.softmax(r[0, -1], dim=-1)
-                vals, idxs = torch.topk(probs, k=current_k)
-                step_layers.append({
-                    "layer": L,
-                    "topk_experts": idxs.cpu().tolist(),
-                    "topk_probs": vals.cpu().tolist()
-                })
+                # Get the last captured tensor (most recent generation step)
+                if ctx.captured_logits[L]:
+                    r = _norm_router_tensor(ctx.captured_logits[L][-1])
+                    probs = torch.softmax(r[0, -1], dim=-1)
+                    vals, idxs = torch.topk(probs, k=current_k)
+                    step_layers.append({
+                        "layer": L,
+                        "topk_experts": idxs.cpu().tolist(),
+                        "topk_probs": [round(p.item(), 4) for p in vals]
+                    })
         elif not use_hooks and E > 0 and curr_out.router_logits:
             for L, r_raw in enumerate(curr_out.router_logits):
                 r = _norm_router_tensor(r_raw)
@@ -455,11 +403,9 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
                 step_layers.append({
                     "layer": L,
                     "topk_experts": idxs.cpu().tolist(),
-                    "topk_probs": vals.cpu().tolist()
+                    "topk_probs": [round(p.item(), 4) for p in vals]
                 })
         
-        # If the number of layers is zero, this loop will still run, 
-        # but step_layers will be empty. We check E>0 to ensure we save data.
         steps.append({"step": step, "token_id": next_token.item(), "layers": step_layers})
 
         if (step + 1) % 64 == 0 or step == max_new_tokens - 1:
@@ -472,8 +418,11 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
             break
 
         # 3. Run next step
-        curr_out = model(input_ids=next_token, past_key_values=past,
-                    use_cache=True, output_router_logits=not use_hooks)
+        if use_hooks:
+            curr_out = model(input_ids=next_token, past_key_values=past, use_cache=True)
+        else:
+            curr_out = model(input_ids=next_token, past_key_values=past,
+                        use_cache=True, output_router_logits=True)
         past = curr_out.past_key_values
 
     if use_hooks:
@@ -552,19 +501,13 @@ def parse_args():
         "--top_k",
         type=int,
         default=None,
-        help="Override for top-K experts to save (default: use model config)"
+        help="Override for top-K experts to save (default: use model config or 4 for gpt5oss)"
     )
 
     parser.add_argument(
         "--verbose",
         action="store_true",
         help="Enable verbose output for debugging hook registration"
-    )
-
-    parser.add_argument(
-        "--force_cpu",
-        action="store_true",
-        help="Force CPU mode (use this if GPU has MXFP4 compatibility issues)"
     )
 
     args = parser.parse_args()
@@ -587,10 +530,9 @@ if __name__ == "__main__":
 
     OUT_DIR = Path(f"moe_traces/{args.model_id}/{args.dataset_id}")
     MAX_NEW_TOKENS = args.max_token
-    tok, model = get_model(args.model_id, force_cpu=args.force_cpu)
+    tok, model = get_model(args.model_id)
     
     # Force hooks for GPT-5 OSS or if requested
-    # The fix ensures this is robust.
     USE_HOOKS = (args.model_id == 'gpt5oss') or args.force_hooks
     
     if args.model_id == 'gpt5oss':
