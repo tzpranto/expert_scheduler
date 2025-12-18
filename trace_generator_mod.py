@@ -100,7 +100,7 @@ class RouterTraceContext:
         return self.captured_logits.get(layer_idx, [])
 
 
-def format_prompt_harmony(tok, prompt, reasoning_effort="medium"):
+def format_prompt_harmony(tok, prompt, reasoning_effort="low"):
     messages = [
         # {"role": "developer", "content": "Try to avoid hallucination"},
         {"role": "user", "content": prompt},
@@ -428,7 +428,7 @@ def collect_generate_router_trace(model, tok, prompt, max_new_tokens=64, use_hoo
     if use_hooks:
         ctx.__exit__(None, None, None)
 
-    gen_text = tok.decode(generated, skip_special_tokens=True)
+    gen_text = tok.decode(generated, skip_special_tokens=False)
     
     return {
         "prompt": prompt,
