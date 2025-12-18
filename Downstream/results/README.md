@@ -10,7 +10,7 @@ Layer variation: The lowest entropies are around layers 3 and 13 (~5.72–5.74 b
 
 Token coverage: Each layer aggregates the same token count (22,455), so differences are due to routing preferences, not sample size.
 
-Takeaway for a report: This model exhibits consistently diverse expert usage with slight mid-layer dips but no strong specialization or collapse
+Takeaway: This model exhibits consistently diverse expert usage with slight mid-layer dips but no strong specialization or collapse
 
 
 ##
