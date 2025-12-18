@@ -102,22 +102,32 @@ class ExpertSequenceAnalyzer:
     def _find_analysis_stage_boundary(self, gen_text: str, gen_steps: List) -> int:
         """
         Find where analysis stage starts (if exists)
-        Uses heuristic: look for format markers or patterns
+        Handles both GPT Harmony format (<|channel|>analysis) and heuristic detection
         """
-        # Look for common patterns in generated text
-        patterns = [
-            r'<\|channel\|>analysis',
-            r'analysis[:\s]',
-            r'thinking[:\s]',
-            r'reasoning[:\s]'
+        # GPT Harmony format: <|channel|>analysis
+        harmony_pattern = r'<\|channel\|>\s*analysis'
+        matches = list(re.finditer(harmony_pattern, gen_text, re.IGNORECASE))
+
+        if matches:
+            first_match_pos = matches[0].start()
+            # Estimate which step this corresponds to
+            # Each token is roughly 4 characters on average
+            estimated_step = int(first_match_pos / 4)
+            if 0 <= estimated_step < len(gen_steps):
+                return estimated_step
+
+        # Fallback heuristic patterns (less reliable)
+        fallback_patterns = [
+            r'<\|start\|>.*?<\|channel\|>',  # GPT format: start of response section
+            r'\n\s*analysis[:\s]',             # Line-based analysis marker
+            r'\n\s*thinking[:\s]',             # Thinking/reasoning marker
+            r'\n\s*step\s+\d+[:\s]'            # Step-by-step reasoning
         ]
 
-        for pattern in patterns:
+        for pattern in fallback_patterns:
             matches = list(re.finditer(pattern, gen_text, re.IGNORECASE))
             if matches:
-                first_match_pos = matches[0].start()
-                # Estimate which step this corresponds to
-                # (rough approximation: character position / avg chars per token)
+                first_match_pos = matches[-1].end()  # Use last match (more likely to be analysis)
                 estimated_step = int(first_match_pos / 4)
                 if 0 <= estimated_step < len(gen_steps):
                     return estimated_step
