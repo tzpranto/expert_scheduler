@@ -503,7 +503,7 @@ def parse_args():
         "--mode",
         type=str,
         choices=["exec", "test"],
-        default="test",
+        default="exec",
         help="Model of execution. Select 'test' mode to generate one sample. (default: test)"
     )
     
