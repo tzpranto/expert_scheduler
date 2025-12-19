@@ -27,6 +27,17 @@ python trace_generator.py --model_id gpt5oss --max_token 512 --mode exec
 ```
 ### 2. Trace Analysis
 
+Generate analysis on heavy vs sparse hitters, entropy, heatmaps and prefill-vs-gen comparison. 
+```bash
+python analysis/gpt5oss_oasst/analyze_hitters.py
+python analysis/gpt5oss_oasst/entropy_calc.py
+python analysis/gpt5oss_oasst/render_hitters_report.py
+python analysis/gpt5oss_oasst/plot_heatmaps.py
+python analysis/compare_prefill_vs_gen.py
+```
+
+
+
 
 ### 3. Train LSTM Model
 
