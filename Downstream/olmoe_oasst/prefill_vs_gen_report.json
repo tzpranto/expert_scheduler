@@ -1,0 +1,195 @@
+{
+  "dataset": "olmoe_oasst",
+  "dir": "Downstream/olmoe_oasst/olmoe/oasst1",
+  "num_layers": 16,
+  "num_experts": 64,
+  "pct": 0.1,
+  "files": {
+    "prefill": 500,
+    "generation": 500
+  },
+  "tokens": {
+    "prefill": 22455,
+    "generation": 128000
+  },
+  "prefill": {
+    "total_top1_events": 359280,
+    "heavy_hitters": [
+      {
+        "expert": 4,
+        "count": 8885,
+        "pct": 2.4730015586729013
+      },
+      {
+        "expert": 6,
+        "count": 8299,
+        "pct": 2.3098975729236253
+      },
+      {
+        "expert": 54,
+        "count": 7957,
+        "pct": 2.214707192162102
+      },
+      {
+        "expert": 62,
+        "count": 7917,
+        "pct": 2.2035738142952574
+      },
+      {
+        "expert": 1,
+        "count": 7583,
+        "pct": 2.1106101091071032
+      },
+      {
+        "expert": 35,
+        "count": 7500,
+        "pct": 2.0875083500334
+      },
+      {
+        "expert": 61,
+        "count": 7395,
+        "pct": 2.0582832331329324
+      }
+    ],
+    "sparse_hitters": [
+      {
+        "expert": 37,
+        "count": 2771,
+        "pct": 0.7712647517256735
+      },
+      {
+        "expert": 10,
+        "count": 3304,
+        "pct": 0.9196170118013806
+      },
+      {
+        "expert": 28,
+        "count": 3834,
+        "pct": 1.0671342685370742
+      },
+      {
+        "expert": 50,
+        "count": 3988,
+        "pct": 1.1099977733244266
+      },
+      {
+        "expert": 33,
+        "count": 4047,
+        "pct": 1.1264195056780228
+      },
+      {
+        "expert": 46,
+        "count": 4191,
+        "pct": 1.166499665998664
+      },
+      {
+        "expert": 0,
+        "count": 4343,
+        "pct": 1.2088065018926741
+      }
+    ]
+  },
+  "generation": {
+    "total_top1_events": 2048000,
+    "heavy_hitters": [
+      {
+        "expert": 27,
+        "count": 82815,
+        "pct": 4.043701171875
+      },
+      {
+        "expert": 21,
+        "count": 52858,
+        "pct": 2.5809570312499996
+      },
+      {
+        "expert": 59,
+        "count": 50693,
+        "pct": 2.475244140625
+      },
+      {
+        "expert": 14,
+        "count": 49493,
+        "pct": 2.416650390625
+      },
+      {
+        "expert": 24,
+        "count": 49221,
+        "pct": 2.4033691406249997
+      },
+      {
+        "expert": 61,
+        "count": 44458,
+        "pct": 2.17080078125
+      },
+      {
+        "expert": 33,
+        "count": 40910,
+        "pct": 1.9975585937499998
+      }
+    ],
+    "sparse_hitters": [
+      {
+        "expert": 25,
+        "count": 12720,
+        "pct": 0.62109375
+      },
+      {
+        "expert": 37,
+        "count": 15452,
+        "pct": 0.7544921875
+      },
+      {
+        "expert": 58,
+        "count": 19531,
+        "pct": 0.953662109375
+      },
+      {
+        "expert": 41,
+        "count": 19666,
+        "pct": 0.9602539062500001
+      },
+      {
+        "expert": 10,
+        "count": 19708,
+        "pct": 0.9623046874999999
+      },
+      {
+        "expert": 3,
+        "count": 20774,
+        "pct": 1.01435546875
+      },
+      {
+        "expert": 28,
+        "count": 20987,
+        "pct": 1.024755859375
+      }
+    ]
+  },
+  "distance": {
+    "tvd": 0.10301432846161071,
+    "js_divergence": 0.009953026970306507
+  },
+  "overlap": {
+    "shared_experts": [
+      61
+    ],
+    "prefill_only": [
+      1,
+      4,
+      6,
+      35,
+      54,
+      62
+    ],
+    "generation_only": [
+      14,
+      21,
+      24,
+      27,
+      33,
+      59
+    ],
+    "jaccard": 0.07692307692307693
+  }
+}

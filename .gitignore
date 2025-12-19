@@ -214,5 +214,5 @@ moe_test/
 
 
 *.zip 
-**/olmoe_oasst/*
+**/olmoe/*
 **/gpt5oss/* 
