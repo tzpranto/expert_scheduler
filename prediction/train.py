@@ -72,11 +72,11 @@ def main():
         help="Path to data directory (uses default if not specified)",
     )
     parser.add_argument(
-        "--epochs", type=int, default=20, help="Number of training epochs"
+        "--epochs", type=int, default=50, help="Number of training epochs"
     )
     parser.add_argument("--batch-size", type=int, default=32, help="Batch size")
     parser.add_argument("--hidden-size", type=int, default=512, help="LSTM hidden size")
-    parser.add_argument("--lr", type=float, default=0.001, help="Learning rate")
+    parser.add_argument("--lr", type=float, default=0.0001, help="Learning rate")
     args = parser.parse_args()
 
     # Select configuration
