@@ -87,6 +87,106 @@ def plot_heatmap(
     plt.close()
 
 
+def build_freq_matrix(
+    layers: List[dict],
+    start: int,
+    end: int,
+    num_experts: int,
+) -> np.ndarray:
+    """Layer x expert frequency (counts) matrix across tokens."""
+    num_layers = len(layers)
+    freq = np.zeros((num_layers, num_experts), dtype=float)
+    for li, layer in enumerate(layers):
+        td = layer["token_data"]
+        for ti in range(start, end):
+            top1 = td[ti]["topk_experts"][0]
+            freq[li, top1] += 1
+    # convert to percentage per layer
+    token_count = max(1, end - start)
+    freq = freq / token_count * 100.0
+    return freq
+
+
+def plot_freq_heatmap(
+    freq: np.ndarray,
+    title: str,
+    outpath: str,
+) -> None:
+    """Plot layer x expert frequency (%) heatmap."""
+    plt.figure(figsize=(10, 6))
+    im = plt.imshow(freq, aspect="auto", interpolation="nearest", cmap="viridis")
+    plt.colorbar(im, label="Frequency (%)")
+    plt.yticks(range(freq.shape[0]), [f"L{l}" for l in range(freq.shape[0])])
+    plt.xticks(range(freq.shape[1]), range(freq.shape[1]))
+    plt.xlabel("Expert ID")
+    plt.ylabel("Layer")
+    plt.title(title)
+    plt.tight_layout()
+    plt.savefig(outpath, dpi=200)
+    plt.close()
+
+
+def compute_entropy_stats(
+    layers: List[dict],
+    start: int,
+    end: int,
+) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Compute per-layer average entropy (bits) and effective experts (2**H)
+    using the provided top-k probabilities.
+    """
+    num_layers = len(layers)
+    entropies = np.zeros(num_layers, dtype=float)
+    effs = np.zeros(num_layers, dtype=float)
+    token_count = max(1, end - start)
+    for li, layer in enumerate(layers):
+        td = layer["token_data"]
+        layer_ents = []
+        for ti in range(start, end):
+            probs = td[ti]["topk_probs"]
+            # ensure numeric and normalized
+            s = sum(probs)
+            if s <= 0:
+                continue
+            p = [x / s for x in probs]
+            h = -sum(pi * np.log2(pi) for pi in p if pi > 0)
+            layer_ents.append(h)
+        if layer_ents:
+            ent = float(np.mean(layer_ents))
+        else:
+            ent = 0.0
+        entropies[li] = ent
+        effs[li] = 2 ** ent
+    return entropies, effs
+
+
+def plot_entropy_effective(
+    entropies: np.ndarray,
+    effs: np.ndarray,
+    outpath: str,
+    segment_name: str,
+) -> None:
+    """Plot per-layer entropy and effective experts."""
+    layers = np.arange(len(entropies))
+    fig, ax1 = plt.subplots(figsize=(10, 4))
+    ax1.plot(layers, entropies, marker="o", label="Entropy (bits)", color="tab:blue")
+    ax1.set_xlabel("Layer")
+    ax1.set_ylabel("Entropy (bits)", color="tab:blue")
+    ax1.tick_params(axis="y", labelcolor="tab:blue")
+    ax1.set_xticks(layers)
+    ax1.set_xticklabels([f"L{l}" for l in layers], rotation=45, ha="right")
+
+    ax2 = ax1.twinx()
+    ax2.plot(layers, effs, marker="s", label="Effective experts", color="tab:orange")
+    ax2.set_ylabel("Effective experts", color="tab:orange")
+    ax2.tick_params(axis="y", labelcolor="tab:orange")
+
+    fig.suptitle(f"{segment_name.capitalize()} tokens: entropy and effective experts")
+    fig.tight_layout()
+    fig.savefig(outpath, dpi=200)
+    plt.close(fig)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(
         description="Per-layer per-token activation heatmaps (top-1 expert IDs)."
@@ -113,15 +213,27 @@ def main() -> None:
     for name, (s, e) in segments.items():
         if e <= s:
             continue
+        base = os.path.splitext(os.path.basename(args.trace))[0]
+
+        # Top-1 expert heatmap (token-level)
         mat = build_matrix(layers, s, e)
         seg_tokens = tokens[s:e]
-        outpath = os.path.join(
-            args.outdir,
-            f"{os.path.splitext(os.path.basename(args.trace))[0]}_{name}.png",
-        )
-        title = f"{name.capitalize()} tokens: top-1 expert per layer"
-        plot_heatmap(mat, seg_tokens, title, outpath, args.max_tokens)
-        print(f"Wrote {outpath}")
+        heat_out = os.path.join(args.outdir, f"{base}_{name}.png")
+        plot_heatmap(mat, seg_tokens, f"{name.capitalize()} tokens: top-1 expert per layer", heat_out, args.max_tokens)
+        print(f"Wrote {heat_out}")
+
+        # Layer x expert frequency heatmap
+        num_experts = layers[0]["num_experts"] if "num_experts" in layers[0] else 32
+        freq = build_freq_matrix(layers, s, e, num_experts)
+        freq_out = os.path.join(args.outdir, f"{base}_{name}_freq.png")
+        plot_freq_heatmap(freq, f"{name.capitalize()} tokens: layer x expert frequency (%)", freq_out)
+        print(f"Wrote {freq_out}")
+
+        # Per-layer entropy / effective experts
+        entropies, effs = compute_entropy_stats(layers, s, e)
+        ent_out = os.path.join(args.outdir, f"{base}_{name}_entropy.png")
+        plot_entropy_effective(entropies, effs, ent_out, name)
+        print(f"Wrote {ent_out}")
 
 
 if __name__ == "__main__":
