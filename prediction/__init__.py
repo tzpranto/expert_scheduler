@@ -1,20 +1,27 @@
 """
 Expert Prediction Module
-Provides LSTM and LRU models for predicting expert usage in MoE systems
+Provides configurable LSTM model for predicting expert usage in MoE systems.
+
+Supports:
+  - OLMoE: 16 layers, 64 experts, top-K=8
+  - GPT5OSS: 24 layers, 32 experts, top-K=4
+  - Custom configurations via ModelConfig
+
+Usage:
+  from prediction.data_loader import ExpertDataLoader, OLMOE_CONFIG
+  from prediction.bilstm_model import BiLSTMExpertPredictor
+  from prediction.train import main as train_model
 """
 
-from .common import ExpertSequenceAnalyzer, ExpertPool, EvaluationMetrics
-from .lstm_model import LSTMExpertPredictor
-from .lru_baseline import LRUBaseline
-from .evaluate import evaluate_model, load_test_sequences, compare_models
+from .data_loader import ExpertDataLoader, OLMOE_CONFIG, GPT5OSS_CONFIG, ModelConfig
+from .bilstm_model import BiLSTMExpertPredictor, train_epoch, evaluate
 
 __all__ = [
-    'ExpertSequenceAnalyzer',
-    'ExpertPool',
-    'EvaluationMetrics',
-    'LSTMExpertPredictor',
-    'LRUBaseline',
-    'evaluate_model',
-    'load_test_sequences',
-    'compare_models',
+    'ExpertDataLoader',
+    'OLMOE_CONFIG',
+    'GPT5OSS_CONFIG',
+    'ModelConfig',
+    'BiLSTMExpertPredictor',
+    'train_epoch',
+    'evaluate',
 ]

@@ -15,8 +15,8 @@ import numpy as np
 from pathlib import Path
 import argparse
 import json
-from data_loader import ExpertDataLoader, OLMOE_CONFIG, GPT5OSS_CONFIG
-from bilstm_model import BiLSTMExpertPredictor, train_epoch, evaluate
+from .data_loader import ExpertDataLoader, OLMOE_CONFIG, GPT5OSS_CONFIG
+from .bilstm_model import BiLSTMExpertPredictor, train_epoch, evaluate
 
 
 def create_dataloader(X, Y, batch_size=32, shuffle=True):
