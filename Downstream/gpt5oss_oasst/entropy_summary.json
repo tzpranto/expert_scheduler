@@ -1,0 +1,176 @@
+{
+  "trace_count": 498,
+  "num_layers": 24,
+  "num_experts": 32,
+  "total_tokens": 1312992,
+  "layer_results": [
+    {
+      "layer": 0,
+      "entropy": 4.84926371724307,
+      "effective_experts": 28.825299990356392,
+      "token_count": 54708,
+      "total_mass": 8545.871399999956
+    },
+    {
+      "layer": 1,
+      "entropy": 4.749668952836304,
+      "effective_experts": 26.902511410944804,
+      "token_count": 54708,
+      "total_mass": 8523.566400000007
+    },
+    {
+      "layer": 2,
+      "entropy": 4.482523658040209,
+      "effective_experts": 22.3549692770501,
+      "token_count": 54708,
+      "total_mass": 8521.584299999922
+    },
+    {
+      "layer": 3,
+      "entropy": 4.39200741269674,
+      "effective_experts": 20.99548794989768,
+      "token_count": 54708,
+      "total_mass": 8502.05739999984
+    },
+    {
+      "layer": 4,
+      "entropy": 4.108847150893628,
+      "effective_experts": 17.253858816949833,
+      "token_count": 54708,
+      "total_mass": 8514.121900000058
+    },
+    {
+      "layer": 5,
+      "entropy": 4.2620666605343365,
+      "effective_experts": 19.187125152066184,
+      "token_count": 54708,
+      "total_mass": 8502.930399999925
+    },
+    {
+      "layer": 6,
+      "entropy": 4.465249416379661,
+      "effective_experts": 22.088896102552376,
+      "token_count": 54708,
+      "total_mass": 8520.220200000043
+    },
+    {
+      "layer": 7,
+      "entropy": 4.596599063286275,
+      "effective_experts": 24.19436321137006,
+      "token_count": 54708,
+      "total_mass": 8508.054699999991
+    },
+    {
+      "layer": 8,
+      "entropy": 4.3495071477026155,
+      "effective_experts": 20.386004597230592,
+      "token_count": 54708,
+      "total_mass": 8504.948400000027
+    },
+    {
+      "layer": 9,
+      "entropy": 4.222912754325694,
+      "effective_experts": 18.673400337997723,
+      "token_count": 54708,
+      "total_mass": 8514.88019999983
+    },
+    {
+      "layer": 10,
+      "entropy": 3.987870473319586,
+      "effective_experts": 15.866043157798583,
+      "token_count": 54708,
+      "total_mass": 8521.946000000095
+    },
+    {
+      "layer": 11,
+      "entropy": 4.13652771319483,
+      "effective_experts": 17.588099731111065,
+      "token_count": 54708,
+      "total_mass": 8498.442999999981
+    },
+    {
+      "layer": 12,
+      "entropy": 4.1767051305942,
+      "effective_experts": 18.08479238353922,
+      "token_count": 54708,
+      "total_mass": 8502.783299999943
+    },
+    {
+      "layer": 13,
+      "entropy": 4.18308574520621,
+      "effective_experts": 18.16495321895495,
+      "token_count": 54708,
+      "total_mass": 8507.307599999915
+    },
+    {
+      "layer": 14,
+      "entropy": 4.364956284986892,
+      "effective_experts": 20.605481697272587,
+      "token_count": 54708,
+      "total_mass": 8506.596399999986
+    },
+    {
+      "layer": 15,
+      "entropy": 4.330961561474094,
+      "effective_experts": 20.125623324063664,
+      "token_count": 54708,
+      "total_mass": 8523.568699999998
+    },
+    {
+      "layer": 16,
+      "entropy": 4.312493761614444,
+      "effective_experts": 19.869639074299002,
+      "token_count": 54708,
+      "total_mass": 8507.48069999992
+    },
+    {
+      "layer": 17,
+      "entropy": 3.875883305152065,
+      "effective_experts": 14.681050567150143,
+      "token_count": 54708,
+      "total_mass": 8508.96980000011
+    },
+    {
+      "layer": 18,
+      "entropy": 4.14324359683191,
+      "effective_experts": 17.67016488281671,
+      "token_count": 54708,
+      "total_mass": 8510.555599999892
+    },
+    {
+      "layer": 19,
+      "entropy": 4.1538097993985375,
+      "effective_experts": 17.800055068609637,
+      "token_count": 54708,
+      "total_mass": 8510.574699999914
+    },
+    {
+      "layer": 20,
+      "entropy": 3.994047203302617,
+      "effective_experts": 15.934117386758038,
+      "token_count": 54708,
+      "total_mass": 8508.45509999995
+    },
+    {
+      "layer": 21,
+      "entropy": 3.659059242682304,
+      "effective_experts": 12.632420913004845,
+      "token_count": 54708,
+      "total_mass": 8545.874299999896
+    },
+    {
+      "layer": 22,
+      "entropy": 3.9826856097739327,
+      "effective_experts": 15.80912494467115,
+      "token_count": 54708,
+      "total_mass": 8517.611699999998
+    },
+    {
+      "layer": 23,
+      "entropy": 3.8106616279661427,
+      "effective_experts": 14.032125276331097,
+      "token_count": 54708,
+      "total_mass": 8488.127099999943
+    }
+  ]
+}
