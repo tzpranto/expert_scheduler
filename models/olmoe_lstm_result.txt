@@ -1,0 +1,41 @@
+======================================================================
+BILSTM EXPERT PREDICTOR - RESULTS
+======================================================================
+
+Configuration:
+  Layers: 16
+  Experts per layer: 64
+  Top-K: 8
+  Context size: 10
+  Hidden size: 512
+  Epochs: 20
+  Batch size: 32
+
+Test Metrics:
+  Accuracy (top-K match):    0.3037
+  Accuracy (exact match):    0.8259
+  Precision:                 0.3037
+  Recall:                    0.3037
+  F1 Score:                  0.3037
+
+Training Loss:
+  Epoch  1: -0.060025
+  Epoch  2: -0.060026
+  Epoch  3: -0.060052
+  Epoch  4: -0.060267
+  Epoch  5: -0.060347
+  Epoch  6: -0.060347
+  Epoch  7: -0.060347
+  Epoch  8: -0.060350
+  Epoch  9: -0.060345
+  Epoch 10: -0.060346
+  Epoch 11: -0.060345
+  Epoch 12: -0.060344
+  Epoch 13: -0.060343
+  Epoch 14: -0.060352
+  Epoch 15: -0.060350
+  Epoch 16: -0.060348
+  Epoch 17: -0.060346
+  Epoch 18: -0.060348
+  Epoch 19: -0.060345
+  Epoch 20: -0.060346
