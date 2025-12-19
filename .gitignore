@@ -5,7 +5,8 @@ __pycache__/
 
 # C extensions
 *.so
-
+#Saved Models
+*.pt
 # Distribution / packaging
 .Python
 build/
