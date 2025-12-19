@@ -6,3 +6,23 @@
 6. tail -f 
 7. zip -r olmoe_oasst.zip ./olmoe/oasst1
 8. scp <user>@<ip>:/mnt/ssd/experiments/expert_scheduler/moe_traces/olmoe_oasst.zip .
+
+Step 1:
+Setup Env
+
+Step 2:
+Collect Traces
+python trace_generator.py --model_id olmoe --max_token 256 --mode exec
+python trace_generator.py --model_id gpt5oss --max_token 256 --mode exec
+
+Step 3:
+
+Step 4:
+Train LSTM Model
+python prediction/train.py --model olmoe --data-dir ./moe_traces/olmoe/oasst/
+python prediction/train.py --model gpt5oss --data-dir ./moe_traces/gpt5oss/oasst/
+
+Step 5: 
+Run Simulator
+python prediction/run_simulation.py --model olmoe --pool-percentages 20 30 40 50 60 70 80
+python prediction/run_simulation.py --model gpt5oss --pool-percentages 20 30 40 50 60 70 80
