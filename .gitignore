@@ -214,5 +214,4 @@ models/*
 logs/*
 models/*.pt
 models/*_result.txt
-results/
-!results/.gitkeep
+
