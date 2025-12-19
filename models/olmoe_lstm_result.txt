@@ -1,41 +1,77 @@
 ======================================================================
-BILSTM EXPERT PREDICTOR - RESULTS
+LSTM EXPERT PREDICTOR - OLMOE
 ======================================================================
 
 Configuration:
+  Model: olmoe
   Layers: 16
   Experts per layer: 64
   Top-K: 8
   Context size: 10
   Hidden size: 512
-  Epochs: 20
+  Epochs: 50
   Batch size: 32
+  Learning rate: 0.0001
+
+Dataset:
+  Training sequences: 98400 from 400 files
+  Test sequences: 24600 from 100 files
+  Total: 123000 sequences
 
 Test Metrics:
-  Accuracy (top-K match):    0.3037
-  Accuracy (exact match):    0.8259
-  Precision:                 0.3037
-  Recall:                    0.3037
-  F1 Score:                  0.3037
+  Top-K accuracy: 0.3005
+  MSE loss: 0.012969
+  L1 loss: 0.028752
+  KL divergence: 0.166698
 
 Training Loss:
-  Epoch  1: -0.060025
-  Epoch  2: -0.060026
-  Epoch  3: -0.060052
-  Epoch  4: -0.060267
-  Epoch  5: -0.060347
-  Epoch  6: -0.060347
-  Epoch  7: -0.060347
-  Epoch  8: -0.060350
-  Epoch  9: -0.060345
-  Epoch 10: -0.060346
-  Epoch 11: -0.060345
-  Epoch 12: -0.060344
-  Epoch 13: -0.060343
-  Epoch 14: -0.060352
-  Epoch 15: -0.060350
-  Epoch 16: -0.060348
-  Epoch 17: -0.060346
-  Epoch 18: -0.060348
-  Epoch 19: -0.060345
-  Epoch 20: -0.060346
+  Epoch   1: -61.396633
+  Epoch   2: -61.400713
+  Epoch   3: -61.482119
+  Epoch   4: -61.506025
+  Epoch   5: -61.506579
+  Epoch   6: -61.521955
+  Epoch   7: -61.613839
+  Epoch   8: -61.696994
+  Epoch   9: -61.757319
+  Epoch  10: -61.780317
+  Epoch  11: -61.795791
+  Epoch  12: -61.812536
+  Epoch  13: -61.821441
+  Epoch  14: -61.835643
+  Epoch  15: -61.846898
+  Epoch  16: -61.858976
+  Epoch  17: -61.869221
+  Epoch  18: -61.880674
+  Epoch  19: -61.889600
+  Epoch  20: -61.904214
+  Epoch  21: -61.913797
+  Epoch  22: -61.921891
+  Epoch  23: -61.934868
+  Epoch  24: -61.943374
+  Epoch  25: -61.949272
+  Epoch  26: -61.955948
+  Epoch  27: -61.962236
+  Epoch  28: -61.968222
+  Epoch  29: -61.974205
+  Epoch  30: -61.980777
+  Epoch  31: -61.986236
+  Epoch  32: -61.994829
+  Epoch  33: -62.004083
+  Epoch  34: -62.013188
+  Epoch  35: -62.021304
+  Epoch  36: -62.026195
+  Epoch  37: -62.030985
+  Epoch  38: -62.035177
+  Epoch  39: -62.038521
+  Epoch  40: -62.041742
+  Epoch  41: -62.044440
+  Epoch  42: -62.047789
+  Epoch  43: -62.051218
+  Epoch  44: -62.054140
+  Epoch  45: -62.059413
+  Epoch  46: -62.062618
+  Epoch  47: -62.065824
+  Epoch  48: -62.068324
+  Epoch  49: -62.070019
+  Epoch  50: -62.073848
