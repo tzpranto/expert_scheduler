@@ -8,12 +8,19 @@ Compares with LRU baseline for expert pool management.
 import json
 import torch
 import numpy as np
+import sys
 from pathlib import Path
 from collections import OrderedDict
 from typing import Dict, List, Tuple, Optional
 
-from bilstm_model import BiLSTMExpertPredictor
-from data_loader import ModelConfig, ExpertDataLoader
+# Support both module execution and direct execution
+try:
+    from .bilstm_model import BiLSTMExpertPredictor
+    from .data_loader import ModelConfig, ExpertDataLoader
+except ImportError:
+    sys.path.insert(0, str(Path(__file__).parent))
+    from bilstm_model import BiLSTMExpertPredictor
+    from data_loader import ModelConfig, ExpertDataLoader
 
 
 class ExpertPoolWithPrediction:
@@ -236,6 +243,41 @@ class LSTMSimulator:
         self.stage_stats[stage]['misses'] += misses
         self.stage_stats[stage]['tokens'] += 1
 
+    def _get_analysis_split_point(self, gen_data: Dict) -> Optional[int]:
+        """
+        Determine where analysis phase ends and gen phase begins.
+        For GPT5OSS, the generated_text contains markers like:
+        <|channel|>analysis<|message|>...
+        <|end|><|start|>assistant<|channel|>final<|message|>...
+
+        Returns the approximate decode_step index where analysis ends.
+        Returns None if no split found (assume all gen).
+        """
+        generated_text = gen_data.get('generated_text', '')
+
+        # Look for markers indicating analysis/final split
+        analysis_marker = '<|channel|>analysis'
+        final_marker = '<|channel|>final<|message|>'
+
+        if analysis_marker not in generated_text or final_marker not in generated_text:
+            return None
+
+        # Find position of final marker
+        final_pos = generated_text.find(final_marker)
+        if final_pos == -1:
+            return None
+
+        # Estimate which decode_step this corresponds to
+        # This is approximate: assume ~average tokens per step
+        # For GPT5OSS, typically each token is 4-10 characters
+        avg_chars_per_token = 6
+        estimated_tokens_in_analysis = final_pos / avg_chars_per_token
+
+        # Clamp to reasonable range
+        split_point = max(0, int(estimated_tokens_in_analysis * 0.8))  # Conservative estimate
+
+        return split_point if split_point > 0 else None
+
     def load_trace_and_simulate(self, trace_file: Path, gen_file: Path) -> Dict:
         """
         Load trace files and simulate with LSTM prediction.
@@ -276,8 +318,11 @@ class LSTMSimulator:
 
         decode_steps = gen_data.get('decode_steps', [])
 
+        # Try to find analysis/gen split for GPT5OSS
+        analysis_split_point = self._get_analysis_split_point(gen_data)
+
         # Process generation tokens
-        for step_data in decode_steps:
+        for step_idx, step_data in enumerate(decode_steps):
             step_layers = step_data.get('layers', [])
             topk_experts = [[] for _ in range(self.config.num_layers)]
             topk_probs = [[] for _ in range(self.config.num_layers)]
@@ -290,7 +335,13 @@ class LSTMSimulator:
                     topk_experts[layer_idx] = experts
                     topk_probs[layer_idx] = probs
 
-            self.process_token(topk_experts, topk_probs, 'gen')
+            # Determine stage for this step
+            if analysis_split_point is not None and step_idx < analysis_split_point:
+                stage = 'analysis'
+            else:
+                stage = 'gen'
+
+            self.process_token(topk_experts, topk_probs, stage)
 
         return self._get_results()
 
