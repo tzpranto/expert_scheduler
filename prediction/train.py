@@ -15,8 +15,18 @@ import numpy as np
 from pathlib import Path
 import argparse
 import json
-from .data_loader import ExpertDataLoader, OLMOE_CONFIG, GPT5OSS_CONFIG
-from .bilstm_model import BiLSTMExpertPredictor, train_epoch, evaluate
+import sys
+
+# Support both module execution (python3 -m prediction.train)
+# and direct execution (python3 prediction/train.py)
+try:
+    from .data_loader import ExpertDataLoader, OLMOE_CONFIG, GPT5OSS_CONFIG
+    from .bilstm_model import BiLSTMExpertPredictor, train_epoch, evaluate
+except ImportError:
+    # For direct execution, add parent directory to path
+    sys.path.insert(0, str(Path(__file__).parent))
+    from data_loader import ExpertDataLoader, OLMOE_CONFIG, GPT5OSS_CONFIG
+    from bilstm_model import BiLSTMExpertPredictor, train_epoch, evaluate
 
 
 def create_dataloader(X, Y, batch_size=32, shuffle=True):
