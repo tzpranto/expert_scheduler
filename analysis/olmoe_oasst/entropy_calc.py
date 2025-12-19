@@ -127,7 +127,7 @@ def write_markdown(stats: Dict[str, object], path: pathlib.Path) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Compute expert entropy across trace_*.json files.")
     parser.add_argument("--outdir", type=pathlib.Path, default=DEFAULT_OUTDIR, help="Directory to write outputs.")
-    parser.add_argument("--basename", default="entropy_summary", help="Base name for saved files.")
+    parser.add_argument("--basename", default="entropy_analysis", help="Base name for saved files.")
     parser.add_argument("--save-csv", action="store_true", help="Write per-layer results to CSV.")
     parser.add_argument("--save-json", action="store_true", help="Write full stats to JSON.")
     parser.add_argument("--save-md", action="store_true", help="Write Markdown table.")
