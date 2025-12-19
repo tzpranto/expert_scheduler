@@ -1,0 +1,4827 @@
+{
+  "meta": {
+    "traces_dir": "gpt5oss/oasst",
+    "num_traces": 498,
+    "num_layers": 24,
+    "num_experts": 32,
+    "pct": 0.1,
+    "segments": [
+      "prompt",
+      "analysis",
+      "final",
+      "all"
+    ]
+  },
+  "segments": {
+    "prompt": {
+      "total_tokens": 54708,
+      "total_top1_events": 1312992,
+      "heavy_hitters": [
+        {
+          "expert": 24,
+          "count": 92394,
+          "pct": 7.036905023031366
+        },
+        {
+          "expert": 23,
+          "count": 75176,
+          "pct": 5.725548975165119
+        },
+        {
+          "expert": 11,
+          "count": 56624,
+          "pct": 4.312592917550145
+        },
+        {
+          "expert": 10,
+          "count": 55645,
+          "pct": 4.23803039165509
+        }
+      ],
+      "sparse_hitters": [
+        {
+          "expert": 25,
+          "count": 18620,
+          "pct": 1.4181350686066634
+        },
+        {
+          "expert": 20,
+          "count": 19869,
+          "pct": 1.5132613146157783
+        },
+        {
+          "expert": 29,
+          "count": 21183,
+          "pct": 1.6133380858375372
+        },
+        {
+          "expert": 3,
+          "count": 23557,
+          "pct": 1.7941464989885696
+        }
+      ]
+    },
+    "analysis": {
+      "total_tokens": 0,
+      "total_top1_events": 0,
+      "heavy_hitters": [
+        {
+          "expert": 0,
+          "count": 0,
+          "pct": 0.0
+        },
+        {
+          "expert": 1,
+          "count": 0,
+          "pct": 0.0
+        },
+        {
+          "expert": 2,
+          "count": 0,
+          "pct": 0.0
+        },
+        {
+          "expert": 3,
+          "count": 0,
+          "pct": 0.0
+        }
+      ],
+      "sparse_hitters": [
+        {
+          "expert": 0,
+          "count": 0,
+          "pct": 0.0
+        },
+        {
+          "expert": 1,
+          "count": 0,
+          "pct": 0.0
+        },
+        {
+          "expert": 2,
+          "count": 0,
+          "pct": 0.0
+        },
+        {
+          "expert": 3,
+          "count": 0,
+          "pct": 0.0
+        }
+      ]
+    },
+    "final": {
+      "total_tokens": 0,
+      "total_top1_events": 0,
+      "heavy_hitters": [
+        {
+          "expert": 0,
+          "count": 0,
+          "pct": 0.0
+        },
+        {
+          "expert": 1,
+          "count": 0,
+          "pct": 0.0
+        },
+        {
+          "expert": 2,
+          "count": 0,
+          "pct": 0.0
+        },
+        {
+          "expert": 3,
+          "count": 0,
+          "pct": 0.0
+        }
+      ],
+      "sparse_hitters": [
+        {
+          "expert": 0,
+          "count": 0,
+          "pct": 0.0
+        },
+        {
+          "expert": 1,
+          "count": 0,
+          "pct": 0.0
+        },
+        {
+          "expert": 2,
+          "count": 0,
+          "pct": 0.0
+        },
+        {
+          "expert": 3,
+          "count": 0,
+          "pct": 0.0
+        }
+      ]
+    },
+    "all": {
+      "total_tokens": 54708,
+      "total_top1_events": 1312992,
+      "heavy_hitters": [
+        {
+          "expert": 24,
+          "count": 92394,
+          "pct": 7.036905023031366
+        },
+        {
+          "expert": 23,
+          "count": 75176,
+          "pct": 5.725548975165119
+        },
+        {
+          "expert": 11,
+          "count": 56624,
+          "pct": 4.312592917550145
+        },
+        {
+          "expert": 10,
+          "count": 55645,
+          "pct": 4.23803039165509
+        }
+      ],
+      "sparse_hitters": [
+        {
+          "expert": 25,
+          "count": 18620,
+          "pct": 1.4181350686066634
+        },
+        {
+          "expert": 20,
+          "count": 19869,
+          "pct": 1.5132613146157783
+        },
+        {
+          "expert": 29,
+          "count": 21183,
+          "pct": 1.6133380858375372
+        },
+        {
+          "expert": 3,
+          "count": 23557,
+          "pct": 1.7941464989885696
+        }
+      ]
+    }
+  },
+  "layers": {
+    "prompt": [
+      {
+        "layer": 0,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 9,
+            "count": 7314,
+            "pct": 13.369159903487606
+          },
+          {
+            "expert": 25,
+            "count": 5052,
+            "pct": 9.234481245887256
+          },
+          {
+            "expert": 23,
+            "count": 4362,
+            "pct": 7.973239745558236
+          },
+          {
+            "expert": 19,
+            "count": 3544,
+            "pct": 6.478028807487022
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 29,
+            "count": 218,
+            "pct": 0.39847919865467574
+          },
+          {
+            "expert": 27,
+            "count": 223,
+            "pct": 0.4076186298164803
+          },
+          {
+            "expert": 28,
+            "count": 236,
+            "pct": 0.4313811508371719
+          },
+          {
+            "expert": 20,
+            "count": 236,
+            "pct": 0.4313811508371719
+          }
+        ]
+      },
+      {
+        "layer": 1,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 28,
+            "count": 7520,
+            "pct": 13.745704467353953
+          },
+          {
+            "expert": 12,
+            "count": 4520,
+            "pct": 8.262045770271257
+          },
+          {
+            "expert": 18,
+            "count": 4382,
+            "pct": 8.009797470205454
+          },
+          {
+            "expert": 6,
+            "count": 4247,
+            "pct": 7.7630328288367325
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 2,
+            "count": 23,
+            "pct": 0.04204138334430065
+          },
+          {
+            "expert": 25,
+            "count": 24,
+            "pct": 0.043869269576661554
+          },
+          {
+            "expert": 7,
+            "count": 40,
+            "pct": 0.07311544929443592
+          },
+          {
+            "expert": 9,
+            "count": 142,
+            "pct": 0.2595598449952475
+          }
+        ]
+      },
+      {
+        "layer": 2,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 21,
+            "count": 9233,
+            "pct": 16.876873583388168
+          },
+          {
+            "expert": 27,
+            "count": 5922,
+            "pct": 10.824742268041238
+          },
+          {
+            "expert": 29,
+            "count": 5210,
+            "pct": 9.523287270600278
+          },
+          {
+            "expert": 28,
+            "count": 4391,
+            "pct": 8.026248446296702
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 9,
+            "count": 16,
+            "pct": 0.02924617971777437
+          },
+          {
+            "expert": 15,
+            "count": 52,
+            "pct": 0.09505008408276669
+          },
+          {
+            "expert": 11,
+            "count": 95,
+            "pct": 0.1736491920742853
+          },
+          {
+            "expert": 7,
+            "count": 100,
+            "pct": 0.18278862323608977
+          }
+        ]
+      },
+      {
+        "layer": 3,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 7282,
+            "pct": 13.310667544052057
+          },
+          {
+            "expert": 21,
+            "count": 5299,
+            "pct": 9.685969145280398
+          },
+          {
+            "expert": 19,
+            "count": 4808,
+            "pct": 8.788477005191197
+          },
+          {
+            "expert": 1,
+            "count": 4025,
+            "pct": 7.357242085252613
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 17,
+            "count": 24,
+            "pct": 0.043869269576661554
+          },
+          {
+            "expert": 24,
+            "count": 31,
+            "pct": 0.05666447320318783
+          },
+          {
+            "expert": 16,
+            "count": 36,
+            "pct": 0.06580390436499232
+          },
+          {
+            "expert": 25,
+            "count": 85,
+            "pct": 0.15537032975067633
+          }
+        ]
+      },
+      {
+        "layer": 4,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 6,
+            "count": 17862,
+            "pct": 32.64970388243036
+          },
+          {
+            "expert": 15,
+            "count": 14582,
+            "pct": 26.65423704028661
+          },
+          {
+            "expert": 27,
+            "count": 3151,
+            "pct": 5.759669518169189
+          },
+          {
+            "expert": 23,
+            "count": 2591,
+            "pct": 4.736053228047086
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 16,
+            "count": 25,
+            "pct": 0.04569715580902244
+          },
+          {
+            "expert": 20,
+            "count": 39,
+            "pct": 0.07128756306207501
+          },
+          {
+            "expert": 3,
+            "count": 47,
+            "pct": 0.0859106529209622
+          },
+          {
+            "expert": 22,
+            "count": 64,
+            "pct": 0.11698471887109747
+          }
+        ]
+      },
+      {
+        "layer": 5,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 24,
+            "count": 15036,
+            "pct": 27.484097389778462
+          },
+          {
+            "expert": 6,
+            "count": 5778,
+            "pct": 10.561526650581268
+          },
+          {
+            "expert": 8,
+            "count": 5087,
+            "pct": 9.298457264019886
+          },
+          {
+            "expert": 0,
+            "count": 4599,
+            "pct": 8.40644878262777
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 10,
+            "count": 2,
+            "pct": 0.003655772464721796
+          },
+          {
+            "expert": 7,
+            "count": 6,
+            "pct": 0.010967317394165389
+          },
+          {
+            "expert": 1,
+            "count": 33,
+            "pct": 0.06032024566790963
+          },
+          {
+            "expert": 23,
+            "count": 104,
+            "pct": 0.19010016816553338
+          }
+        ]
+      },
+      {
+        "layer": 6,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 5,
+            "count": 7608,
+            "pct": 13.90655845580171
+          },
+          {
+            "expert": 9,
+            "count": 7114,
+            "pct": 13.003582657015428
+          },
+          {
+            "expert": 10,
+            "count": 5760,
+            "pct": 10.52862469839877
+          },
+          {
+            "expert": 24,
+            "count": 5036,
+            "pct": 9.205235066169482
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 22,
+            "count": 2,
+            "pct": 0.003655772464721796
+          },
+          {
+            "expert": 8,
+            "count": 24,
+            "pct": 0.043869269576661554
+          },
+          {
+            "expert": 26,
+            "count": 27,
+            "pct": 0.04935292827374425
+          },
+          {
+            "expert": 13,
+            "count": 79,
+            "pct": 0.14440301235651093
+          }
+        ]
+      },
+      {
+        "layer": 7,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 5,
+            "count": 9275,
+            "pct": 16.953644805147327
+          },
+          {
+            "expert": 13,
+            "count": 5966,
+            "pct": 10.905169262265117
+          },
+          {
+            "expert": 16,
+            "count": 5438,
+            "pct": 9.940045331578562
+          },
+          {
+            "expert": 30,
+            "count": 5031,
+            "pct": 9.196095635007676
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 27,
+            "count": 5,
+            "pct": 0.00913943116180449
+          },
+          {
+            "expert": 11,
+            "count": 15,
+            "pct": 0.02741829348541347
+          },
+          {
+            "expert": 18,
+            "count": 80,
+            "pct": 0.14623089858887184
+          },
+          {
+            "expert": 31,
+            "count": 94,
+            "pct": 0.1718213058419244
+          }
+        ]
+      },
+      {
+        "layer": 8,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 17,
+            "count": 18721,
+            "pct": 34.21985815602837
+          },
+          {
+            "expert": 24,
+            "count": 7769,
+            "pct": 14.200848139211816
+          },
+          {
+            "expert": 8,
+            "count": 3588,
+            "pct": 6.558455801710901
+          },
+          {
+            "expert": 2,
+            "count": 3432,
+            "pct": 6.273305549462601
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 11,
+            "count": 8,
+            "pct": 0.014623089858887184
+          },
+          {
+            "expert": 22,
+            "count": 25,
+            "pct": 0.04569715580902244
+          },
+          {
+            "expert": 7,
+            "count": 30,
+            "pct": 0.05483658697082694
+          },
+          {
+            "expert": 27,
+            "count": 33,
+            "pct": 0.06032024566790963
+          }
+        ]
+      },
+      {
+        "layer": 9,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 8,
+            "count": 25192,
+            "pct": 46.04810996563574
+          },
+          {
+            "expert": 15,
+            "count": 5096,
+            "pct": 9.314908240111135
+          },
+          {
+            "expert": 19,
+            "count": 3425,
+            "pct": 6.2605103458360745
+          },
+          {
+            "expert": 13,
+            "count": 2843,
+            "pct": 5.196680558602033
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 17,
+            "count": 3,
+            "pct": 0.005483658697082694
+          },
+          {
+            "expert": 14,
+            "count": 28,
+            "pct": 0.051180814506105135
+          },
+          {
+            "expert": 12,
+            "count": 35,
+            "pct": 0.06397601813263143
+          },
+          {
+            "expert": 7,
+            "count": 47,
+            "pct": 0.0859106529209622
+          }
+        ]
+      },
+      {
+        "layer": 10,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 10,
+            "count": 22284,
+            "pct": 40.73261680193025
+          },
+          {
+            "expert": 7,
+            "count": 12661,
+            "pct": 23.14286758792133
+          },
+          {
+            "expert": 5,
+            "count": 3398,
+            "pct": 6.211157417562331
+          },
+          {
+            "expert": 26,
+            "count": 2699,
+            "pct": 4.933464941142064
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 22,
+            "count": 20,
+            "pct": 0.03655772464721796
+          },
+          {
+            "expert": 3,
+            "count": 22,
+            "pct": 0.04021349711193975
+          },
+          {
+            "expert": 13,
+            "count": 51,
+            "pct": 0.0932221978504058
+          },
+          {
+            "expert": 16,
+            "count": 52,
+            "pct": 0.09505008408276669
+          }
+        ]
+      },
+      {
+        "layer": 11,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 30,
+            "count": 20276,
+            "pct": 37.06222124734956
+          },
+          {
+            "expert": 24,
+            "count": 8194,
+            "pct": 14.977699787965197
+          },
+          {
+            "expert": 5,
+            "count": 4502,
+            "pct": 8.229143818088762
+          },
+          {
+            "expert": 9,
+            "count": 2934,
+            "pct": 5.363018205746874
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 3,
+            "count": 2,
+            "pct": 0.003655772464721796
+          },
+          {
+            "expert": 27,
+            "count": 8,
+            "pct": 0.014623089858887184
+          },
+          {
+            "expert": 10,
+            "count": 38,
+            "pct": 0.06945967682971411
+          },
+          {
+            "expert": 8,
+            "count": 61,
+            "pct": 0.11150106017401477
+          }
+        ]
+      },
+      {
+        "layer": 12,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 23,
+            "count": 19255,
+            "pct": 35.195949404109086
+          },
+          {
+            "expert": 1,
+            "count": 8597,
+            "pct": 15.71433793960664
+          },
+          {
+            "expert": 26,
+            "count": 5313,
+            "pct": 9.71155955253345
+          },
+          {
+            "expert": 21,
+            "count": 3421,
+            "pct": 6.253198800906631
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 9,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 16,
+            "count": 21,
+            "pct": 0.038385610879578855
+          },
+          {
+            "expert": 19,
+            "count": 21,
+            "pct": 0.038385610879578855
+          },
+          {
+            "expert": 11,
+            "count": 22,
+            "pct": 0.04021349711193975
+          }
+        ]
+      },
+      {
+        "layer": 13,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 27,
+            "count": 7531,
+            "pct": 13.76581121590992
+          },
+          {
+            "expert": 9,
+            "count": 7440,
+            "pct": 13.599473568765081
+          },
+          {
+            "expert": 21,
+            "count": 7276,
+            "pct": 13.299700226657892
+          },
+          {
+            "expert": 1,
+            "count": 6919,
+            "pct": 12.647144841705051
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 28,
+            "count": 7,
+            "pct": 0.012795203626526284
+          },
+          {
+            "expert": 6,
+            "count": 25,
+            "pct": 0.04569715580902244
+          },
+          {
+            "expert": 13,
+            "count": 25,
+            "pct": 0.04569715580902244
+          },
+          {
+            "expert": 2,
+            "count": 41,
+            "pct": 0.07494333552679681
+          }
+        ]
+      },
+      {
+        "layer": 14,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 18,
+            "count": 9202,
+            "pct": 16.820209110184983
+          },
+          {
+            "expert": 6,
+            "count": 8669,
+            "pct": 15.845945748336623
+          },
+          {
+            "expert": 9,
+            "count": 7315,
+            "pct": 13.370987789719969
+          },
+          {
+            "expert": 16,
+            "count": 7150,
+            "pct": 13.06938656138042
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 13,
+            "count": 2,
+            "pct": 0.003655772464721796
+          },
+          {
+            "expert": 27,
+            "count": 14,
+            "pct": 0.025590407253052568
+          },
+          {
+            "expert": 31,
+            "count": 17,
+            "pct": 0.03107406595013526
+          },
+          {
+            "expert": 5,
+            "count": 22,
+            "pct": 0.04021349711193975
+          }
+        ]
+      },
+      {
+        "layer": 15,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 13,
+            "count": 12240,
+            "pct": 22.37332748409739
+          },
+          {
+            "expert": 24,
+            "count": 9737,
+            "pct": 17.798128244498063
+          },
+          {
+            "expert": 12,
+            "count": 5245,
+            "pct": 9.58726328873291
+          },
+          {
+            "expert": 28,
+            "count": 3723,
+            "pct": 6.805220443079622
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 6,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 20,
+            "count": 14,
+            "pct": 0.025590407253052568
+          },
+          {
+            "expert": 5,
+            "count": 26,
+            "pct": 0.047525042041383345
+          }
+        ]
+      },
+      {
+        "layer": 16,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 31,
+            "count": 10697,
+            "pct": 19.552899027564525
+          },
+          {
+            "expert": 27,
+            "count": 6932,
+            "pct": 12.670907362725744
+          },
+          {
+            "expert": 19,
+            "count": 5475,
+            "pct": 10.007677122175917
+          },
+          {
+            "expert": 13,
+            "count": 4969,
+            "pct": 9.082766688601302
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 5,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 6,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 10,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 17,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 11,
+            "count": 12324,
+            "pct": 22.526869927615707
+          },
+          {
+            "expert": 24,
+            "count": 9315,
+            "pct": 17.026760254441765
+          },
+          {
+            "expert": 10,
+            "count": 7148,
+            "pct": 13.065730788915698
+          },
+          {
+            "expert": 5,
+            "count": 6720,
+            "pct": 12.283395481465234
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 13,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 19,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 22,
+            "count": 1,
+            "pct": 0.001827886232360898
+          }
+        ]
+      },
+      {
+        "layer": 18,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 1,
+            "count": 10499,
+            "pct": 19.19097755355707
+          },
+          {
+            "expert": 30,
+            "count": 8721,
+            "pct": 15.940995832419391
+          },
+          {
+            "expert": 14,
+            "count": 6726,
+            "pct": 12.294362798859398
+          },
+          {
+            "expert": 21,
+            "count": 4694,
+            "pct": 8.580097974702054
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 9,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 13,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 23,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 19,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 7,
+            "count": 16176,
+            "pct": 29.56788769466988
+          },
+          {
+            "expert": 13,
+            "count": 6907,
+            "pct": 12.625210206916721
+          },
+          {
+            "expert": 19,
+            "count": 6041,
+            "pct": 11.042260729692185
+          },
+          {
+            "expert": 8,
+            "count": 5159,
+            "pct": 9.430065072749871
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 12,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 20,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 20,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 2,
+            "count": 17487,
+            "pct": 31.964246545295023
+          },
+          {
+            "expert": 10,
+            "count": 6822,
+            "pct": 12.469839877166045
+          },
+          {
+            "expert": 15,
+            "count": 5649,
+            "pct": 10.325729326606712
+          },
+          {
+            "expert": 24,
+            "count": 3829,
+            "pct": 6.998976383709878
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 6,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 13,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 21,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 21,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 23,
+            "count": 30566,
+            "pct": 55.8711705783432
+          },
+          {
+            "expert": 24,
+            "count": 5156,
+            "pct": 9.424581414052788
+          },
+          {
+            "expert": 30,
+            "count": 3822,
+            "pct": 6.986181180083352
+          },
+          {
+            "expert": 5,
+            "count": 3555,
+            "pct": 6.498135556042992
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 8,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 18,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 22,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 11,
+            "count": 28743,
+            "pct": 52.53893397674929
+          },
+          {
+            "expert": 13,
+            "count": 7732,
+            "pct": 14.133216348614464
+          },
+          {
+            "expert": 14,
+            "count": 3780,
+            "pct": 6.9094099583241935
+          },
+          {
+            "expert": 23,
+            "count": 2903,
+            "pct": 5.306353732543687
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 4,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 10,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 18,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 21,
+            "count": 1,
+            "pct": 0.001827886232360898
+          }
+        ]
+      },
+      {
+        "layer": 23,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 12,
+            "count": 11861,
+            "pct": 21.680558602032608
+          },
+          {
+            "expert": 19,
+            "count": 11623,
+            "pct": 21.245521678730718
+          },
+          {
+            "expert": 24,
+            "count": 9312,
+            "pct": 17.02127659574468
+          },
+          {
+            "expert": 7,
+            "count": 5022,
+            "pct": 9.179644658916429
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 5,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 15,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 10,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 8,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      }
+    ],
+    "analysis": [
+      {
+        "layer": 0,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 1,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 2,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 3,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 4,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 5,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 6,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 7,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 8,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 9,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 10,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 11,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 12,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 13,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 14,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 15,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 16,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 17,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 18,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 19,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 20,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 21,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 22,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 23,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      }
+    ],
+    "final": [
+      {
+        "layer": 0,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 1,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 2,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 3,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 4,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 5,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 6,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 7,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 8,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 9,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 10,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 11,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 12,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 13,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 14,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 15,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 16,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 17,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 18,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 19,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 20,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 21,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 22,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 23,
+        "total_top1_events": 0,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      }
+    ],
+    "all": [
+      {
+        "layer": 0,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 9,
+            "count": 7314,
+            "pct": 13.369159903487606
+          },
+          {
+            "expert": 25,
+            "count": 5052,
+            "pct": 9.234481245887256
+          },
+          {
+            "expert": 23,
+            "count": 4362,
+            "pct": 7.973239745558236
+          },
+          {
+            "expert": 19,
+            "count": 3544,
+            "pct": 6.478028807487022
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 29,
+            "count": 218,
+            "pct": 0.39847919865467574
+          },
+          {
+            "expert": 27,
+            "count": 223,
+            "pct": 0.4076186298164803
+          },
+          {
+            "expert": 28,
+            "count": 236,
+            "pct": 0.4313811508371719
+          },
+          {
+            "expert": 20,
+            "count": 236,
+            "pct": 0.4313811508371719
+          }
+        ]
+      },
+      {
+        "layer": 1,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 28,
+            "count": 7520,
+            "pct": 13.745704467353953
+          },
+          {
+            "expert": 12,
+            "count": 4520,
+            "pct": 8.262045770271257
+          },
+          {
+            "expert": 18,
+            "count": 4382,
+            "pct": 8.009797470205454
+          },
+          {
+            "expert": 6,
+            "count": 4247,
+            "pct": 7.7630328288367325
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 2,
+            "count": 23,
+            "pct": 0.04204138334430065
+          },
+          {
+            "expert": 25,
+            "count": 24,
+            "pct": 0.043869269576661554
+          },
+          {
+            "expert": 7,
+            "count": 40,
+            "pct": 0.07311544929443592
+          },
+          {
+            "expert": 9,
+            "count": 142,
+            "pct": 0.2595598449952475
+          }
+        ]
+      },
+      {
+        "layer": 2,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 21,
+            "count": 9233,
+            "pct": 16.876873583388168
+          },
+          {
+            "expert": 27,
+            "count": 5922,
+            "pct": 10.824742268041238
+          },
+          {
+            "expert": 29,
+            "count": 5210,
+            "pct": 9.523287270600278
+          },
+          {
+            "expert": 28,
+            "count": 4391,
+            "pct": 8.026248446296702
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 9,
+            "count": 16,
+            "pct": 0.02924617971777437
+          },
+          {
+            "expert": 15,
+            "count": 52,
+            "pct": 0.09505008408276669
+          },
+          {
+            "expert": 11,
+            "count": 95,
+            "pct": 0.1736491920742853
+          },
+          {
+            "expert": 7,
+            "count": 100,
+            "pct": 0.18278862323608977
+          }
+        ]
+      },
+      {
+        "layer": 3,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 0,
+            "count": 7282,
+            "pct": 13.310667544052057
+          },
+          {
+            "expert": 21,
+            "count": 5299,
+            "pct": 9.685969145280398
+          },
+          {
+            "expert": 19,
+            "count": 4808,
+            "pct": 8.788477005191197
+          },
+          {
+            "expert": 1,
+            "count": 4025,
+            "pct": 7.357242085252613
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 17,
+            "count": 24,
+            "pct": 0.043869269576661554
+          },
+          {
+            "expert": 24,
+            "count": 31,
+            "pct": 0.05666447320318783
+          },
+          {
+            "expert": 16,
+            "count": 36,
+            "pct": 0.06580390436499232
+          },
+          {
+            "expert": 25,
+            "count": 85,
+            "pct": 0.15537032975067633
+          }
+        ]
+      },
+      {
+        "layer": 4,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 6,
+            "count": 17862,
+            "pct": 32.64970388243036
+          },
+          {
+            "expert": 15,
+            "count": 14582,
+            "pct": 26.65423704028661
+          },
+          {
+            "expert": 27,
+            "count": 3151,
+            "pct": 5.759669518169189
+          },
+          {
+            "expert": 23,
+            "count": 2591,
+            "pct": 4.736053228047086
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 16,
+            "count": 25,
+            "pct": 0.04569715580902244
+          },
+          {
+            "expert": 20,
+            "count": 39,
+            "pct": 0.07128756306207501
+          },
+          {
+            "expert": 3,
+            "count": 47,
+            "pct": 0.0859106529209622
+          },
+          {
+            "expert": 22,
+            "count": 64,
+            "pct": 0.11698471887109747
+          }
+        ]
+      },
+      {
+        "layer": 5,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 24,
+            "count": 15036,
+            "pct": 27.484097389778462
+          },
+          {
+            "expert": 6,
+            "count": 5778,
+            "pct": 10.561526650581268
+          },
+          {
+            "expert": 8,
+            "count": 5087,
+            "pct": 9.298457264019886
+          },
+          {
+            "expert": 0,
+            "count": 4599,
+            "pct": 8.40644878262777
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 10,
+            "count": 2,
+            "pct": 0.003655772464721796
+          },
+          {
+            "expert": 7,
+            "count": 6,
+            "pct": 0.010967317394165389
+          },
+          {
+            "expert": 1,
+            "count": 33,
+            "pct": 0.06032024566790963
+          },
+          {
+            "expert": 23,
+            "count": 104,
+            "pct": 0.19010016816553338
+          }
+        ]
+      },
+      {
+        "layer": 6,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 5,
+            "count": 7608,
+            "pct": 13.90655845580171
+          },
+          {
+            "expert": 9,
+            "count": 7114,
+            "pct": 13.003582657015428
+          },
+          {
+            "expert": 10,
+            "count": 5760,
+            "pct": 10.52862469839877
+          },
+          {
+            "expert": 24,
+            "count": 5036,
+            "pct": 9.205235066169482
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 22,
+            "count": 2,
+            "pct": 0.003655772464721796
+          },
+          {
+            "expert": 8,
+            "count": 24,
+            "pct": 0.043869269576661554
+          },
+          {
+            "expert": 26,
+            "count": 27,
+            "pct": 0.04935292827374425
+          },
+          {
+            "expert": 13,
+            "count": 79,
+            "pct": 0.14440301235651093
+          }
+        ]
+      },
+      {
+        "layer": 7,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 5,
+            "count": 9275,
+            "pct": 16.953644805147327
+          },
+          {
+            "expert": 13,
+            "count": 5966,
+            "pct": 10.905169262265117
+          },
+          {
+            "expert": 16,
+            "count": 5438,
+            "pct": 9.940045331578562
+          },
+          {
+            "expert": 30,
+            "count": 5031,
+            "pct": 9.196095635007676
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 27,
+            "count": 5,
+            "pct": 0.00913943116180449
+          },
+          {
+            "expert": 11,
+            "count": 15,
+            "pct": 0.02741829348541347
+          },
+          {
+            "expert": 18,
+            "count": 80,
+            "pct": 0.14623089858887184
+          },
+          {
+            "expert": 31,
+            "count": 94,
+            "pct": 0.1718213058419244
+          }
+        ]
+      },
+      {
+        "layer": 8,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 17,
+            "count": 18721,
+            "pct": 34.21985815602837
+          },
+          {
+            "expert": 24,
+            "count": 7769,
+            "pct": 14.200848139211816
+          },
+          {
+            "expert": 8,
+            "count": 3588,
+            "pct": 6.558455801710901
+          },
+          {
+            "expert": 2,
+            "count": 3432,
+            "pct": 6.273305549462601
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 11,
+            "count": 8,
+            "pct": 0.014623089858887184
+          },
+          {
+            "expert": 22,
+            "count": 25,
+            "pct": 0.04569715580902244
+          },
+          {
+            "expert": 7,
+            "count": 30,
+            "pct": 0.05483658697082694
+          },
+          {
+            "expert": 27,
+            "count": 33,
+            "pct": 0.06032024566790963
+          }
+        ]
+      },
+      {
+        "layer": 9,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 8,
+            "count": 25192,
+            "pct": 46.04810996563574
+          },
+          {
+            "expert": 15,
+            "count": 5096,
+            "pct": 9.314908240111135
+          },
+          {
+            "expert": 19,
+            "count": 3425,
+            "pct": 6.2605103458360745
+          },
+          {
+            "expert": 13,
+            "count": 2843,
+            "pct": 5.196680558602033
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 17,
+            "count": 3,
+            "pct": 0.005483658697082694
+          },
+          {
+            "expert": 14,
+            "count": 28,
+            "pct": 0.051180814506105135
+          },
+          {
+            "expert": 12,
+            "count": 35,
+            "pct": 0.06397601813263143
+          },
+          {
+            "expert": 7,
+            "count": 47,
+            "pct": 0.0859106529209622
+          }
+        ]
+      },
+      {
+        "layer": 10,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 10,
+            "count": 22284,
+            "pct": 40.73261680193025
+          },
+          {
+            "expert": 7,
+            "count": 12661,
+            "pct": 23.14286758792133
+          },
+          {
+            "expert": 5,
+            "count": 3398,
+            "pct": 6.211157417562331
+          },
+          {
+            "expert": 26,
+            "count": 2699,
+            "pct": 4.933464941142064
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 22,
+            "count": 20,
+            "pct": 0.03655772464721796
+          },
+          {
+            "expert": 3,
+            "count": 22,
+            "pct": 0.04021349711193975
+          },
+          {
+            "expert": 13,
+            "count": 51,
+            "pct": 0.0932221978504058
+          },
+          {
+            "expert": 16,
+            "count": 52,
+            "pct": 0.09505008408276669
+          }
+        ]
+      },
+      {
+        "layer": 11,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 30,
+            "count": 20276,
+            "pct": 37.06222124734956
+          },
+          {
+            "expert": 24,
+            "count": 8194,
+            "pct": 14.977699787965197
+          },
+          {
+            "expert": 5,
+            "count": 4502,
+            "pct": 8.229143818088762
+          },
+          {
+            "expert": 9,
+            "count": 2934,
+            "pct": 5.363018205746874
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 3,
+            "count": 2,
+            "pct": 0.003655772464721796
+          },
+          {
+            "expert": 27,
+            "count": 8,
+            "pct": 0.014623089858887184
+          },
+          {
+            "expert": 10,
+            "count": 38,
+            "pct": 0.06945967682971411
+          },
+          {
+            "expert": 8,
+            "count": 61,
+            "pct": 0.11150106017401477
+          }
+        ]
+      },
+      {
+        "layer": 12,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 23,
+            "count": 19255,
+            "pct": 35.195949404109086
+          },
+          {
+            "expert": 1,
+            "count": 8597,
+            "pct": 15.71433793960664
+          },
+          {
+            "expert": 26,
+            "count": 5313,
+            "pct": 9.71155955253345
+          },
+          {
+            "expert": 21,
+            "count": 3421,
+            "pct": 6.253198800906631
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 9,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 16,
+            "count": 21,
+            "pct": 0.038385610879578855
+          },
+          {
+            "expert": 19,
+            "count": 21,
+            "pct": 0.038385610879578855
+          },
+          {
+            "expert": 11,
+            "count": 22,
+            "pct": 0.04021349711193975
+          }
+        ]
+      },
+      {
+        "layer": 13,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 27,
+            "count": 7531,
+            "pct": 13.76581121590992
+          },
+          {
+            "expert": 9,
+            "count": 7440,
+            "pct": 13.599473568765081
+          },
+          {
+            "expert": 21,
+            "count": 7276,
+            "pct": 13.299700226657892
+          },
+          {
+            "expert": 1,
+            "count": 6919,
+            "pct": 12.647144841705051
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 28,
+            "count": 7,
+            "pct": 0.012795203626526284
+          },
+          {
+            "expert": 6,
+            "count": 25,
+            "pct": 0.04569715580902244
+          },
+          {
+            "expert": 13,
+            "count": 25,
+            "pct": 0.04569715580902244
+          },
+          {
+            "expert": 2,
+            "count": 41,
+            "pct": 0.07494333552679681
+          }
+        ]
+      },
+      {
+        "layer": 14,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 18,
+            "count": 9202,
+            "pct": 16.820209110184983
+          },
+          {
+            "expert": 6,
+            "count": 8669,
+            "pct": 15.845945748336623
+          },
+          {
+            "expert": 9,
+            "count": 7315,
+            "pct": 13.370987789719969
+          },
+          {
+            "expert": 16,
+            "count": 7150,
+            "pct": 13.06938656138042
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 13,
+            "count": 2,
+            "pct": 0.003655772464721796
+          },
+          {
+            "expert": 27,
+            "count": 14,
+            "pct": 0.025590407253052568
+          },
+          {
+            "expert": 31,
+            "count": 17,
+            "pct": 0.03107406595013526
+          },
+          {
+            "expert": 5,
+            "count": 22,
+            "pct": 0.04021349711193975
+          }
+        ]
+      },
+      {
+        "layer": 15,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 13,
+            "count": 12240,
+            "pct": 22.37332748409739
+          },
+          {
+            "expert": 24,
+            "count": 9737,
+            "pct": 17.798128244498063
+          },
+          {
+            "expert": 12,
+            "count": 5245,
+            "pct": 9.58726328873291
+          },
+          {
+            "expert": 28,
+            "count": 3723,
+            "pct": 6.805220443079622
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 6,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 20,
+            "count": 14,
+            "pct": 0.025590407253052568
+          },
+          {
+            "expert": 5,
+            "count": 26,
+            "pct": 0.047525042041383345
+          }
+        ]
+      },
+      {
+        "layer": 16,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 31,
+            "count": 10697,
+            "pct": 19.552899027564525
+          },
+          {
+            "expert": 27,
+            "count": 6932,
+            "pct": 12.670907362725744
+          },
+          {
+            "expert": 19,
+            "count": 5475,
+            "pct": 10.007677122175917
+          },
+          {
+            "expert": 13,
+            "count": 4969,
+            "pct": 9.082766688601302
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 5,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 6,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 10,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 17,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 11,
+            "count": 12324,
+            "pct": 22.526869927615707
+          },
+          {
+            "expert": 24,
+            "count": 9315,
+            "pct": 17.026760254441765
+          },
+          {
+            "expert": 10,
+            "count": 7148,
+            "pct": 13.065730788915698
+          },
+          {
+            "expert": 5,
+            "count": 6720,
+            "pct": 12.283395481465234
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 13,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 19,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 22,
+            "count": 1,
+            "pct": 0.001827886232360898
+          }
+        ]
+      },
+      {
+        "layer": 18,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 1,
+            "count": 10499,
+            "pct": 19.19097755355707
+          },
+          {
+            "expert": 30,
+            "count": 8721,
+            "pct": 15.940995832419391
+          },
+          {
+            "expert": 14,
+            "count": 6726,
+            "pct": 12.294362798859398
+          },
+          {
+            "expert": 21,
+            "count": 4694,
+            "pct": 8.580097974702054
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 9,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 13,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 23,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 19,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 7,
+            "count": 16176,
+            "pct": 29.56788769466988
+          },
+          {
+            "expert": 13,
+            "count": 6907,
+            "pct": 12.625210206916721
+          },
+          {
+            "expert": 19,
+            "count": 6041,
+            "pct": 11.042260729692185
+          },
+          {
+            "expert": 8,
+            "count": 5159,
+            "pct": 9.430065072749871
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 3,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 12,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 20,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 20,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 2,
+            "count": 17487,
+            "pct": 31.964246545295023
+          },
+          {
+            "expert": 10,
+            "count": 6822,
+            "pct": 12.469839877166045
+          },
+          {
+            "expert": 15,
+            "count": 5649,
+            "pct": 10.325729326606712
+          },
+          {
+            "expert": 24,
+            "count": 3829,
+            "pct": 6.998976383709878
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 0,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 6,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 13,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 21,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 21,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 23,
+            "count": 30566,
+            "pct": 55.8711705783432
+          },
+          {
+            "expert": 24,
+            "count": 5156,
+            "pct": 9.424581414052788
+          },
+          {
+            "expert": 30,
+            "count": 3822,
+            "pct": 6.986181180083352
+          },
+          {
+            "expert": 5,
+            "count": 3555,
+            "pct": 6.498135556042992
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 1,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 2,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 8,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 18,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      },
+      {
+        "layer": 22,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 11,
+            "count": 28743,
+            "pct": 52.53893397674929
+          },
+          {
+            "expert": 13,
+            "count": 7732,
+            "pct": 14.133216348614464
+          },
+          {
+            "expert": 14,
+            "count": 3780,
+            "pct": 6.9094099583241935
+          },
+          {
+            "expert": 23,
+            "count": 2903,
+            "pct": 5.306353732543687
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 4,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 10,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 18,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 21,
+            "count": 1,
+            "pct": 0.001827886232360898
+          }
+        ]
+      },
+      {
+        "layer": 23,
+        "total_top1_events": 54708,
+        "heavy_hitters": [
+          {
+            "expert": 12,
+            "count": 11861,
+            "pct": 21.680558602032608
+          },
+          {
+            "expert": 19,
+            "count": 11623,
+            "pct": 21.245521678730718
+          },
+          {
+            "expert": 24,
+            "count": 9312,
+            "pct": 17.02127659574468
+          },
+          {
+            "expert": 7,
+            "count": 5022,
+            "pct": 9.179644658916429
+          }
+        ],
+        "sparse_hitters": [
+          {
+            "expert": 5,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 15,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 10,
+            "count": 0,
+            "pct": 0.0
+          },
+          {
+            "expert": 8,
+            "count": 0,
+            "pct": 0.0
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "dataset": "gpt5oss_oasst",
+  "dir": "Downstream/gpt5oss_oasst/gpt5oss/oasst",
+  "num_layers": 24,
+  "num_experts": 32,
+  "pct": 0.1,
+  "files": {
+    "prefill": 498,
+    "generation": 497
+  },
+  "tokens": {
+    "prefill": 54708,
+    "generation": 213272
+  },
+  "prefill": {
+    "total_top1_events": 1312992,
+    "heavy_hitters": [
+      {
+        "expert": 24,
+        "count": 92394,
+        "pct": 7.036905023031366
+      },
+      {
+        "expert": 23,
+        "count": 75176,
+        "pct": 5.725548975165119
+      },
+      {
+        "expert": 11,
+        "count": 56624,
+        "pct": 4.312592917550145
+      },
+      {
+        "expert": 10,
+        "count": 55645,
+        "pct": 4.23803039165509
+      }
+    ],
+    "sparse_hitters": [
+      {
+        "expert": 25,
+        "count": 18620,
+        "pct": 1.4181350686066634
+      },
+      {
+        "expert": 20,
+        "count": 19869,
+        "pct": 1.5132613146157783
+      },
+      {
+        "expert": 29,
+        "count": 21183,
+        "pct": 1.6133380858375372
+      },
+      {
+        "expert": 3,
+        "count": 23557,
+        "pct": 1.7941464989885696
+      }
+    ]
+  },
+  "generation": {
+    "total_top1_events": 5118528,
+    "heavy_hitters": [
+      {
+        "expert": 31,
+        "count": 295957,
+        "pct": 5.782072502094352
+      },
+      {
+        "expert": 14,
+        "count": 196505,
+        "pct": 3.8390920202058094
+      },
+      {
+        "expert": 9,
+        "count": 189938,
+        "pct": 3.710793415606987
+      },
+      {
+        "expert": 10,
+        "count": 188565,
+        "pct": 3.683969297423009
+      }
+    ],
+    "sparse_hitters": [
+      {
+        "expert": 23,
+        "count": 113955,
+        "pct": 2.2263236618027684
+      },
+      {
+        "expert": 17,
+        "count": 114602,
+        "pct": 2.238964014654213
+      },
+      {
+        "expert": 12,
+        "count": 117020,
+        "pct": 2.286204158695625
+      },
+      {
+        "expert": 2,
+        "count": 121506,
+        "pct": 2.373846543381222
+      }
+    ]
+  },
+  "distance": {
+    "tvd": 0.16911247697125498,
+    "js_divergence": 0.022096845128898736
+  },
+  "overlap": {
+    "shared_experts": [
+      10
+    ],
+    "prefill_only": [
+      11,
+      23,
+      24
+    ],
+    "generation_only": [
+      9,
+      14,
+      31
+    ],
+    "jaccard": 0.14285714285714285
+  }
+}
