@@ -21,15 +21,13 @@ from dataclasses import dataclass
 
 @dataclass
 class ModelConfig:
-    """Configuration for different MoE models"""
     name: str
     num_layers: int
     num_experts: int
     top_k: int
-    gen_tokens: int  # Number of tokens in generation
+    gen_tokens: int
 
-
-# Model configurations
+#Hardcoded for easy use
 OLMOE_CONFIG = ModelConfig(
     name="olmoe",
     num_layers=16,
@@ -48,8 +46,6 @@ GPT5OSS_CONFIG = ModelConfig(
 
 
 class ExpertDataLoader:
-    """Load expert traces and create time-series sequences"""
-
     def __init__(self, config: ModelConfig):
         self.config = config
         self.num_layers = config.num_layers
@@ -57,10 +53,6 @@ class ExpertDataLoader:
         self.top_k = config.top_k
 
     def load_trace_to_probabilities(self, trace_file: Path) -> np.ndarray:
-        """
-        Load prefill trace and convert to probability distribution
-        Returns: [num_tokens, num_layers, num_experts]
-        """
         with open(trace_file) as f:
             data = json.load(f)
 
@@ -68,10 +60,7 @@ class ExpertDataLoader:
         if not layers:
             return None
 
-        # Get number of tokens
         num_tokens = len(layers[0].get('token_data', []))
-
-        # Create probability matrix
         probs = np.zeros((num_tokens, self.num_layers, self.num_experts), dtype=np.float32)
 
         for layer_idx, layer_data in enumerate(layers):
@@ -81,14 +70,12 @@ class ExpertDataLoader:
                 topk_experts = token_data.get('topk_experts', [])
                 topk_probs = token_data.get('topk_probs', [])
 
-                # Ensure we have exactly top_k
                 topk_experts = topk_experts[:self.top_k]
                 topk_probs = topk_probs[:self.top_k]
 
                 sum_topk = sum(topk_probs) if topk_probs else 0
                 remaining_prob = (1.0 - sum_topk) / (self.num_experts - self.top_k) if self.num_experts > self.top_k else 0
 
-                # Fill all experts
                 for expert_id, prob in zip(topk_experts, topk_probs):
                     if 0 <= expert_id < self.num_experts:
                         probs[token_idx, layer_idx, expert_id] = prob
@@ -100,10 +87,6 @@ class ExpertDataLoader:
         return probs
 
     def load_gen_to_probabilities(self, gen_file: Path) -> np.ndarray:
-        """
-        Load generation trace and convert to probability distribution
-        Returns: [num_steps, num_layers, num_experts]
-        """
         with open(gen_file) as f:
             data = json.load(f)
 
@@ -139,36 +122,19 @@ class ExpertDataLoader:
         return probs
 
     def create_sequences(self, probs: np.ndarray, context_size: int = 10) -> List[Tuple]:
-        """
-        Create sliding window sequences
-        Input: [num_tokens, num_layers, num_experts]
-        Output: List of ([context_size, num_layers, num_experts], [num_layers, num_experts])
-        """
         sequences = []
 
         if probs is None or len(probs) < context_size + 1:
             return sequences
 
         for i in range(len(probs) - context_size):
-            context = probs[i:i + context_size]  # [context_size, num_layers, num_experts]
-            target = probs[i + context_size]     # [num_layers, num_experts]
+            context = probs[i:i + context_size]  #[context_size, num_layers, num_experts]
+            target = probs[i + context_size]     #[num_layers, num_experts]
             sequences.append((context, target))
 
         return sequences
 
     def load_dataset(self, data_dir: Path, indices: List[int], context_size: int = 10) -> Tuple[np.ndarray, np.ndarray]:
-        """
-        Load multiple files and create sequences
-
-        Args:
-            data_dir: Directory with trace_XXXX.json and gen_XXXX.json
-            indices: List of file indices (0-399 for train, 400-499 for test)
-            context_size: LSTM context window
-
-        Returns:
-            (X, Y) where X: [N, context_size, num_layers, num_experts]
-                          Y: [N, num_layers, num_experts]
-        """
         all_sequences = []
         processed_files = 0
 
@@ -188,7 +154,6 @@ class ExpertDataLoader:
                     all_sequences.extend(seqs)
                     processed_files += 1
 
-                # Generation
                 gen_probs = self.load_gen_to_probabilities(gen_file)
                 if gen_probs is not None:
                     seqs = self.create_sequences(gen_probs, context_size)
@@ -198,7 +163,6 @@ class ExpertDataLoader:
                 print(f"  ✗ Error loading trace {idx}: {e}")
                 continue
 
-        # Convert to numpy arrays
         if all_sequences:
             X = np.array([context for context, _ in all_sequences], dtype=np.float32)
             Y = np.array([target for _, target in all_sequences], dtype=np.float32)
@@ -210,7 +174,6 @@ class ExpertDataLoader:
 
 
 def test_data_loader(config: ModelConfig, data_dir: Path):
-    """Test the data loader with actual data"""
     print(f"\n{'='*70}")
     print(f"DATA LOADER TEST - {config.name.upper()}")
     print(f"{'='*70}\n")
@@ -224,7 +187,6 @@ def test_data_loader(config: ModelConfig, data_dir: Path):
 
     loader = ExpertDataLoader(config)
 
-    # Load training data (indices 0-399)
     print(f"Loading training data (indices 0-399)...")
     train_indices = list(range(0, 400))
     X_train, Y_train, train_files = loader.load_dataset(data_dir, train_indices, context_size=10)
@@ -232,7 +194,6 @@ def test_data_loader(config: ModelConfig, data_dir: Path):
     print(f"  ✓ X_train shape: {X_train.shape}")
     print(f"  ✓ Y_train shape: {Y_train.shape}\n")
 
-    # Load test data (indices 400-499)
     print(f"Loading test data (indices 400-499)...")
     test_indices = list(range(400, 500))
     X_test, Y_test, test_files = loader.load_dataset(data_dir, test_indices, context_size=10)
@@ -240,14 +201,12 @@ def test_data_loader(config: ModelConfig, data_dir: Path):
     print(f"  ✓ X_test shape: {X_test.shape}")
     print(f"  ✓ Y_test shape: {Y_test.shape}\n")
 
-    # Verify probability distributions
     print(f"Verification:")
     if len(X_train) > 0:
         print(f"  X_train[0, 0, 0, :].sum() = {X_train[0, 0, 0, :].sum():.4f} (should be 1.0)")
         print(f"  Y_train[0, 0, :].sum() = {Y_train[0, 0, :].sum():.4f} (should be 1.0)")
     print()
 
-    # Summary
     print(f"{'='*70}")
     print(f"SUMMARY")
     print(f"{'='*70}")
@@ -260,7 +219,6 @@ def test_data_loader(config: ModelConfig, data_dir: Path):
 
 
 if __name__ == "__main__":
-    # Test with OLMoE
     olmoe_dir = Path('../moe_traces/olmoe/oasst')
     if olmoe_dir.exists():
         test_data_loader(OLMOE_CONFIG, olmoe_dir)
@@ -269,7 +227,6 @@ if __name__ == "__main__":
         print("Using sample data instead...")
         test_data_loader(OLMOE_CONFIG, Path('../moe_test/olmoe/oasst'))
 
-    # Test with GPT5OSS
     gpt5_dir = Path('../moe_traces/gpt5oss/oasst')
     if gpt5_dir.exists():
         test_data_loader(GPT5OSS_CONFIG, gpt5_dir)

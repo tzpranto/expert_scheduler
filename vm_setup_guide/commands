@@ -5,6 +5,4 @@
 5. ps -ef | grep OLMoE_orbench_hard_trace.py
 6. tail -f 
 7. zip -r olmoe_oasst.zip ./olmoe/oasst1
-8. scp mpt5763@20.123.67.111:/mnt/ssd/experiments/expert_scheduler/moe_traces/olmoe_oasst.zip .
-9. scp mpt5763@20.123.67.111:/mnt/ssd/experiments/expert_scheduler/moe_traces/olmoe_xstest.zip .
-10. scp mpt5763@20.123.67.111:/mnt/ssd/experiments/expert_scheduler/moe_traces/olmoe_orbench.zip .
+8. scp <user>@<ip>:/mnt/ssd/experiments/expert_scheduler/moe_traces/olmoe_oasst.zip .

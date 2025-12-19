@@ -13,8 +13,6 @@ import numpy as np
 
 
 class ExpertPool:
-    """LRU-based expert pool"""
-
     def __init__(self, pool_size: int, num_layers: int, num_experts: int):
         self.pool_size = pool_size
         self.num_layers = num_layers
@@ -24,7 +22,6 @@ class ExpertPool:
         self.pool = OrderedDict()
         self.timestamp = 0
 
-        # Statistics
         self.hits = 0
         self.misses = 0
         self.total_accesses = 0
@@ -48,10 +45,8 @@ class ExpertPool:
             # Miss: bring into pool
             self.misses += 1
 
-            # Add new expert
             self.pool[key] = self.timestamp
 
-            # Evict LRU if pool is full
             if len(self.pool) > self.pool_size:
                 self.pool.popitem(last=False)
 
@@ -99,13 +94,6 @@ class LRUSimulator:
         }
 
     def process_token(self, topk_experts_per_layer: List[List[int]], stage: str):
-        """
-        Process a single token with its top-K experts.
-
-        Args:
-            topk_experts_per_layer: List of top-K expert indices for each layer
-            stage: 'prefill', 'analysis', or 'gen'
-        """
         if stage not in self.stage_stats:
             raise ValueError(f"Unknown stage: {stage}")
 
@@ -125,15 +113,6 @@ class LRUSimulator:
         self.stage_stats[stage]['tokens'] += 1
 
     def _get_analysis_split_point(self, gen_data: Dict) -> int:
-        """
-        Determine where analysis phase ends and gen phase begins.
-        For GPT5OSS, the generated_text contains markers like:
-        <|channel|>analysis<|message|>...
-        <|end|><|start|>assistant<|channel|>final<|message|>...
-
-        Returns the approximate decode_step index where analysis ends.
-        Returns None if no split found (assume all gen).
-        """
         generated_text = gen_data.get('generated_text', '')
 
         # Look for markers indicating analysis/final split
@@ -155,22 +134,10 @@ class LRUSimulator:
         estimated_tokens_in_analysis = final_pos / avg_chars_per_token
 
         # Clamp to reasonable range
-        split_point = max(0, int(estimated_tokens_in_analysis * 0.8))  # Conservative estimate
-
+        split_point = max(0, int(estimated_tokens_in_analysis * 0.8)) 
         return split_point if split_point > 0 else None
 
     def load_trace_and_simulate(self, trace_file: Path, gen_file: Path, include_analysis: bool = False) -> Dict:
-        """
-        Load trace files and simulate expert pool access.
-
-        Args:
-            trace_file: Path to prefill trace JSON
-            gen_file: Path to generation trace JSON
-            include_analysis: Include analysis stage (for GPT5OSS)
-
-        Returns:
-            Dictionary with simulation results
-        """
         # Load prefill trace
         with open(trace_file) as f:
             trace_data = json.load(f)

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Expert Prediction LSTM Training - Configurable for OLMoE and GPT5OSS
 
@@ -17,20 +16,16 @@ import argparse
 import json
 import sys
 
-# Support both module execution (python3 -m prediction.train)
-# and direct execution (python3 prediction/train.py)
 try:
     from .data_loader import ExpertDataLoader, OLMOE_CONFIG, GPT5OSS_CONFIG
     from .bilstm_model import BiLSTMExpertPredictor, train_epoch, evaluate
 except ImportError:
-    # For direct execution, add parent directory to path
     sys.path.insert(0, str(Path(__file__).parent))
     from data_loader import ExpertDataLoader, OLMOE_CONFIG, GPT5OSS_CONFIG
     from bilstm_model import BiLSTMExpertPredictor, train_epoch, evaluate
 
 
 def create_dataloader(X, Y, batch_size=32, shuffle=True):
-    """Convert numpy arrays to batches"""
     if len(X) == 0:
         return []
 
@@ -102,7 +97,6 @@ def main():
     print("=" * 80)
     print()
 
-    # Configuration summary
     print(f"Configuration:")
     print(f"  Model: {config.name}")
     print(f"  Layers: {config.num_layers}")
@@ -115,16 +109,13 @@ def main():
     print(f"  Data dir: {data_dir}")
     print()
 
-    # Device
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Device: {device}")
     print()
 
-    # Load data
     print("--- Loading Data ---")
     loader = ExpertDataLoader(config)
 
-    # Training data (indices 0-399)
     print("Loading training data (indices 0-399)...")
     train_indices = list(range(0, 400))
     X_train, Y_train, train_files = loader.load_dataset(
@@ -136,7 +127,6 @@ def main():
     print(f"  ✓ Y_train shape: {Y_train.shape}")
     print()
 
-    # Test data (indices 400-499)
     print("Loading test data (indices 400-499)...")
     test_indices = list(range(400, 500))
     X_test, Y_test, test_files = loader.load_dataset(
@@ -152,7 +142,6 @@ def main():
         print("ERROR: No training data found. Check data directory path.")
         return
 
-    # Create model
     print("--- Creating Model ---")
     model = BiLSTMExpertPredictor(
         num_layers=config.num_layers,
@@ -163,14 +152,12 @@ def main():
     print(model)
     print()
 
-    # Training setup
     print("--- Training ---")
     optimizer = optim.Adam(model.parameters(), lr=args.lr)
     criterion = nn.KLDivLoss(reduction="batchmean")
 
     train_losses = []
 
-    # Create dataloaders
     train_loader = list(create_dataloader(X_train, Y_train, args.batch_size, shuffle=True))
     test_loader = list(create_dataloader(X_test, Y_test, args.batch_size, shuffle=False)) if len(X_test) > 0 else []
 
@@ -181,7 +168,6 @@ def main():
 
     print()
 
-    # Evaluation
     print("--- Evaluation ---")
     if len(test_loader) > 0:
         metrics = evaluate(
@@ -199,7 +185,6 @@ def main():
         print("No test data available for evaluation")
         metrics = {}
 
-    # Save model
     models_dir = Path("models")
     models_dir.mkdir(exist_ok=True)
     model_path = models_dir / f"{config.name}_lstm.pt"
@@ -207,7 +192,6 @@ def main():
     print(f"✓ Model saved to {model_path}")
     print()
 
-    # Save results
     results_path = models_dir / f"{config.name}_lstm_result.txt"
     with open(results_path, "w") as f:
         f.write("=" * 70 + "\n")
