@@ -108,20 +108,6 @@ def write_json(stats: Dict[str, object], path: pathlib.Path) -> None:
         json.dump(stats, f, ensure_ascii=False, indent=2)
 
 
-def write_markdown(stats: Dict[str, object], path: pathlib.Path) -> None:
-    lines = [
-        f"Traces: {stats['trace_count']}  |  Layers: {stats['num_layers']}  |  "
-        f"Experts: {stats['num_experts']}  |  Tokens: {stats['total_tokens']}",
-        "",
-        "| layer | entropy_bits | effective_experts | tokens | total_mass |",
-        "| --- | --- | --- | --- | --- |",
-    ]
-    for entry in stats["layer_results"]:
-        lines.append(
-            f"| {entry['layer']} | {entry['entropy']:.4f} | {entry['effective_experts']:.2f} | "
-            f"{entry['token_count']} | {entry['total_mass']:.2f} |"
-        )
-    path.write_text("\n".join(lines), encoding="utf-8")
 
 
 def main() -> None:
@@ -130,7 +116,6 @@ def main() -> None:
     parser.add_argument("--basename", default="entropy_analysis", help="Base name for saved files.")
     parser.add_argument("--save-csv", action="store_true", help="Write per-layer results to CSV.")
     parser.add_argument("--save-json", action="store_true", help="Write full stats to JSON.")
-    parser.add_argument("--save-md", action="store_true", help="Write Markdown table.")
     args = parser.parse_args()
 
     stats = compute_entropy()
@@ -141,8 +126,7 @@ def main() -> None:
         write_csv(stats, args.outdir / f"{args.basename}.csv")
     if args.save_json:
         write_json(stats, args.outdir / f"{args.basename}.json")
-    if args.save_md:
-        write_markdown(stats, args.outdir / f"{args.basename}.md")
+
 
 
 if __name__ == "__main__":
