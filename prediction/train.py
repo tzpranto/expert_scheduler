@@ -82,10 +82,10 @@ def main():
     # Select configuration
     if args.model == "olmoe":
         config = OLMOE_CONFIG
-        data_dir = Path("moe_test/olmoe/oasst") if args.data_dir is None else Path(args.data_dir)
+        data_dir = Path("../moe_trace/olmoe/oasst") if args.data_dir is None else Path(args.data_dir)
     else:
         config = GPT5OSS_CONFIG
-        data_dir = Path("moe_test/gpt5oss/oasst") if args.data_dir is None else Path(args.data_dir)
+        data_dir = Path("../moe_trace/gpt5oss/oasst") if args.data_dir is None else Path(args.data_dir)
 
     print("=" * 80)
     print(f"EXPERT PREDICTION LSTM - {config.name.upper()}")

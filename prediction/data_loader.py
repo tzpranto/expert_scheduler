@@ -261,16 +261,16 @@ def test_data_loader(config: ModelConfig, data_dir: Path):
 
 if __name__ == "__main__":
     # Test with OLMoE
-    olmoe_dir = Path('moe_traces/olmoe/oasst')
+    olmoe_dir = Path('../moe_traces/olmoe/oasst')
     if olmoe_dir.exists():
         test_data_loader(OLMOE_CONFIG, olmoe_dir)
     else:
         print(f"OLMoE data directory not found: {olmoe_dir}")
         print("Using sample data instead...")
-        test_data_loader(OLMOE_CONFIG, Path('moe_test/olmoe/oasst'))
+        test_data_loader(OLMOE_CONFIG, Path('../moe_test/olmoe/oasst'))
 
     # Test with GPT5OSS
-    gpt5_dir = Path('moe_traces/gpt5oss/oasst')
+    gpt5_dir = Path('../moe_traces/gpt5oss/oasst')
     if gpt5_dir.exists():
         test_data_loader(GPT5OSS_CONFIG, gpt5_dir)
     else:
