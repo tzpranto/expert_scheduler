@@ -210,9 +210,6 @@ __marimo__/
 moe_traces/*
 !moe_traces/.gitkeep
 models/*
-!models/.gitkeep
 logs/*
 models/*.pt
 models/*_result.txt
-results/
-!results/.gitkeep
