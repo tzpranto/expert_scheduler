@@ -1,7 +1,7 @@
 # Expert Scheduler
 
 Analyzing Feasibility and Effectiveness of Experts' Weight Scheduling for MoE LLMs in Memory-Constrained GPUs
-Check the [Project Report](./Project Report.pdf) to review detailed design and experimental results.
+Check the [Project Report]("./Project Report.pdf") to review detailed design and experimental results.
 
 ## Setup
 
